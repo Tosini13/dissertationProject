@@ -5,17 +5,47 @@
         <li>
             <a class="btn">ACCADEMIA</a>
             <ul class="submenu">
-                <li class="btn"><a href="#">O NAS</a></li>
-                <li class="btn"><a href="#">TRENERZY</a></li>
-                <li class="btn"><a href="#">STYLE</a></li>
+                <li>
+                    <a class="btn" data-section="trainers">O NAS</a>
+                    <div>
+                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
+                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                    </div>
+                </li>
+                <li>
+                    <a class="btn" data-section="trainers">TRENERZY</a>
+                    <div>
+                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
+                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                    </div>
+                </li>
+                <li>
+                    <a class="btn" data-section="styles">STYLE</a>
+                    <div>
+                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
+                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                    </div>
+                </li>
             </ul>
         </li>
 
         <li>
             <a class="btn">BALLERINI</a>
             <ul class="submenu">
-                <li class="btn"><a href="#">TRENNINGI</a></li>
-                <li class="btn"><a href="#">PŁATNOŚCI</a></li>
+                <li>
+                    <a class="btn" data-section="timetable">TRENNINGI</a>
+                    <div>
+                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
+                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                    </div>
+                </li>
+                <li>
+                    <a class="btn" data-section="prices">PŁATNOŚCI</a>
+                    <div>
+                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
+                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                    </div>
+                </li>
             </ul>
         </li>
 
@@ -23,10 +53,10 @@
             <a class="btn">KONTO</a>
             <ul class="submenu">
                 <?php if (!isset($_SESSION['login'])) { ?>
-                    <li class="btn"><a href="php/login.php">ZALOGUJ</a></li>
-                    <li class="btn"><a href="php/register.php">ZAREJESTRUJ</a></li>
+                    <li><a class="btn" href="php/login.php">ZALOGUJ</a></li>
+                    <li><a class="btn" href="php/register.php">ZAREJESTRUJ</a></li>
                 <?php } else { ?>
-                    <li class="btn"><a href="php/login.php?logout=true" onclick="logout()">WYLOGUJ</a></li>
+                    <li><a class="btn" href="php/login.php?logout=true" onclick="logout()">WYLOGUJ</a></li>
                 <?php } ?>
             </ul>
         </li>

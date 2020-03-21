@@ -114,3 +114,17 @@ if (isset($_GET["removeParticipant"])) {
     }
     echo $response;
 }
+
+
+// GET STYLES
+if (isset($_GET["eventManager"])) {
+    $response = "";
+    try {
+        $result = $db->prepare("select * from dance_style");
+        $result->execute();
+        echo json_encode($result->fetchAll());
+    } catch (PDOException $e) {
+        $response = "error -> " + $e;
+    }
+    echo $response;
+}

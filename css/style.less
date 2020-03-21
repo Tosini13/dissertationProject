@@ -63,6 +63,45 @@ ul {
     list-style: none;
 }
 
+select {
+    margin       : 10px 0px;
+    font-size    : 16px;
+    border-radius: 0;
+
+    >option {
+        background-color: @purple;
+        text-align      : center;
+    }
+
+    >option:checked {
+        background-color: @purple;
+        color           : @gray;
+    }
+}
+
+select,
+textarea,
+input {
+    background-color: rgba(255, 255, 255, .05);
+    border          : transparent solid 1.5px;
+    border-radius   : 10px;
+    padding         : 2px 5px;
+    color           : white;
+
+    transition-property: border;
+    transition-duration: 0.3s;
+}
+
+
+select,
+textarea:focus,
+textarea:active,
+input:focus,
+input:active {
+    outline: none;
+    border : white solid 1.5px;
+}
+
 h1,
 h2,
 h3,
@@ -83,9 +122,12 @@ body {
 
 section,
 footer {
-    min-height : 100vh;
-    padding-top: 30px;
-    overflow-x : hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    h2 {
+        padding: 10px;
+    }
 }
 
 header {
@@ -153,10 +195,35 @@ header {
                     transform     : translate(-100%, 0px);
 
                     >li {
-                        margin-top: 15px;
+                        margin         : 20px 0px;
+                        position       : relative;
+                        display        : flex;
+                        flex-direction : column;
+                        justify-content: center;
 
                         >a {
                             padding: 0px 5px;
+                        }
+
+                        >div {
+                            position      : absolute;
+                            right         : 0;
+                            transform     : translateX(150%);
+                            display       : flex;
+                            flex-direction: column;
+
+                            >a {
+                                >i {
+                                    font-size: 1.2rem;
+                                }
+                            }
+                        }
+                    }
+
+                    >li:nth-child(even) {
+                        >div {
+                            left     : 0;
+                            transform: translateX(-50%);
                         }
                     }
 
@@ -192,7 +259,7 @@ main {
 
     #styles {
         >div {
-            >a {
+            >.btn {
                 margin-top: 10px;
                 display   : block;
                 width     : 100%;
@@ -302,8 +369,33 @@ main {
                 >li {
                     margin: 5px 0px;
 
+                    >a {
+                        position       : relative;
+                        display        : flex;
+                        align-items    : center;
+                        justify-content: center;
+
+                        >i {
+                            position: absolute;
+                            right   : 5%;
+                        }
+                    }
+
                     >ul {
                         color: white;
+
+                        a {
+                            position: relative;
+                            width   : 100%;
+                            display : block;
+                        }
+
+                        .date {
+                            position: absolute;
+                            top     : 0;
+                            right   : 0;
+                            color   : @gray;
+                        }
 
                         .signedIn {
                             color: green;
@@ -320,7 +412,7 @@ footer {
 }
 
 
-#popup {
+.popups {
     display         : none;
     position        : fixed;
     z-index         : 2;
@@ -331,7 +423,7 @@ footer {
     background-color: rgba(0, 0, 0, 0.7);
     padding         : 20px;
 
-    #myForm {
+    >div {
         position  : absolute;
         top       : 50%;
         left      : 50%;
@@ -364,6 +456,14 @@ footer {
                 p {
                     color: white;
                 }
+
+                // input {
+                //     background-color: rgba(255, 255, 255, .05);
+                //     border          : none;
+                //     border-radius   : 10px;
+                //     padding         : 2px 5px;
+                //     color           : white;
+                // }
             }
         }
 

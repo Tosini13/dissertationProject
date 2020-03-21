@@ -1,7 +1,7 @@
-<div id="popup">
+<div id="popup" class="popups">
 
     <div id='myForm'>
-        <a><i class="close icon-cancel" onclick="closePopup()"></i></a>
+        <a><i class="close icon-cancel"></i></a>
         <a class="danceName btn listHeader"></a>
         <ul class="list">
             <li>
@@ -13,10 +13,38 @@
                 <p class="date"></p>
             </li>
             <li><a class="btn signUp">ZAPISZ SIĘ</a></li>
-            <li id="popupResponse"></li>
+            <!-- <li id="popupResponse"></li> -->
         </ul>
     </div>
 </div>
 
 <div id='tip'>
+</div>
+
+<div id="createEvent" class="popups">
+    <div>
+        <a><i class="close icon-cancel"></i></a>
+        <p class="btn listHeader">Create event</p>
+        <ul class="list">
+            <li>
+                <label for="trainer">Trener:</label>
+                <select name="trainer" class="trainer">
+                    <option value="1">Leo</option>
+                    <option value="2">Cris</option>
+                </select>
+            </li>
+            <li>
+                <label for="style">Style:</label>
+                <select name="style" class="style">
+                    <option value="1">BLa</option>
+                    <option value="2">Latino</option>
+                </select>
+            </li>
+            <li>
+                <label for="date">Data:</label>
+                <input name="date" class="date"></input>
+            </li>
+            <li><a class="btn addEvent">Dodaj wydarzenie</a></li>
+        </ul>
+    </div>
 </div>

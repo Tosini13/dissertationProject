@@ -50,6 +50,38 @@ i {
 ul {
   list-style: none;
 }
+select {
+  margin: 10px 0px;
+  font-size: 16px;
+  border-radius: 0;
+}
+select > option {
+  background-color: #1a1524;
+  text-align: center;
+}
+select > option:checked {
+  background-color: #1a1524;
+  color: rgba(255, 255, 255, 0.5);
+}
+select,
+textarea,
+input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: transparent solid 1.5px;
+  border-radius: 10px;
+  padding: 2px 5px;
+  color: white;
+  transition-property: border;
+  transition-duration: 0.3s;
+}
+select,
+textarea:focus,
+textarea:active,
+input:focus,
+input:active {
+  outline: none;
+  border: white solid 1.5px;
+}
 h1,
 h2,
 h3,
@@ -68,8 +100,11 @@ body {
 section,
 footer {
   min-height: 100vh;
-  padding-top: 30px;
   overflow-x: hidden;
+}
+section h2,
+footer h2 {
+  padding: 10px;
 }
 header {
   position: relative;
@@ -136,10 +171,28 @@ header nav > ul > li > ul {
   transition-duration: 0.5s;
 }
 header nav > ul > li > ul > li {
-  margin-top: 15px;
+  margin: 20px 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 header nav > ul > li > ul > li > a {
   padding: 0px 5px;
+}
+header nav > ul > li > ul > li > div {
+  position: absolute;
+  right: 0;
+  transform: translateX(150%);
+  display: flex;
+  flex-direction: column;
+}
+header nav > ul > li > ul > li > div > a > i {
+  font-size: 1.2rem;
+}
+header nav > ul > li > ul > li:nth-child(even) > div {
+  left: 0;
+  transform: translateX(-50%);
 }
 header nav > ul > li .submenuOpen {
   transform: translate(0px, 0px);
@@ -157,7 +210,7 @@ main {
   margin: 0px auto;
   min-height: 200vh;
 }
-main #styles > div > a {
+main #styles > div > .btn {
   margin-top: 10px;
   display: block;
   width: 100%;
@@ -237,8 +290,29 @@ main #timetable #timetableEvents > ul {
 main #timetable #timetableEvents > ul > li {
   margin: 5px 0px;
 }
+main #timetable #timetableEvents > ul > li > a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main #timetable #timetableEvents > ul > li > a > i {
+  position: absolute;
+  right: 5%;
+}
 main #timetable #timetableEvents > ul > li > ul {
   color: white;
+}
+main #timetable #timetableEvents > ul > li > ul a {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+main #timetable #timetableEvents > ul > li > ul .date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: rgba(255, 255, 255, 0.5);
 }
 main #timetable #timetableEvents > ul > li > ul .signedIn {
   color: green;
@@ -246,7 +320,7 @@ main #timetable #timetableEvents > ul > li > ul .signedIn {
 footer {
   padding: 5px;
 }
-#popup {
+.popups {
   display: none;
   position: fixed;
   z-index: 2;
@@ -257,7 +331,7 @@ footer {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
 }
-#popup #myForm {
+.popups > div {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -268,13 +342,13 @@ footer {
   display: flex;
   flex-flow: column;
 }
-#popup #myForm .btn {
+.popups > div .btn {
   background-color: #1a1524;
   display: block;
   margin: 0px auto;
   flex: 0 auto;
 }
-#popup #myForm .list {
+.popups > div .list {
   padding: 10px;
   background-color: #1a1524;
   flex: 1 auto;
@@ -283,17 +357,17 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
-#popup #myForm .list > li {
+.popups > div .list > li {
   text-align: center;
 }
-#popup #myForm .list > li p {
+.popups > div .list > li p {
   color: white;
 }
-#popup #myForm .signUp {
+.popups > div .signUp {
   margin-bottom: 10px;
   color: white;
 }
-#popup #myForm .close {
+.popups > div .close {
   position: absolute;
   top: 0;
   right: 0;

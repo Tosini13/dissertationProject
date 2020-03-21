@@ -109,6 +109,24 @@
       "src": "fontawesome"
     },
     {
+      "uid": "667b873c8422e4cab006df8422cb51c5",
+      "css": "pencil",
+      "code": 59398,
+      "src": "iconic"
+    },
+    {
+      "uid": "44e04715aecbca7f266a17d5a7863c68",
+      "css": "plus",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil-1",
+      "code": 59400,
+      "src": "fontawesome"
+    },
+    {
       "uid": "b37eb2f63849cf204fd5aecc1c48e604",
       "css": "ico_search",
       "code": 59401,

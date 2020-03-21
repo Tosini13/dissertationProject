@@ -9,8 +9,9 @@ delete from participation where login=:login and time_table_id=:dance_id
 select * from participation where login='qwerty';
 select * from users;
 select * from review;
+select * from dance_style;
 */
 
 
 
-select * from participation where login='qwerty';
+select * from dance_style;

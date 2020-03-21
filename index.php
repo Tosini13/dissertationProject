@@ -30,7 +30,7 @@ if (isset($_GET['logout'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Developer</title>
+    <title>Accademia di Bellerino</title>
     <meta name="description" content="Web developer create website for business">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
@@ -197,12 +197,14 @@ if (isset($_GET['logout'])) {
     <!-- SLIDER -->
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <!-- MOJE -->
+    <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript"></script>
     <script>
         const user = new User();
         const calendar = new Calendar();
     </script>
     <script src="js/timetable.js" type="text/babel"></script>
+    <script src="js/slider.js" type="text/javascript"></script>
 </body>
 
 </html>
