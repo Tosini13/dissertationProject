@@ -15,8 +15,8 @@
                 <li>
                     <a class="btn" data-section="trainers">TRENERZY</a>
                     <div>
-                        <a data-popup='createEvent'><i class="icon-plus"></i></a>
-                        <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                        <a data-popup='createTrainer'><i class="icon-plus"></i></a>
+                        <a data-popup='createTrainer'><i class="icon-pencil-1"></i></a>
                     </div>
                 </li>
                 <li>

@@ -186,13 +186,14 @@ header nav > ul > li > ul > li > div {
   transform: translateX(150%);
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 header nav > ul > li > ul > li > div > a > i {
   font-size: 1.2rem;
 }
 header nav > ul > li > ul > li:nth-child(even) > div {
   left: 0;
-  transform: translateX(-50%);
+  transform: translateX(-150%);
 }
 header nav > ul > li .submenuOpen {
   transform: translate(0px, 0px);
@@ -336,9 +337,9 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-height: 100vh;
   width: 80vw;
   min-height: 50vh;
+  max-height: 90vh;
   display: flex;
   flex-flow: column;
 }
@@ -356,12 +357,24 @@ footer {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  overflow-y: scroll;
+  display: block;
 }
 .popups > div .list > li {
+  position: relative;
   text-align: center;
+  margin: 5px 0px;
+  display: flex;
+  flex-direction: column;
 }
 .popups > div .list > li p {
   color: white;
+}
+.popups > div .list > li select {
+  width: 100%;
+}
+.popups > div .list > li input {
+  text-align: center;
 }
 .popups > div .signUp {
   margin-bottom: 10px;
@@ -374,6 +387,37 @@ footer {
   transform: translate(100%, -100%);
   color: white;
 }
+.daterangepicker {
+  top: 50% !important;
+  left: 50% !important;
+  position: fixed;
+  background-color: #1a1524;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+}
+.daterangepicker:before,
+.daterangepicker:after {
+  display: none;
+}
+.daterangepicker .calendar-table {
+  background-color: #1a1524;
+}
+.daterangepicker .calendar-table td.available {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: #1a1524;
+}
+.daterangepicker .calendar-table td.start-date.end-date {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.daterangepicker .calendar-table td.off {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.daterangepicker select.hourselect,
+.daterangepicker select.minuteselect,
+.daterangepicker select.secondselect,
+.daterangepicker select.ampmselect {
+  background-color: transparent;
+}
 #tip {
   position: fixed;
   top: 0;
@@ -381,7 +425,7 @@ footer {
   width: 100vw;
   min-height: 10vh;
   background-color: #1a1524;
-  z-index: 2;
+  z-index: 3;
   transform: translate(0px, -100%);
   text-align: center;
   padding: 10px;

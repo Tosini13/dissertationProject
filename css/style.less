@@ -211,6 +211,7 @@ header {
                             transform     : translateX(150%);
                             display       : flex;
                             flex-direction: column;
+                            width         : fit-content;
 
                             >a {
                                 >i {
@@ -223,7 +224,7 @@ header {
                     >li:nth-child(even) {
                         >div {
                             left     : 0;
-                            transform: translateX(-50%);
+                            transform: translateX(-150%);
                         }
                     }
 
@@ -428,9 +429,9 @@ footer {
         top       : 50%;
         left      : 50%;
         transform : translate(-50%, -50%);
-        max-height: 100vh;
         width     : 80vw;
         min-height: 50vh;
+        max-height: 90vh;
         display   : flex;
         flex-flow : column;
 
@@ -449,21 +450,27 @@ footer {
             flex-direction  : column;
             justify-content : space-around;
             align-items     : center;
+            overflow-y      : scroll;
+            display         : block;
 
             >li {
-                text-align: center;
+                position      : relative;
+                text-align    : center;
+                margin        : 5px 0px;
+                display       : flex;
+                flex-direction: column;
 
                 p {
                     color: white;
                 }
 
-                // input {
-                //     background-color: rgba(255, 255, 255, .05);
-                //     border          : none;
-                //     border-radius   : 10px;
-                //     padding         : 2px 5px;
-                //     color           : white;
-                // }
+                select {
+                    width: 100%;
+                }
+
+                input {
+                    text-align: center;
+                }
             }
         }
 
@@ -484,6 +491,46 @@ footer {
     }
 }
 
+
+.daterangepicker {
+    top             : 50% !important;
+    left            : 50% !important;
+    position        : fixed;
+    background-color: #1a1524;
+    transform       : translate(-50%, -50%);
+    box-shadow      : 0px 0px 10px rgba(255, 255, 255, .7);
+
+    &:before,
+    &:after {
+        display: none;
+    }
+
+
+    .calendar-table {
+        background-color: @purple;
+
+        td.available {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color    : @purple;
+        }
+
+        td.start-date.end-date {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        td.off {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+    }
+
+    select.hourselect,
+    select.minuteselect,
+    select.secondselect,
+    select.ampmselect {
+        background-color: transparent;
+    }
+}
+
 #tip {
     // display         : none;
     position           : fixed;
@@ -492,7 +539,7 @@ footer {
     width              : 100vw;
     min-height         : 10vh;
     background-color   : @purple;
-    z-index            : 2;
+    z-index            : 3;
     transform          : translate(0px, -100%);
     text-align         : center;
     padding            : 10px;

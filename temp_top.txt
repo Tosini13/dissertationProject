@@ -1,3 +1,0 @@
-
-    <link href="css/css_content_index.css" type="text/css" rel="stylesheet">
-    <link href="css/css_header.css" type="text/css" rel="stylesheet">

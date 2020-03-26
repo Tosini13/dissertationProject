@@ -104,7 +104,6 @@ class User {
     }
 }
 
-
 class Calendar {
     to;
     from;
@@ -215,6 +214,35 @@ class Calendar {
     }
 }
 
+class Trainer {
+    id;
+    fname;
+    lname;
+    login;
+    img;
+    description;
+
+    constructor(fname, lname, login, img, description) {
+        this.fname = fname;
+        this.lname = lname;
+        this.login = login;
+        this.img = img;
+        this.description = description;
+    }
+}
+
+class Style {
+    name;
+    type;
+    description;
+
+    constructor(name, type, description) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+    }
+}
 
 // MENU
 
@@ -335,6 +363,7 @@ function createPopup(event) {
         })
 
 }
+
 function popupInit() {
     var popups = document.querySelectorAll(".popups");
     for (let popup of popups) {
@@ -387,4 +416,94 @@ function addComment() {
         .then((data) => {
             console.log(data);
         })
+}
+
+// GATES
+// GET
+function getTrainers() {
+    let arr = [];
+    if (window.localStorage.getItem("trainers")) {
+        console.log("storage");
+    } else {
+        fetch("php/eventManager.php?getTrainers=" + true)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                data.map((element) => {
+                    let trainer = new Trainer(element.fname, element.lname, element.login, element.photo, element.description);
+                    trainer.id = element.id;
+                    console.log(trainer);
+                    arr.push(trainer);
+                });
+                window.localStorage.setItem("trainers", JSON.stringify(arr));
+            })
+        console.log("database");
+    }
+    // createTrainers();
+}
+
+function getStyles() {
+    let arr = [];
+    if (window.localStorage.getItem("styles")) {
+        console.log("storage");
+    } else {
+        fetch("php/eventManager.php?getStyles=" + true)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                data.map((element) => {
+                    console.log(element.id);
+                    let style = new Style(element.id, element.name, element.type, element.description);
+                    style.id = element.id;
+                    arr.push(style);
+                });
+                window.localStorage.setItem("styles", JSON.stringify(arr));
+            })
+        console.log("database");
+    }
+}
+
+getTrainers();
+getStyles();
+
+// INSERT
+
+function addEvent(style, trainer, date) {
+    fetch("php/eventManager.php?addEvent=" + true + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Dodałeś wydarzenie!");
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
+
+function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter) {
+    console.log("addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter);
+    fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter)
+        .then((response) => {
+            return response.text();
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Dodałeś trenera!");
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
+
+// SECTION CREATE
+
+function createTrainers() {
+    console.log(JSON.parse(window.localStorage.getItem("trainers")));
+    console.log(JSON.parse(window.localStorage.getItem("styles")));
 }

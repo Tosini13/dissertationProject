@@ -33,6 +33,8 @@ if (isset($_GET['logout'])) {
     <title>Accademia di Bellerino</title>
     <meta name="description" content="Web developer create website for business">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- calendar -->
+    <link rel="stylesheet" type="text/css" href="calendar/daterangepicker.css" />
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
     <link href="fontello/css/lato.css" rel="stylesheet">
@@ -84,10 +86,10 @@ if (isset($_GET['logout'])) {
         <!-- ******************************************************************* -->
         <section id='trainers'>
             <h2 class="title">TRAINERS</h2>
-            <div class="content_borders trainers">
+            <div class="trainers">
                 <?php
                 $url = "images/trainers/";
-                $result = $db->query("select fname, lname, photo, description, personal_data.login as login from trainer, personal_data where trainer.login=personal_data.login");
+                $result = $db->query("select fname, lname, photo, description, login from trainer");
                 if ($result->rowCount()) {
                     while ($data = $result->fetch()) {
                         $path = $url . $data['photo'];
@@ -184,7 +186,8 @@ if (isset($_GET['logout'])) {
     </footer>
     <?php require "html/popup.html" ?>
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <!-- BOOTSTRAP -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- JavaScript -->
@@ -199,12 +202,34 @@ if (isset($_GET['logout'])) {
     <!-- MOJE -->
     <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
     <script>
         const user = new User();
         const calendar = new Calendar();
     </script>
     <script src="js/timetable.js" type="text/babel"></script>
     <script src="js/slider.js" type="text/javascript"></script>
+
+
+    <!-- CALENDAR -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+    <script src="calendar/moment.min.js" type="text/javascript"></script>
+    <script src="calendar/daterangepicker.js" type="text/javascript"></script>
+    <script>
+        $(function() {
+            $('input[name="createDateEvent"]').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                showDropdowns: true,
+                minYear: parseInt(moment().format('YYYY'), 10),
+                maxYear: 2022,
+                locale: {
+                    format: 'YYYY-MM-DD hh:mm'
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -24,27 +24,72 @@
 <div id="createEvent" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
-        <p class="btn listHeader">Create event</p>
+        <p class="btn listHeader">Tworzenie wydarzenie</p>
         <ul class="list">
+            <li>
+                <label for="createDateEvent">Data:</label>
+                <input type="text" name="createDateEvent" class="date" value="10/24/1984" />
+            </li>
             <li>
                 <label for="trainer">Trener:</label>
                 <select name="trainer" class="trainer">
-                    <option value="1">Leo</option>
-                    <option value="2">Cris</option>
                 </select>
             </li>
             <li>
                 <label for="style">Style:</label>
                 <select name="style" class="style">
-                    <option value="1">BLa</option>
-                    <option value="2">Latino</option>
                 </select>
             </li>
-            <li>
-                <label for="date">Data:</label>
-                <input name="date" class="date"></input>
-            </li>
             <li><a class="btn addEvent">Dodaj wydarzenie</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div id="createTrainer" class="popups">
+    <div>
+        <a><i class="close icon-cancel"></i></a>
+        <p class="btn listHeader">Dodawanie trenera</p>
+        <ul class="list">
+            <li>
+                <label for="fname">Imię:</label>
+                <input type="text" name="fname" class="fname" placeholder="Imię" />
+            </li>
+            <li>
+                <label for="lname">Nazwisko:</label>
+                <input type="text" name="lname" class="lname" placeholder="Nazwisko" />
+            </li>
+            <li>
+                <label for="login">Login:</label>
+                <input type="text" name="login" class="login" placeholder="login" required
+                    pattern="(?!.*\W)(?!.*\s).{5,}"
+                    title="Login musi zawierać przynajmniej 5 znaków w tym żadnych znaków specjalnych">
+            </li>
+            <li>
+                <label for="phone">Telefon:</label>
+                <input type="tel" name="phone" class="phone" placeholder="Numer telefonu" />
+            </li>
+            <li>
+                <label for="fb">Facebook (URL):</label>
+                <input type="url" name="fb" class="fb" placeholder="Link do konta na Facebooku" />
+            </li>
+            <li>
+                <label for="insta">Insta (URL):</label>
+                <input type="url" name="insta" class="insta" placeholder="Link do konta na Instagramie" />
+            </li>
+            <li>
+                <label for="yt">YouTube (URL):</label>
+                <input type="url" name="yt" class="yt" placeholder="Link do konta na YouTube" />
+            </li>
+            <li>
+                <label for="twitter">Twitter (URL):</label>
+                <input type="url" name="twitter" class="twitter" placeholder="Link do konta na Twitterze" />
+            </li>
+            <li>
+                <label for="desc">Opis:</label>
+                <textarea name="desc" class="desc" placeholder="Opis trenera"></textarea>
+            </li>
+            <li><a class="btn addTrainer">Dodaj Trenera</a></li>
         </ul>
     </div>
 </div>

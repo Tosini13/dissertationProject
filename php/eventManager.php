@@ -5,6 +5,29 @@ require_once "connect_database.php";
 
 $response = "";
 
+
+
+// SET TRAINER
+if (isset($_GET["addTrainer"])) {
+    $fname = $_GET['fname'];
+    $lname = $_GET['lname'];
+    $login = $_GET['login'];
+    $desc = $_GET['desc'];
+    try {
+        $result = $db->prepare("insert into trainer(fname, lname, login, description) values(:fname, :lname, :login, :desc);");
+        $result->bindParam(":fname", $fname);
+        $result->bindParam(":lname", $lname);
+        $result->bindParam(":login", $login);
+        // $result->bindParam(":photo", $photo);
+        $result->bindParam(":desc", $desc);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
+
 // GET EVENTS
 if (isset($_GET["from"]) && isset($_GET["to"])) {
     try {
@@ -16,8 +39,23 @@ if (isset($_GET["from"]) && isset($_GET["to"])) {
     } catch (PDOException $e) {
         $response = "error -> " + $e;
     }
-} else {
-    $response = "error";
+}
+
+// SET EVENTS
+if (isset($_GET["addEvent"])) {
+    $styleId = $_GET['styleId'];
+    $trainerId = $_GET['trainerId'];
+    $date = $_GET['date'];
+    try {
+        $result = $db->prepare("insert into time_table(trainer_id, dance_style, date_and_time) values(:trainerId, :styleId, :date)");
+        $result->bindParam(":styleId", $styleId);
+        $result->bindParam(":trainerId", $trainerId);
+        $result->bindParam(":date", $date);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
 }
 
 // GET COMMENT
@@ -115,9 +153,21 @@ if (isset($_GET["removeParticipant"])) {
     echo $response;
 }
 
+// GET TRAINERS
+if (isset($_GET["getTrainers"])) {
+    $response = "";
+    try {
+        $result = $db->prepare("select * from trainer");
+        $result->execute();
+        echo json_encode($result->fetchAll());
+    } catch (PDOException $e) {
+        $response = "error -> " + $e;
+    }
+    echo $response;
+}
 
 // GET STYLES
-if (isset($_GET["eventManager"])) {
+if (isset($_GET["getStyles"])) {
     $response = "";
     try {
         $result = $db->prepare("select * from dance_style");

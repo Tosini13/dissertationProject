@@ -10,8 +10,8 @@ select * from participation where login='qwerty';
 select * from users;
 select * from review;
 select * from dance_style;
+insert into time_table(trainer_id, dance_style, date_and_time) values(1,1,20200323010000);
 */
 
 
-
-select * from dance_style;
+select * from trainer;

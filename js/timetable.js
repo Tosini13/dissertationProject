@@ -7,23 +7,25 @@ class TimetableEvent extends React.Component {
         this.trainer = props.event.trainer;
         this.date = props.event.date;
         this.state = {
-            name: props.event.danceName,
-            danceId: props.event.danceId,
-            eventId: props.event.id,
-            trainer: props.event.trainer,
-            date: props.event.date,
             user: user.ifTakePartIn(props.event.id)
         }
         this.popup = this.popup.bind(this);
     }
 
+    checkIfUpToDate() {
+        validator = true;
+        if (this.state != this.props.event) {
+
+        }
+    }
+
     popup() {
         let popup = document.getElementById("popup");
         popup.style.display = "block";
-        popup.getElementsByClassName("danceName")[0].innerHTML = this.state.name;
-        popup.getElementsByClassName("danceName")[0].setAttribute('href', '#' + this.state.danceId);
-        popup.getElementsByClassName("trainer")[0].innerHTML = this.state.trainer;
-        popup.getElementsByClassName("date")[0].innerHTML = this.state.date;
+        popup.getElementsByClassName("danceName")[0].innerHTML = this.props.event.danceName;
+        popup.getElementsByClassName("danceName")[0].setAttribute('href', '#' + this.props.event.danceId);
+        popup.getElementsByClassName("trainer")[0].innerHTML = this.props.event.trainer;
+        popup.getElementsByClassName("date")[0].innerHTML = this.props.event.date;
         if (this.state.user) {
             //SIGN OUT
             popup.getElementsByClassName("signUp")[0].innerHTML = "Zrezygnuj";
@@ -52,9 +54,9 @@ class TimetableEvent extends React.Component {
         }
         return (
             <a className={modifyClass} onClick={this.popup}>
-                {this.state.name}
+                {this.props.event.danceName}
                 <div className='date'>
-                    {this.state.date.slice(10, 16)}
+                    {this.props.event.date.slice(10, 16)}
                 </div>
             </a>
         );
@@ -94,7 +96,7 @@ class TimetableEvents extends React.Component {
         console.log(this.props.week);
         this.days = this.weekdays.map((nameDay, numDay) =>
             <li>
-                <a className='btn listHeader' data-numDay={numDay} onClick={this.toggleEvent}>{nameDay}</a>
+                <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}</a>
                 <TimetableDay day={this.props.week[numDay]} />
             </li>
         );
