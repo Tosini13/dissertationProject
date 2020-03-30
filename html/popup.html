@@ -19,12 +19,13 @@
 </div>
 
 <div id='tip'>
+    <p></p>
 </div>
 
 <div id="createEvent" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
-        <p class="btn listHeader">Tworzenie wydarzenie</p>
+        <p class="btn listHeader">Tworzenie wydarzenia</p>
         <ul class="list">
             <li>
                 <label for="createDateEvent">Data:</label>
@@ -70,26 +71,56 @@
                 <input type="tel" name="phone" class="phone" placeholder="Numer telefonu" />
             </li>
             <li>
+                <label for="photo">Zdjęcie:</label>
+                <label class="btn">
+                    Wybierz Plik
+                    <input type="file" id="photo" name="photo" class="photo" accept="image/*">
+                </label>
+            </li>
+            <li>
                 <label for="fb">Facebook (URL):</label>
-                <input type="url" name="fb" class="fb" placeholder="Link do konta na Facebooku" />
+                <input type="url" name="fb" class="fb" pattern="https?://.+" placeholder="Link do konta na Facebook'u"
+                    title="Link do konta na Facebook'u jest nie poprawny" />
             </li>
             <li>
                 <label for="insta">Insta (URL):</label>
-                <input type="url" name="insta" class="insta" placeholder="Link do konta na Instagramie" />
+                <input type="url" name="insta" class="insta" pattern="https?://.+"
+                    placeholder="Link do konta na Instagramie" title="Link do konta na Instagramie jest nie poprawny" />
             </li>
             <li>
                 <label for="yt">YouTube (URL):</label>
-                <input type="url" name="yt" class="yt" placeholder="Link do konta na YouTube" />
+                <input type="url" name="yt" class="yt" pattern="https?://.+" placeholder="Link do konta na YouTube"
+                    title="Link do konta na YouTube jest nie poprawny" />
             </li>
             <li>
                 <label for="twitter">Twitter (URL):</label>
-                <input type="url" name="twitter" class="twitter" placeholder="Link do konta na Twitterze" />
+                <input type="url" name="twitter" class="twitter" pattern="https?://.+"
+                    placeholder="Link do konta na Twitterze" title="Link do konta na Twitterze jest nie poprawny" />
             </li>
             <li>
                 <label for="desc">Opis:</label>
                 <textarea name="desc" class="desc" placeholder="Opis trenera"></textarea>
             </li>
             <li><a class="btn addTrainer">Dodaj Trenera</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div id="createStyle" class="popups">
+    <div>
+        <a><i class="close icon-cancel"></i></a>
+        <p class="btn listHeader">Tworzenie stylu tańca</p>
+        <ul class="list">
+            <li>
+                <label for="name">Nazwa:</label>
+                <input type="text" name="name" class="name" placeholder="Nazwa stylu" />
+            </li>
+            <li>
+                <label for="trainer">Opis:</label>
+                <textarea name="desc" class="desc" placeholder="Napisz coś o tym stylu..."></textarea>
+            </li>
+            <li><a class="btn addStyle">Dodaj styl</a></li>
         </ul>
     </div>
 </div>

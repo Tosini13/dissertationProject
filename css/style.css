@@ -26,7 +26,7 @@ a:hover {
   color: white;
 }
 .btnClicked {
-  color: white !important;
+  color: white;
   border-bottom-width: 1px;
 }
 .listHeader {
@@ -91,19 +91,22 @@ h6 {
   text-align: center;
   color: rgba(255, 255, 255, 0.5);
 }
+.emphasise {
+  color: white;
+  text-transform: uppercase;
+}
 body {
+  font-family: 'Righteous', "Black Ops One", "Consolas", sans-serif;
   background-color: #1a1524;
   color: rgba(255, 255, 255, 0.5);
   position: relative;
   overflow-x: hidden;
 }
-section,
-footer {
+section {
   min-height: 100vh;
   overflow-x: hidden;
 }
-section h2,
-footer h2 {
+section h2 {
   padding: 10px;
 }
 header {
@@ -117,7 +120,7 @@ header #hamburger {
   width: 50px;
   height: 50px;
   font-size: 22px;
-  padding: 5px;
+  padding: 7px;
   position: fixed;
   top: 0;
   right: 0;
@@ -177,8 +180,8 @@ header nav > ul > li > ul > li {
   flex-direction: column;
   justify-content: center;
 }
-header nav > ul > li > ul > li > a {
-  padding: 0px 5px;
+header nav > ul > li > ul > li > .btn {
+  color: rgba(255, 255, 255, 0.5);
 }
 header nav > ul > li > ul > li > div {
   position: absolute;
@@ -211,22 +214,61 @@ main {
   margin: 0px auto;
   min-height: 200vh;
 }
-main #styles > div > .btn {
+main #about_us p {
+  text-align: justify;
+  letter-spacing: 0.5px;
+}
+main #styles > div > div > .btn {
   margin-top: 10px;
   display: block;
   width: 100%;
+  text-transform: uppercase;
 }
-main #styles > div > p {
+main #styles > div > div > .list {
   display: none;
+  background-color: #1a1524;
 }
-main #trainers .slick-slide {
+main #trainers .slick-slide > .trainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   margin: 20px 5px;
-}
-main #trainers .slick-slide > div {
   padding: 5px;
+  height: 400px;
+  color: rgba(255, 255, 255, 0.5);
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+main #trainers .slick-slide > .trainer > div {
+  height: 50%;
+  width: 100%;
+  position: relative;
+}
+main #trainers .slick-slide > .trainer > div > img {
+  display: block;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  border: white solid 0.5px;
+  padding: 5px;
+  margin: 10px auto;
+}
+main #trainers .slick-slide > .trainer > div > div.trainerMedia {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  right: 0px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  opacity: 1;
+}
+main #trainers .slick-slide > .trainer > p {
+  height: 40%;
+  width: 100%;
+  overflow-y: hidden;
 }
 main #trainers .slick-dots button:before {
   color: rgba(255, 255, 255, 0.5);
@@ -235,23 +277,42 @@ main #trainers .slick-dots button:before {
 main #trainers .slick-dots li.slick-active button:before {
   color: white;
 }
-main #prices table {
+main #prices .price_list {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+main #prices .price_list > table {
   overflow: hidden;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
-main #prices table th {
+main #prices .price_list > table th {
   background-color: rgba(0, 0, 0, 0.1);
   border: rgba(0, 0, 0, 0.3) solid 1.5px;
   padding: 5px;
 }
-main #prices table td {
+main #prices .price_list > table td {
   border: rgba(0, 0, 0, 0.3) solid 1.5px;
   padding: 5px;
+}
+main #prices .price_list > p {
+  font-size: 0.7rem;
+  text-align: center;
+  margin: 5px 0px;
 }
 main #timetable #week {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+main #timetable #week .btn {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 main #timetable #response {
   text-align: center;
@@ -319,7 +380,28 @@ main #timetable #timetableEvents > ul > li > ul .signedIn {
   color: green;
 }
 footer {
-  padding: 5px;
+  max-width: 980px;
+  margin: 0px auto;
+}
+footer > div > h3 {
+  margin-bottom: 20px;
+}
+footer #contact address {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+footer #contact address dt {
+  text-align: right;
+}
+footer #check_also div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+footer #check_also div a {
+  display: block;
+  margin-bottom: 15px;
 }
 .popups {
   display: none;
@@ -349,6 +431,10 @@ footer {
   margin: 0px auto;
   flex: 0 auto;
 }
+.popups > div form {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .popups > div .list {
   padding: 10px;
   background-color: #1a1524;
@@ -358,6 +444,7 @@ footer {
   justify-content: space-around;
   align-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   display: block;
 }
 .popups > div .list > li {
@@ -375,6 +462,10 @@ footer {
 }
 .popups > div .list > li input {
   text-align: center;
+  max-width: 100%;
+}
+.popups > div .list > li .photo {
+  display: none;
 }
 .popups > div .signUp {
   margin-bottom: 10px;
@@ -429,12 +520,18 @@ footer {
   transform: translate(0px, -100%);
   text-align: center;
   padding: 10px;
+  box-sizing: border-box;
   transition-property: transform;
   transition-duration: 0.5s;
 }
 .openTip {
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7) !important;
   transform: translate(0px, 0%) !important;
+}
+.AjaxRes {
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 @media (min-width: 981px) {
   #container {
@@ -460,5 +557,156 @@ footer {
   /* handle hover */
   ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+@media (min-width: 650px) {
+  header {
+    margin-bottom: 100px;
+    z-index: 1;
+  }
+  header #hamburger {
+    display: none;
+  }
+  header nav {
+    transform: translate(0px, 0px);
+    height: 80px;
+    width: 100%;
+    background-color: #1a1524;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  header nav > img {
+    max-width: 400px;
+  }
+  header nav > ul {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  header nav > ul > li {
+    padding: 0px 20px;
+  }
+  header nav > ul > li > .btnClicked {
+    border-bottom-width: 2px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  header nav > ul > li > ul {
+    margin-top: 20px;
+    transform: translate(200%, 0%);
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #1a1524;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  }
+  header nav > ul > li > ul > li > .btn:hover {
+    color: white;
+  }
+  header nav > ul > li > ul > li > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    top: -100%;
+    width: 100%;
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+  }
+  header nav > ul > li > ul > li:nth-child(even) > div {
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  header nav > ul > li > ul > li:hover > div {
+    opacity: 1;
+  }
+  header nav > ul > li > ul:before {
+    content: "";
+    width: 100%;
+    height: 20px;
+    background-color: #1a1524;
+    position: absolute;
+    top: 0;
+    transform: translate(0px, -100%);
+  }
+  header nav > ul > li .submenuOpen {
+    transform: translate(200%, 0%);
+  }
+  header nav > ul > li:hover ul {
+    transform: translate(0px, 0px);
+  }
+  header nav > ul > li:hover > .btn {
+    color: white;
+    border-bottom-width: 1px;
+  }
+  main #trainers .slick-slide .trainer {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  main #styles > div {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    position: relative;
+  }
+  main #styles > div > div {
+    width: 40%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  main #styles > div > div > .list {
+    position: absolute;
+    width: 50%;
+    right: -60%;
+    top: 50%;
+    transform: translate(0px, -50%);
+    border-top: white solid 1px;
+    border-radius: 10px;
+  }
+  main #timetable #week {
+    justify-content: center;
+    position: relative;
+  }
+  main #timetable #week > div {
+    margin: 0px 20px;
+  }
+  main #timetable #week > .btn {
+    position: absolute;
+    right: 0;
+  }
+  main #timetable #week > .btn:hover {
+    color: white;
+  }
+  main #timetable #week > .btn:first-child {
+    right: 50px;
+  }
+  main #timetable #timetableEvents > ul {
+    width: 50%;
+    margin: 0px auto;
+  }
+  main #timetable #timetableEvents > ul > li {
+    margin: 10px 0px;
+  }
+  main #prices .price_list > table {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  main #prices .price_list > table td {
+    padding: 5px 30px;
+  }
+  footer {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .popups > div {
+    width: 40%;
   }
 }

@@ -27,9 +27,6 @@ function popupuCreateEvent() {
         let trainerId = popup.querySelector(".trainer").value;
         let StyleId = popup.querySelector(".style").value;
         let dateFormat = dateInput.value.replace(/-/g, "").replace(/ /g, "").replace(/:/g, "") + "00";
-        console.log(trainerId);
-        console.log(StyleId);
-        console.log(dateFormat);
         addEvent(StyleId, trainerId, dateFormat);
     }
 
@@ -46,6 +43,7 @@ function popupuCreateTrainer() {
     let lname = popup.querySelector('.lname');
     let login = popup.querySelector('.login');
     let phone = popup.querySelector('.phone');
+    let photo = popup.querySelector('.photo');
     let fb = popup.querySelector('.fb');
     let insta = popup.querySelector('.insta');
     let yt = popup.querySelector('.yt');
@@ -61,23 +59,60 @@ function popupuCreateTrainer() {
         popup.querySelector('textarea').value = "";
     }
 
-    function checkPattern() {
-        let pattern = login.getAttribute("pattern");
-        console.log(pattern);
-        let loginPattern = new RegExp(pattern);
-        if (loginPattern.exec(login.value)) {
-            login.style.borderColor = 'transparent';
+    //PHOTO
+    function checkPhoto() {
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+            // array.forEach(element => {
+
+            // });
+            setTip('Ta przegldarka nie wspomaga funkcji załączania plików');
+            return 0;
+        }
+
+        if (!photo) {
+            setTip("Ups... Plik nie znaleziony");
+        }
+        else if (!photo.files) {
+            // alert("This browser doesn't seem to support the `files` property of file inputs.");
+            setTip('Ta przegldarka nie wspomaga funkcji załączania plików');
+        }
+        else if (!photo.files[0]) {
+            // alert("Please select a file before clicking 'Load'");
+            setTip('Zdjęcie nie zostało załadowane');
+        }
+        else if ((photo.files[0].size / 1024) > 501) {
+            setTip('Zdjęcie musi mieć rozmiar mniejszy niż 500KB');
+        }
+        else {
+            return true;
+        }
+    }
+
+    function checkPattern(input) {
+        let pattern = input.getAttribute("pattern");
+        console.log(input.getAttribute('required'));
+        if (input.getAttribute('required') === undefined || input.getAttribute('required') === false || input.getAttribute('required') !== "") {
+            console.log(input);
+            console.log('!required');
+            if (input.value == "") {
+                return true;
+            }
+        }
+
+        let inputPattern = new RegExp(pattern);
+        if (inputPattern.exec(input.value)) {
+            input.style.borderColor = 'transparent';
             return true;
         } else {
-            login.style.borderColor = 'red';
-            setTip(login.getAttribute("title"));
+            input.style.borderColor = 'red';
+            setTip(input.getAttribute("title"));
             return false;
         }
     }
 
     function temp() {
-        if (checkPattern()) {
-            addTrainer(fname.value, lname.value, login.value, phone.value, desc.value, fb.value, insta.value, yt.value, twitter.value);
+        if (checkPattern(login) && checkPattern(fb) && checkPattern(insta) && checkPattern(yt) && checkPattern(twitter) && checkPhoto()) {
+            addTrainer(fname.value, lname.value, login.value, phone.value, desc.value, fb.value, insta.value, yt.value, twitter.value, photo.files[0]);
             clear();
         }
     }
@@ -87,3 +122,21 @@ function popupuCreateTrainer() {
 }
 
 popupuCreateTrainer();
+
+function popupuCreateStyle() {
+    let popup = document.getElementById("createStyle");
+
+    function temp() {
+        let name = popup.querySelector(".name").value;
+        let desc = popup.querySelector(".desc").value;
+        console.log(name);
+        console.log(desc);
+        addStyle(name, desc);
+    }
+
+    let submit = popup.querySelector(".addStyle");
+    submit.addEventListener("click", temp);
+}
+
+popupuCreateStyle();
+

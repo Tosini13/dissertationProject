@@ -6,7 +6,7 @@ require_once "connect_database.php";
 if (isset($_POST["login_submit"])) {
     $login = $_POST["login"];
     $password = $_POST["password"];
-    $result = $db->prepare("select login, password from users where login=:login or email=:login");
+    $result = $db->prepare("select login, password, rights from users where login=:login or email=:login");
     $result->bindParam(":login", $login);
     $result->execute();
     if ($result->rowCount()) {
@@ -14,6 +14,7 @@ if (isset($_POST["login_submit"])) {
         if (password_verify($password, $user['password'])) {
             //loggedin
             $_SESSION['login'] = $login;
+            $_SESSION['rights'] = $user['rights'];
             header("Location: ../index.php");
             die();
             var_dump('loggedin');
@@ -42,26 +43,24 @@ if (isset($_POST["register_submit"])) {
     if ($result->rowCount()) {
         //already exists
         var_dump('already exists');
-        header("Location: ../html/register.html?error=exist");
+        header("Location: ../php/register.php?error=exist");
         die();
     } else {
         $password = $_POST["password"];
         $password = password_hash($password, PASSWORD_BCRYPT);
-        $rights = 'xxx';
-        $result = $db->prepare("insert into users values(:login,:email,:password,:rights)");
+        $result = $db->prepare("insert into users(login,email,password) values(:login,:email,:password)");
         $result->bindParam(":login", $login);
         $result->bindParam(":email", $email);
         $result->bindParam(":password", $password);
-        $result->bindParam(":rights", $rights);
         if ($result->execute()) {
             //registererd
             var_dump('registererd');
-            header("Location: ../html/login.html");
+            header("Location: ../php/login.php");
             die();
         } else {
             //no registererd
             var_dump('no registererd');
-            header("Location: ../html/register.html");
+            header("Location: ../php/register.php");
             die();
         }
     }

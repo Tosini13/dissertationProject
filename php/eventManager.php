@@ -7,27 +7,6 @@ $response = "";
 
 
 
-// SET TRAINER
-if (isset($_GET["addTrainer"])) {
-    $fname = $_GET['fname'];
-    $lname = $_GET['lname'];
-    $login = $_GET['login'];
-    $desc = $_GET['desc'];
-    try {
-        $result = $db->prepare("insert into trainer(fname, lname, login, description) values(:fname, :lname, :login, :desc);");
-        $result->bindParam(":fname", $fname);
-        $result->bindParam(":lname", $lname);
-        $result->bindParam(":login", $login);
-        // $result->bindParam(":photo", $photo);
-        $result->bindParam(":desc", $desc);
-        $response = $result->execute();
-    } catch (PDOException $e) {
-        $response = 0;
-    }
-    echo $response;
-}
-
-
 // GET EVENTS
 if (isset($_GET["from"]) && isset($_GET["to"])) {
     try {
@@ -39,6 +18,7 @@ if (isset($_GET["from"]) && isset($_GET["to"])) {
     } catch (PDOException $e) {
         $response = "error -> " + $e;
     }
+    echo $response;
 }
 
 // SET EVENTS
@@ -153,6 +133,40 @@ if (isset($_GET["removeParticipant"])) {
     echo $response;
 }
 
+// SET TRAINER
+if (isset($_GET["addTrainer"])) {
+    $fname = $_GET['fname'];
+    $lname = $_GET['lname'];
+    $login = $_GET['login'];
+    $desc = $_GET['desc'];
+    $phone = $_GET['phone'];
+    $fb = $_GET['fb'];
+    $insta = $_GET['insta'];
+    $yt = $_GET['yt'];
+    $twitter = $_GET['twitter'];
+    $photo = $_GET['photo'];
+
+
+    try {
+        //INSERT TO DB
+        $result = $db->prepare("insert into trainer(fname, lname, login, description, phone, fb, insta, yt, twitter, photo) values(:fname, :lname, :login, :desc, :phone, :fb, :insta, :yt, :twitter, :photo);");
+        $result->bindParam(":fname", $fname);
+        $result->bindParam(":lname", $lname);
+        $result->bindParam(":login", $login);
+        $result->bindParam(":desc", $desc);
+        $result->bindParam(":phone", $phone);
+        $result->bindParam(":fb", $fb);
+        $result->bindParam(":insta", $insta);
+        $result->bindParam(":yt", $yt);
+        $result->bindParam(":twitter", $twitter);
+        $result->bindParam(":photo", $photo);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
 // GET TRAINERS
 if (isset($_GET["getTrainers"])) {
     $response = "";
@@ -162,6 +176,21 @@ if (isset($_GET["getTrainers"])) {
         echo json_encode($result->fetchAll());
     } catch (PDOException $e) {
         $response = "error -> " + $e;
+    }
+    echo $response;
+}
+
+// SET STYLE
+if (isset($_GET["addStyle"])) {
+    $name = $_GET['name'];
+    $description = $_GET['description'];
+    try {
+        $result = $db->prepare("insert into dance_style(name, description) values(:name, :desc);");
+        $result->bindParam(":name", $name);
+        $result->bindParam(":desc", $description);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
     }
     echo $response;
 }

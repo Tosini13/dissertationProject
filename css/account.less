@@ -19,29 +19,165 @@ ul {
     list-style: none;
 }
 
+select {
+    margin       : 10px 0px;
+    font-size    : 16px;
+    border-radius: 0;
+
+    >option {
+        background-color: @purple;
+        text-align      : center;
+    }
+
+    >option:checked {
+        background-color: @purple;
+        color           : @gray;
+    }
+}
+
+select,
+textarea,
+input {
+    background-color: rgba(255, 255, 255, .05);
+    border          : transparent solid 1.5px;
+    border-radius   : 10px;
+    padding         : 2px 5px;
+    color           : white;
+
+    transition-property: border;
+    transition-duration: 0.3s;
+}
+
+
+select,
+textarea:focus,
+textarea:active,
+input:focus,
+input:active {
+    outline: none;
+    border : white solid 1.5px;
+}
+
+.btn {
+    background-color   : rgba(0, 0, 0, 0.1);
+    border             : white solid 1px;
+    border-radius      : 10px;
+    border-bottom-width: 2px;
+    color              : white;
+    width              : fit-content;
+    padding            : 5px 10px;
+
+    transition-property: color;
+    transition-duration: 0.3s;
+}
+
+.btn:hover {
+    color: white;
+}
+
+.btnClicked {
+    color              : white;
+    border-bottom-width: 1px;
+}
+
+//TIP
+#tip {
+    // display         : none;
+    position           : fixed;
+    top                : 0;
+    left               : 0;
+    width              : 100vw;
+    min-height         : 10vh;
+    background-color   : @purple;
+    z-index            : 3;
+    transform          : translate(0px, -100%);
+    text-align         : center;
+    padding            : 10px;
+    box-sizing         : border-box;
+
+    transition-property: transform;
+    transition-duration: 0.5s;
+}
+
+.openTip {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7) !important;
+    transform : translate(0px, 0%) !important;
+}
+
+
 body {
+    font-family     : 'Righteous', "Black Ops One", "Consolas", sans-serif;
     background-color: @purple;
     color           : @gray;
     position        : relative;
     overflow-x      : hidden;
+}
+
+header {
+    padding: 5px;
+}
+
+main {
+    display        : flex;
+    flex-direction : column;
+    justify-content: space-around;
+    height         : 100vh;
+    padding        : 5px;
+    box-sizing     : border-box;
+    max-width      : @main_width;
+    margin         : 0px auto;
 
     h2 {
+        margin        : 10px;
+        text-align    : center;
+        letter-spacing: 2px;
+    }
+
+    form {
+        padding              : 5px;
+        display              : grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap             : 5px;
+
+        label {
+            text-align: right;
+        }
+
+        button {
+            grid-column-start: 1;
+            grid-column-end  : 3;
+        }
+
+        input {
+            max-width: 200px;
+        }
+    }
+
+    .btn {
+        margin     : 10px auto;
+        display    : block;
+        font-family: 'Righteous', "Black Ops One", "Consolas", sans-serif;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    p {
         text-align: center;
     }
 }
 
-form {
-    padding              : 5px;
-    display              : grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap             : 5px;
 
-    label {
-        text-align: right;
-    }
 
-    button {
-        grid-column-start: 1;
-        grid-column-end  : 3;
+@media(min-width: 650px) {
+    main {
+        form {
+
+            label,
+            input {
+                transform: translateX(-50px);
+            }
+        }
     }
 }

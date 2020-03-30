@@ -81,8 +81,51 @@ function toggleEvents() {
 }
 
 function show_style(obj) {
-    $(obj).next('p').slideToggle();
+    function closeAll() {
+        $('#styles p').each(function () {
+            $(this).hide("fast");
+        })
+    }
+    if ($(obj).next("p").css("display") === "none") {
+        closeAll();
+        $(obj).next('p').show("fast");
+    } else {
+        closeAll();
+    }
 }
+
+function showStyle() {
+    let styles = document.querySelectorAll('#styles .btn');
+    for (let style of styles) {
+        style.addEventListener('click', toggleStyle);
+    }
+
+    function toggleStyle() {
+        if (this.nextElementSibling.classList.contains('showStyle')) {
+            this.nextElementSibling.classList.remove('showStyle')
+        } else {
+            for (let style of styles) {
+                style.nextElementSibling.classList.remove('showStyle');
+            }
+            this.nextElementSibling.classList.add('showStyle')
+        }
+    }
+}
+// showStyle();
+
+
+//BUTTON PRESS
+function buttonPress() {
+    let buttons = document.getElementsByClassName('btnPress');
+    for (let button of buttons) {
+        button.addEventListener("click", press);
+    }
+    function press() {
+        this.style.borderBottomWidth = "1px";
+        setTimeout(() => { this.style.borderBottomWidth = "2px"; }, 100);
+    }
+}
+buttonPress();
 
 // ON LOAD!
 // window.onload = function () {

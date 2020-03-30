@@ -31,7 +31,7 @@ class TimetableEvent extends React.Component {
             popup.getElementsByClassName("signUp")[0].innerHTML = "Zrezygnuj";
             popup.getElementsByClassName("signUp")[0].onclick = () => {
                 let event = new Event();
-                event.id = this.props.event.id;
+                event.id = this.state.eventId;
                 event.signOut(); //rights!
             }
         } else {
@@ -39,14 +39,12 @@ class TimetableEvent extends React.Component {
             popup.getElementsByClassName("signUp")[0].innerHTML = "Zapisz się";
             popup.getElementsByClassName("signUp")[0].onclick = () => {
                 let event = new Event();
-                event.id = this.props.event.id;
-                console.log('xd');
-                console.log(event);
+                event.id = this.state.eventId;
                 event.signUp(); //rights!
             }
         }
 
-        this.setState({ user: user.ifTakePartIn(this.props.event.id) });
+        this.setState({ user: user.ifTakePartIn(this.state.eventId) });
     }
 
     render() {
@@ -71,7 +69,7 @@ class TimetableDay extends React.Component {
     }
     render() {
         this.days = this.props.day.map((event) =>
-            <li key={event.id}>
+            <li>
                 <TimetableEvent event={event} />
             </li>
         );
@@ -95,9 +93,9 @@ class TimetableEvents extends React.Component {
     }
 
     render() {
-        // console.log(this.props.week);
+        console.log(this.props.week);
         this.days = this.weekdays.map((nameDay, numDay) =>
-            <li key={numDay}>
+            <li>
                 <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}</a>
                 <TimetableDay day={this.props.week[numDay]} />
             </li>
@@ -145,7 +143,7 @@ class TimetableEventsAdmin extends React.Component {
         //ADMIN
         let add = "";
         this.days = this.weekdays.map((nameDay, numDay) =>
-            <li key={numDay}>
+            <li>
                 <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}
                     <i className='icon-calendar-plus-o' onClick={() => this.addEvent({ numDay })}></i>
                 </a>
@@ -162,18 +160,9 @@ class TimetableEventsAdmin extends React.Component {
 
 // ========================================
 
-function createEvents(week) {
-    console.log(week);
-    let ifAdmin = false;
-    if (ifAdmin) {
-        ReactDOM.render(
-            <TimetableEventsAdmin week={week} />,
-            document.getElementById('timetableEvents')
-        );
-    } else {
-        ReactDOM.render(
-            <TimetableEvents week={week} />,
-            document.getElementById('timetableEvents')
-        );
-    }
+function createTrainersSlider() {
+    ReactDOM.render(
+        <Trainer week={week} />,
+        document.getElementById('timetableEvents')
+    );
 }

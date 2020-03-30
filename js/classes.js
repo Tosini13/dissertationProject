@@ -34,6 +34,7 @@ class Event {
                 setTip('Aby dołączyć musisz być zalogowany');
                 break;
             case 1:
+                console.log(this.id);
                 user.signIn(this.id);
                 setTip('Dziękujemy za zapisanie się na wydarzenie');
                 break;
@@ -109,6 +110,7 @@ class Calendar {
     from;
 
     weekdays = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "niedziela"];
+    weeks = ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"];
     firstTime = "000000";
     lastTime = "235959";
     htmlDay1;
@@ -125,10 +127,11 @@ class Calendar {
     }
 
     printDates() {
-        this.htmlYear1.innerHTML = this.from.getFullYear();
-        this.htmlMonth1.innerHTML = this.from.toLocaleString('default', { month: 'short' });
+        this.htmlYear1.innerHTML = this.to.getFullYear();
+        this.htmlMonth1.innerHTML = this.weeks[this.from.getMonth()];
         this.htmlDay1.innerHTML = this.from.getDate();
-        this.htmlMonth2.innerHTML = this.to.toLocaleString('default', { month: 'short' });
+        // this.htmlMonth2.innerHTML = this.to.toLocaleString('default', { month: 'short' });
+        this.htmlMonth2.innerHTML = this.weeks[this.to.getMonth()];
         this.htmlDay2.innerHTML = this.to.getDate();
         this.showDates();
         this.getEvents();
@@ -214,30 +217,107 @@ class Calendar {
     }
 }
 
+//OBJECTS
+const user = new User();
+const calendar = new Calendar();
+
+
 class Trainer {
     id;
     fname;
     lname;
     login;
-    img;
+    photo;
     description;
+    fb;
+    insta;
+    yt;
+    twitter;
 
-    constructor(fname, lname, login, img, description) {
+
+    // addToSlider() {
+    //     let slider = document.querySelector('.slick-track');
+    //     let trainer = document.createElement('div');
+    //     trainer.classList.add('btn');
+    //     trainer.classList.add('trainer');
+    //     //NAME
+    //     let name = document.createElement('p');
+    //     let nameTxt = document.createTextNode(this.fname + " " + this.lname);
+    //     name.appendChild(nameTxt);
+    //     //PHOTO
+    //     let photo = document.createElement('img');
+    //     photo.setAttribute("src", "images/trainers/" + this.photo);
+    //     photo.setAttribute("alt", this.lname);
+    //     //DESCRIPTION
+    //     let desc = document.createElement('p');
+    //     let descTxt = document.createTextNode(this.description);
+    //     desc.appendChild(descTxt);
+    //     //MEDIA
+    //     let media = document.createElement('div');
+    //     media.classList.add('trainerMedia');
+    //     if (this.fb != "" && this.fb !== null) {
+    //         let link = document.createElement('a');
+    //         link.setAttribute("href", this.fb);
+    //         let icon = document.createElement('i');
+    //         icon.classList.add('icon-facebook');
+    //         link.appendChild(icon);
+    //         media.appendChild(link);
+    //     }
+    //     if (this.insta != "" && this.insta !== null) {
+    //         let link = document.createElement('a');
+    //         link.setAttribute("href", this.insta);
+    //         let icon = document.createElement('i');
+    //         icon.classList.add('icon-instagram');
+    //         link.appendChild(icon);
+    //         media.appendChild(link);
+    //     }
+    //     if (this.yt != "" && this.yt !== null) {
+    //         let link = document.createElement('a');
+    //         link.setAttribute("href", this.yt);
+    //         let icon = document.createElement('i');
+    //         icon.classList.add('icon-youtube');
+    //         link.appendChild(icon);
+    //         media.appendChild(link);
+    //     }
+    //     if (this.twitter != "" && this.twitter !== null) {
+    //         let link = document.createElement('a');
+    //         link.setAttribute("href", this.twitter);
+    //         let icon = document.createElement('i');
+    //         icon.classList.add('icon-twitter');
+    //         link.appendChild(icon);
+    //         media.appendChild(link);
+    //     }
+    //     //APPEND CHILDREN
+    //     trainer.appendChild(name);
+    //     trainer.appendChild(photo);
+    //     trainer.appendChild(desc);
+    //     trainer.appendChild(media);
+    //     slider.appendChild(trainer);
+    // }
+
+    setMedia(fb, insta, yt, twitter) {
+        this.fb = fb;
+        this.insta = insta;
+        this.yt = yt;
+        this.twitter = twitter;
+    }
+
+    constructor(fname, lname, login, photo, description) {
         this.fname = fname;
         this.lname = lname;
         this.login = login;
-        this.img = img;
+        this.photo = photo;
         this.description = description;
     }
 }
 
 class Style {
+    id;
     name;
     type;
     description;
 
     constructor(name, type, description) {
-        this.id = id;
         this.name = name;
         this.type = type;
         this.description = description;
@@ -300,6 +380,13 @@ function closeAllsub() {
     }
 }
 
+let menuHeight = document.getElementsByTagName('nav')[0].offsetHeight;
+let screenWidth = screen.width;
+// window.addEventListener("resize", displayWindowSize);
+window.addEventListener("resize", function () {
+    screenWidth = screen.width;
+    console.log("resize");
+});
 function scrollMenu() {
     for (let subBtn of subBtns) {
         subBtn.addEventListener("click", scrollMenuTo);
@@ -308,11 +395,11 @@ function scrollMenu() {
     function scrollMenuTo() {
         closeAll();
         let section = document.getElementById(this.getAttribute('data-section'));
-        window.scrollTo({
-            top: section.offsetTop,
-            left: 0,
-            behaviour: "smooth"
-        });
+        let addHeight = 0;
+        if (screenWidth > 650) {
+            addHeight = menuHeight;
+        }
+        window.scrollTo({ top: (section.offsetTop - addHeight), behavior: 'smooth' });
     }
 }
 
@@ -380,7 +467,7 @@ popupInit();
 
 function setTip(text) {
     let tip = document.getElementById('tip');
-    tip.innerHTML = text;
+    tip.getElementsByTagName('p')[0].innerHTML = text;
     tip.classList.add('openTip');
     let interval = setInterval(counter, 2500);
     function counter() {
@@ -422,53 +509,59 @@ function addComment() {
 // GET
 function getTrainers() {
     let arr = [];
-    if (window.localStorage.getItem("trainers")) {
-        console.log("storage");
-    } else {
-        fetch("php/eventManager.php?getTrainers=" + true)
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                data.map((element) => {
-                    let trainer = new Trainer(element.fname, element.lname, element.login, element.photo, element.description);
-                    trainer.id = element.id;
-                    console.log(trainer);
-                    arr.push(trainer);
-                });
-                window.localStorage.setItem("trainers", JSON.stringify(arr));
-            })
-        console.log("database");
-    }
+    // if (window.localStorage.getItem("trainers")) {
+    //     console.log("storage");
+    // } else {
+    fetch("php/eventManager.php?getTrainers=" + true)
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            data.map((element) => {
+                let trainer = new Trainer(element.fname, element.lname, element.login, element.photo, element.description);
+                trainer.setMedia(element.fb, element.insta, element.yt, element.twitter);
+                trainer.id = element.id;
+                // trainer.addToSlider();
+                arr.push(trainer);
+            });
+            window.localStorage.setItem("trainers", JSON.stringify(arr));
+        })
+    console.log("database");
+    // }
     // createTrainers();
 }
 
 function getStyles() {
     let arr = [];
-    if (window.localStorage.getItem("styles")) {
-        console.log("storage");
-    } else {
-        fetch("php/eventManager.php?getStyles=" + true)
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                data.map((element) => {
-                    console.log(element.id);
-                    let style = new Style(element.id, element.name, element.type, element.description);
-                    style.id = element.id;
-                    arr.push(style);
-                });
-                window.localStorage.setItem("styles", JSON.stringify(arr));
-            })
-        console.log("database");
-    }
+    // if (window.localStorage.getItem("styles")) {
+    //     console.log("storage");
+    // } else {
+    fetch("php/eventManager.php?getStyles=" + true)
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            data.map((element) => {
+                let style = new Style(element.name, element.type, element.description);
+                style.id = element.id;
+                arr.push(style);
+            });
+            window.localStorage.setItem("styles", JSON.stringify(arr));
+        })
+    console.log("database");
+    // }
 }
 
 getTrainers();
 getStyles();
 
 // INSERT
+function closePopups() {
+    let popups = document.querySelectorAll(".popups");
+    for (let popup of popups) {
+        popup.style.display = "none";
+    }
+}
 
 function addEvent(style, trainer, date) {
     fetch("php/eventManager.php?addEvent=" + true + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
@@ -479,22 +572,64 @@ function addEvent(style, trainer, date) {
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Dodałeś wydarzenie!");
+                closePopups();
+                calendar.getEvents();
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
         })
 }
 
-function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter) {
-    console.log("addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter);
-    fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter)
+function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
+    console.log("addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photo.name);
+    console.log(photo);
+    console.log(photo.name);
+    fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photo.name)
         .then((response) => {
             return response.text();
         })
         .then((data) => {
-            console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Dodałeś trenera!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+                let response = document.createElement('div');
+                response.classList.add('AjaxRes');
+                response.innerHTML = data;
+                document.body.appendChild(response);
+            }
+        })
+
+    var form_data = new FormData();
+    form_data.append("photo", photo);
+    $.ajax({
+        url: "php/filesManager.php",
+        method: "POST",
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: (data) => {
+            // let response = document.createElement('div');
+            // response.classList.add('AjaxRes');
+            // response.innerHTML = data;
+            // document.body.appendChild(response);
+            console.log(data);
+        }
+    })
+}
+
+function addStyle(name, desc) {
+    fetch("php/eventManager.php?addStyle=" + true + "&name=" + name + "&description=" + desc)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Dodałeś styl!");
+                closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
