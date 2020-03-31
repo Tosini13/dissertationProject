@@ -180,6 +180,64 @@ if (isset($_GET["getTrainers"])) {
     echo $response;
 }
 
+// DELETE TRAINER
+if (isset($_GET["deleteTrainer"])) {
+    $response = "";
+    $id = $_GET["deleteTrainer"];
+    try {
+        $result = $db->prepare("delete from trainer where id=:id");
+        $result->bindParam(":id", $id);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
+// UPDATE TRAINER
+if (isset($_GET["updateTrainer"])) {
+    $id = $_GET['id'];
+    $fname = $_GET['fname'];
+    $lname = $_GET['lname'];
+    $login = $_GET['login'];
+    $desc = $_GET['desc'];
+    $phone = $_GET['phone'];
+    $fb = $_GET['fb'];
+    $insta = $_GET['insta'];
+    $yt = $_GET['yt'];
+    $twitter = $_GET['twitter'];
+    $photo = $_GET['photo'];
+
+
+    try {
+        //INSERT TO DB
+        if ($photo == "") {
+            $result = $db->prepare("update trainer set fname =:fname, lname =:lname, login = :login, description = :desc, phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter where id=:id");
+        } else {
+            $result = $db->prepare("update trainer set fname =:fname, lname =:lname, login = :login, description = :desc, phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter, photo = :photo where id=:id");
+        }
+        $result->bindParam(":id", $id);
+        $result->bindParam(":fname", $fname);
+        $result->bindParam(":lname", $lname);
+        $result->bindParam(":login", $login);
+        $result->bindParam(":desc", $desc);
+        $result->bindParam(":phone", $phone);
+        $result->bindParam(":fb", $fb);
+        $result->bindParam(":insta", $insta);
+        $result->bindParam(":yt", $yt);
+        $result->bindParam(":twitter", $twitter);
+        if ($photo != "") {
+            $result->bindParam(":photo", $photo);
+        }
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        echo $e;
+        $response = 0;
+    }
+    echo $response;
+}
+
+
 // SET STYLE
 if (isset($_GET["addStyle"])) {
     $name = $_GET['name'];
@@ -204,6 +262,37 @@ if (isset($_GET["getStyles"])) {
         echo json_encode($result->fetchAll());
     } catch (PDOException $e) {
         $response = "error -> " + $e;
+    }
+    echo $response;
+}
+
+// DELETE STYLE
+if (isset($_GET["deleteStyle"])) {
+    $response = "";
+    $id = $_GET["deleteStyle"];
+    try {
+        $result = $db->prepare("delete from dance_style where id=:id");
+        $result->bindParam(":id", $id);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
+// UPDATE STYLE
+if (isset($_GET["updateStyle"])) {
+    $id = $_GET['id'];
+    $name = $_GET['name'];
+    $description = $_GET['description'];
+    try {
+        $result = $db->prepare("update dance_style set name=:name, description=:desc where id=:id");
+        $result->bindParam(":name", $name);
+        $result->bindParam(":desc", $description);
+        $result->bindParam(":id", $id);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
     }
     echo $response;
 }

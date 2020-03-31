@@ -422,7 +422,6 @@ extraMenu();
 
 // POPUP
 
-
 function createPopup(event) {
 
     if (IfLoggedIn()) {
@@ -641,4 +640,101 @@ function addStyle(name, desc) {
 function createTrainers() {
     console.log(JSON.parse(window.localStorage.getItem("trainers")));
     console.log(JSON.parse(window.localStorage.getItem("styles")));
+}
+
+//UPDATE
+
+function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo, id) {
+    // Console.log(photo);
+    if (photo === undefined) {
+        photoName = "";
+    } else {
+        photoName = photo.name;
+    }
+    // photoName="trainer.jpg";
+    console.log("php/eventManager.php?updateTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photoName + "&id=" + id);
+    fetch("php/eventManager.php?updateTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photoName + "&id=" + id)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Zaktualizowałeś trenera!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+                let response = document.createElement('div');
+                response.classList.add('AjaxRes');
+                response.innerHTML = data;
+                document.body.appendChild(response);
+            }
+        })
+
+    if (photo !== undefined) {
+        var form_data = new FormData();
+        form_data.append("photo", photo);
+        $.ajax({
+            url: "php/filesManager.php",
+            method: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: (data) => {
+                console.log(data);
+            }
+        })
+    }
+}
+
+function updateStyle(id, name, desc) {
+    fetch("php/eventManager.php?updateStyle=" + true + "&id=" + id + "&name=" + name + "&description=" + desc)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Zaktualizowałeś styl!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
+
+
+// REMOVE
+
+function deleteTrainer(id) {
+    fetch("php/eventManager.php?deleteTrainer=" + id)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Usunąłeś trenera!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
+
+function deleteStyle(id) {
+    fetch("php/eventManager.php?deleteStyle=" + id)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Usunąłeś styl!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
 }

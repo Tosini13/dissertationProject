@@ -82,6 +82,9 @@ input:active {
   outline: none;
   border: white solid 1.5px;
 }
+textarea {
+  min-height: 100px;
+}
 h1,
 h2,
 h3,
@@ -269,6 +272,9 @@ main #trainers .slick-slide > .trainer > p {
   height: 40%;
   width: 100%;
   overflow-y: hidden;
+}
+main #trainers .slick-slide:focus {
+  outline: none;
 }
 main #trainers .slick-dots button:before {
   color: rgba(255, 255, 255, 0.5);
@@ -477,6 +483,43 @@ footer #check_also div a {
   right: 0;
   transform: translate(100%, -100%);
   color: white;
+}
+#createTrainer label.btn,
+#updateTrainer label.btn {
+  position: relative;
+  -webkit-transition-property: padding;
+  -webkit-transition-duration: 0.5s;
+  transition-property: padding;
+  transition-duration: 0.5s;
+}
+#createTrainer label.btn i,
+#updateTrainer label.btn i {
+  color: red;
+  opacity: 0;
+  position: absolute;
+  right: 3px;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+}
+#createTrainer label.uploaded,
+#updateTrainer label.uploaded {
+  padding-right: 25px;
+}
+#createTrainer label.uploaded i,
+#updateTrainer label.uploaded i {
+  opacity: 1;
+}
+#updateTrainer > div > .list > li:last-child,
+#updateStyle > div > .list > li:last-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#updateTrainer > div > .list > li:last-child > a,
+#updateStyle > div > .list > li:last-child > a {
+  margin: 5px;
 }
 .daterangepicker {
   top: 50% !important;

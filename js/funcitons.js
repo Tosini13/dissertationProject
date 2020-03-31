@@ -83,12 +83,12 @@ function toggleEvents() {
 function show_style(obj) {
     function closeAll() {
         $('#styles p').each(function () {
-            $(this).hide("fast");
+            $(this).slideUp("fast");
         })
     }
     if ($(obj).next("p").css("display") === "none") {
         closeAll();
-        $(obj).next('p').show("fast");
+        $(obj).next('p').slideDown("slow");
     } else {
         closeAll();
     }

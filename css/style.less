@@ -92,7 +92,6 @@ input {
     transition-duration: 0.3s;
 }
 
-
 select,
 textarea:focus,
 textarea:active,
@@ -100,6 +99,10 @@ input:focus,
 input:active {
     outline: none;
     border : white solid 1.5px;
+}
+
+textarea {
+    min-height: 100px;
 }
 
 h1,
@@ -344,6 +347,10 @@ main {
                     overflow-y: hidden;
                 }
             }
+        }
+
+        .slick-slide:focus {
+            outline: none;
         }
 
         .slick-dots button:before {
@@ -620,6 +627,53 @@ footer {
     }
 }
 
+#createTrainer,
+#updateTrainer {
+    label.btn {
+        position                   : relative;
+        -webkit-transition-property: padding;
+        -webkit-transition-duration: 0.5s;
+        transition-property        : padding;
+        transition-duration        : 0.5s;
+
+        i {
+            color   : red;
+            opacity : 0;
+            position: absolute;
+            right   : 3px;
+
+            -webkit-transition-property: opacity;
+            -webkit-transition-duration: 0.3s;
+            transition-property        : opacity;
+            transition-duration        : 0.3s;
+        }
+    }
+
+    label.uploaded {
+        padding-right: 25px;
+
+        i {
+            opacity: 1;
+        }
+    }
+}
+
+#updateTrainer,
+#updateStyle {
+    >div {
+        >.list {
+            >li:last-child {
+                display        : flex;
+                flex-direction : row;
+                justify-content: space-around;
+
+                >a {
+                    margin: 5px;
+                }
+            }
+        }
+    }
+}
 
 .daterangepicker {
     top             : 50% !important;

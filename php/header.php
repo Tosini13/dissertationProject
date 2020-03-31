@@ -11,8 +11,8 @@
                     if (isset($_SESSION['rights']) && !strcmp($_SESSION['rights'], "admin")) {
                     ?>
                         <div>
-                            <a data-popup='createEvent'><i class="icon-plus"></i></a>
-                            <a data-popup='createEvent'><i class="icon-minus"></i></a>
+                            <a data-popup='aboutUs'><i class="icon-plus"></i></a>
+                            <a data-popup='aboutUs'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }
@@ -25,7 +25,7 @@
                     ?>
                         <div>
                             <a data-popup='createTrainer'><i class="icon-plus"></i></a>
-                            <a data-popup='createTrainer'><i class="icon-minus"></i></a>
+                            <a data-popup='updateTrainer'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }
@@ -38,7 +38,7 @@
                     ?>
                         <div>
                             <a data-popup='createStyle'><i class="icon-plus"></i></a>
-                            <a data-popup='createStyle'><i class="icon-minus"></i></a>
+                            <a data-popup='updateStyle'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }
@@ -57,7 +57,7 @@
                     ?>
                         <div>
                             <a data-popup='createEvent'><i class="icon-plus"></i></a>
-                            <a data-popup='createEvent'><i class="icon-minus"></i></a>
+                            <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }
@@ -70,7 +70,7 @@
                     ?>
                         <div>
                             <a data-popup='createEvent'><i class="icon-plus"></i></a>
-                            <a data-popup='createEvent'><i class="icon-minus"></i></a>
+                            <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }

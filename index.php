@@ -228,9 +228,6 @@ if (isset($_GET['logout'])) {
     <script src="js/timetable.js" type="text/babel"></script>
     <!-- SLIDER -->
     <script>
-        let events = document.querySelectorAll("#timetableEvents ul li ul li");
-        console.log(events);
-
         $(document).ready(function() {
             $(".trainers").slick({
                 prevArrow: '<i class="demo-icon icon-ico_arrow-left slick-my-next"></i>',
