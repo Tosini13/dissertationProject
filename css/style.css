@@ -386,6 +386,7 @@ main #timetable #timetableEvents > ul > li > ul .signedIn {
   color: green;
 }
 footer {
+  padding: 5px;
   max-width: 980px;
   margin: 0px auto;
 }
@@ -494,7 +495,7 @@ footer #check_also div a {
   width: max-content;
 }
 .bigPopups {
-  display: none;
+  display: block;
   position: fixed;
   z-index: 2;
   top: 0;
@@ -502,14 +503,27 @@ footer #check_also div a {
   width: 100vw;
   height: 100vh;
   background-color: #1a1524;
-  padding: 20px;
+  overflow: hidden;
+  transform: translate(120%, 0%);
+  -webkit-transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-property: transform;
+  transition-duration: 0.5s;
 }
 .bigPopups .close {
   position: absolute;
-  top: 10px;
-  right: 5px;
+  top: 0px;
+  right: 0px;
   color: white;
   font-size: 30px;
+  background-color: #1a1524;
+  opacity: 0.5;
+  border-bottom-left-radius: 10px;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .bigPopups .btn {
   background-color: #1a1524;
@@ -518,12 +532,42 @@ footer #check_also div a {
   flex: 0 auto;
 }
 .bigPopups .popupHeader {
-  max-width: 75%;
-  margin-bottom: 20px;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 13px 35px;
+  margin-bottom: 0px;
+  box-shadow: 0px 0px 7px rgba(255, 255, 255, 0.7);
 }
-.bigPopups form {
+.bigPopups .mainList {
+  padding: 0px 20px;
   overflow-y: scroll;
   overflow-x: hidden;
+  display: block;
+  height: calc(100% - 112px);
+}
+.bigPopups .mainList > li {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 7px 0px;
+}
+.bigPopups .mainList > li > label {
+  text-align: center;
+}
+.bigPopups > .btns {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.bigPopupsOpen {
+  transform: translate(0%, 0%);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
 }
 #createTrainer label.btn,
 #updateTrainer label.btn {
@@ -543,6 +587,10 @@ footer #check_also div a {
   -webkit-transition-duration: 0.3s;
   transition-property: opacity;
   transition-duration: 0.3s;
+}
+#createTrainer .photo,
+#updateTrainer .photo {
+  display: none;
 }
 #createTrainer label.uploaded,
 #updateTrainer label.uploaded {

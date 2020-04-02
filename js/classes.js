@@ -405,12 +405,12 @@ function scrollMenu() {
 
 function extraMenu() {
     for (let extraBtn of extraBtns) {
-        extraBtn.addEventListener("click", showPopUp);
+        extraBtn.addEventListener("click", showPopup);
     }
 
-    function showPopUp() {
+    function showPopup() {
         console.log(this.getAttribute('data-popup'));
-        document.getElementById(this.getAttribute('data-popup')).style.display = "block";
+        document.getElementById(this.getAttribute('data-popup')).classList.add("bigPopupsOpen");
         closeAll();
     }
 }
@@ -456,6 +456,17 @@ function popupInit() {
     }
     function closePopup(toClose) {
         toClose.style.display = "none";
+        // toClose.classList.remove("bigPopupsOpen");
+    }
+
+    let bigPopups = document.querySelectorAll(".bigPopups");
+    for (let popup of bigPopups) {
+        popup.querySelector('.close').addEventListener("click", () => { closeBigPopups(popup) });
+    }
+
+    function closeBigPopups(toClose) {
+        // toClose.style.display = "none";
+        toClose.classList.remove("bigPopupsOpen");
     }
 }
 
@@ -557,6 +568,11 @@ getStyles();
 function closePopups() {
     let popups = document.querySelectorAll(".popups");
     for (let popup of popups) {
+        popup.style.display = "none";
+    }
+
+    let bigPopups = document.querySelectorAll(".bigPopups");
+    for (let popup of bigPopups) {
         popup.style.display = "none";
     }
 }

@@ -190,9 +190,6 @@ function popupuCreateTrainer() {
             setTip('Ta przegldarka nie wspomaga funkcji załączania plików');
             return 0;
         }
-
-        console.log(photo.files[0].type);
-
         if (!photo) {
             setTip("Ups... Plik nie znaleziony");
         }
@@ -208,6 +205,7 @@ function popupuCreateTrainer() {
             setTip('Zdjęcie musi mieć rozmiar mniejszy niż 500KB');
         }
         else if (photo.files[0].type != "image/jpeg" && photo.files[0].type != "image/jpg" && photo.files[0].type != "image/png" && photo.files[0].type != "image/gif" && photo.files[0].type != "image/bmp") {
+            console.log(photo.files[0].type);
             setTip('Plik ma nieodpowiednie rozszerzenie. Możliwe: jpeg, jpg, png, gif, bmp');
         }
         else {

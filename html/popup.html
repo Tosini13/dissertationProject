@@ -21,7 +21,7 @@
     <p></p>
 </div>
 
-<div id="createEvent" class="popups">
+<!-- <div id="createEvent" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
         <p class="btn listHeader">Tworzenie wydarzenia</p>
@@ -43,11 +43,35 @@
             <li><a class="btn addEvent">Dodaj wydarzenie</a></li>
         </ul>
     </div>
+</div> -->
+
+<div id="createEvent" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Tworzenie wydarzenia</p>
+    <ul class="mainList">
+        <li>
+            <label for="createDateEvent">Data:</label>
+            <input type="text" name="createDateEvent" class="date" />
+        </li>
+        <li>
+            <label for="trainer">Trener:</label>
+            <select name="trainer" class="trainer">
+            </select>
+        </li>
+        <li>
+            <label for="style">Style:</label>
+            <select name="style" class="style">
+            </select>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn addEvent">Dodaj wydarzenie</a>
+    </div>
 </div>
 
 <div id="updateEvent" class="bigPopups">
     <a><i class="close icon-cancel"></i></a>
-    <p class="btn popupHeader">
+    <p class="popupHeader">
         Zarządzanie wydarzeniami
     </p>
     <div class="stage activeStage">
@@ -63,12 +87,16 @@
                 </select>
             </li>
         </ul>
-        <a class="btn search">SZUKAJ</a>
+        <div class="btns">
+            <a class="btn search">SZUKAJ</a>
+        </div>
     </div>
     <div class="stage">
         <div id="eventsToUpdate">
         </div>
-        <a class="btn back">WRÓĆ</a>
+        <div class="btns">
+            <a class="btn back">WRÓĆ</a>
+        </div>
     </div>
 
     <div id="modifyEvent" class="popups">
@@ -97,8 +125,7 @@
 
 </div>
 
-
-<div id="createTrainer" class="popups">
+<!-- <div id="createTrainer" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
         <p class="btn listHeader">Dodawanie trenera</p>
@@ -155,9 +182,67 @@
             <li><a class="btn addTrainer">Dodaj Trenera</a></li>
         </ul>
     </div>
+</div> -->
+
+<div id="createTrainer" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Dodawanie trenera</p>
+    <ul class="mainList">
+        <li>
+            <label for="fname">Imię:</label>
+            <input type="text" name="fname" class="fname" placeholder="Imię" />
+        </li>
+        <li>
+            <label for="lname">Nazwisko:</label>
+            <input type="text" name="lname" class="lname" placeholder="Nazwisko" />
+        </li>
+        <li>
+            <label for="login">Login:</label>
+            <input type="text" name="login" class="login" placeholder="login" required pattern="(?!.*\W)(?!.*\s).{5,}"
+                title="Login musi zawierać przynajmniej 5 znaków w tym żadnych znaków specjalnych">
+        </li>
+        <li>
+            <label for="phone">Telefon:</label>
+            <input type="tel" name="phone" class="phone" placeholder="Numer telefonu" />
+        </li>
+        <li>
+            <label for="photo">Zdjęcie:</label>
+            <label class="btn">
+                Wybierz Plik<i class="icon-cancel"></i>
+                <input type="file" id="photo" name="photo" class="photo" accept="image/*">
+            </label>
+        </li>
+        <li>
+            <label for="fb">Facebook (URL):</label>
+            <input type="url" name="fb" class="fb" pattern="https?://.+" placeholder="Link do konta na Facebook'u"
+                title="Link do konta na Facebook'u jest nie poprawny" />
+        </li>
+        <li>
+            <label for="insta">Insta (URL):</label>
+            <input type="url" name="insta" class="insta" pattern="https?://.+"
+                placeholder="Link do konta na Instagramie" title="Link do konta na Instagramie jest nie poprawny" />
+        </li>
+        <li>
+            <label for="yt">YouTube (URL):</label>
+            <input type="url" name="yt" class="yt" pattern="https?://.+" placeholder="Link do konta na YouTube"
+                title="Link do konta na YouTube jest nie poprawny" />
+        </li>
+        <li>
+            <label for="twitter">Twitter (URL):</label>
+            <input type="url" name="twitter" class="twitter" pattern="https?://.+"
+                placeholder="Link do konta na Twitterze" title="Link do konta na Twitterze jest nie poprawny" />
+        </li>
+        <li>
+            <label for="desc">Opis:</label>
+            <textarea name="desc" class="desc" placeholder="Opis trenera"></textarea>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn addTrainer">Dodaj Trenera</a>
+    </div>
 </div>
 
-<div id="updateTrainer" class="popups">
+<!-- <div id="updateTrainer" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
         <p class="btn listHeader">Aktualizacja trenera</p>
@@ -222,9 +307,73 @@
             </li>
         </ul>
     </div>
+</div> -->
+
+
+<div id="updateTrainer" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Aktualizacja trenera</p>
+    <ul class="mainList">
+        <li>
+            <label for="trainer">Wybierz trenera:</label>
+            <select name="trainer" class="trainer">
+            </select>
+        </li>
+        <li>
+            <label for="fname">Imię:</label>
+            <input type="text" name="fname" class="fname" placeholder="Imię" />
+        </li>
+        <li>
+            <label for="lname">Nazwisko:</label>
+            <input type="text" name="lname" class="lname" placeholder="Nazwisko" />
+        </li>
+        <li>
+            <label for="login">Login:</label>
+            <input type="text" name="login" class="login" placeholder="login" required pattern="(?!.*\W)(?!.*\s).{5,}"
+                title="Login musi zawierać przynajmniej 5 znaków w tym żadnych znaków specjalnych">
+        </li>
+        <li>
+            <label for="phone">Telefon:</label>
+            <input type="tel" name="phone" class="phone" placeholder="Numer telefonu" />
+        </li>
+        <li>
+            <label for="photo">Zdjęcie:</label>
+            <label class="btn">
+                Wybierz Plik<i class="icon-cancel"></i>
+                <input type="file" id="photo" name="photo" class="photo" accept="image/*">
+            </label>
+        </li>
+        <li>
+            <label for="fb">Facebook (URL):</label>
+            <input type="url" name="fb" class="fb" pattern="https?://.+" placeholder="Link do konta na Facebook'u"
+                title="Link do konta na Facebook'u jest nie poprawny" />
+        </li>
+        <li>
+            <label for="insta">Insta (URL):</label>
+            <input type="url" name="insta" class="insta" pattern="https?://.+"
+                placeholder="Link do konta na Instagramie" title="Link do konta na Instagramie jest nie poprawny" />
+        </li>
+        <li>
+            <label for="yt">YouTube (URL):</label>
+            <input type="url" name="yt" class="yt" pattern="https?://.+" placeholder="Link do konta na YouTube"
+                title="Link do konta na YouTube jest nie poprawny" />
+        </li>
+        <li>
+            <label for="twitter">Twitter (URL):</label>
+            <input type="url" name="twitter" class="twitter" pattern="https?://.+"
+                placeholder="Link do konta na Twitterze" title="Link do konta na Twitterze jest nie poprawny" />
+        </li>
+        <li>
+            <label for="desc">Opis:</label>
+            <textarea name="desc" class="desc" placeholder="Opis trenera"></textarea>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn removeTrainer">Usuń</a>
+        <a class="btn updateTrainer">Zaktualizuj</a>
+    </div>
 </div>
-
-
+<!-- 
 <div id="createStyle" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
@@ -241,8 +390,26 @@
             <li><a class="btn addStyle">Dodaj styl</a></li>
         </ul>
     </div>
-</div>
+</div> -->
 
+<div id="createStyle" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Tworzenie stylu tańca</p>
+    <ul class="mainList">
+        <li>
+            <label for="name">Nazwa:</label>
+            <input type="text" name="name" class="name" placeholder="Nazwa stylu" />
+        </li>
+        <li>
+            <label for="desc">Opis:</label>
+            <textarea name="desc" class="desc" placeholder="Napisz coś o tym stylu..."></textarea>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn addStyle">Dodaj styl</a>
+    </div>
+</div>
+<!-- 
 <div id="updateStyle" class="popups">
     <div>
         <a><i class="close icon-cancel"></i></a>
@@ -266,6 +433,30 @@
                 <a class="btn updateStyle">Zaktualizuj</a>
             </li>
         </ul>
+    </div>
+</div> -->
+
+<div id="updateStyle" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Aktualizacja stylu tańca</p>
+    <ul class="mainList">
+        <li>
+            <label for="style">Style:</label>
+            <select name="style" class="style">
+            </select>
+        </li>
+        <li>
+            <label for="name">Nazwa:</label>
+            <input type="text" name="name" class="name" placeholder="Nazwa stylu" />
+        </li>
+        <li>
+            <label for="desc">Opis:</label>
+            <textarea name="desc" class="desc" placeholder="Napisz coś o tym stylu..."></textarea>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn removeStyle">Usuń</a>
+        <a class="btn updateStyle">Zaktualizuj</a>
     </div>
 </div>
 

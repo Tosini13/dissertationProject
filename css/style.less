@@ -499,6 +499,7 @@ main {
 }
 
 footer {
+    padding  : 5px;
     max-width: @main_width;
     margin   : 0px auto;
 
@@ -644,22 +645,31 @@ footer {
 }
 
 .bigPopups {
-    display         : none;
+    display         : block;
     position        : fixed;
     z-index         : 2;
     top             : 0;
     left            : 0;
     width           : 100vw;
     height          : 100vh;
-    background-color: @purple;
-    padding         : 20px;
+    background-color: #1a1524;
+    overflow        : hidden;
+    transform       : translate(120%, 0%);
 
     .close {
-        position : absolute;
-        top      : 10px;
-        right    : 5px;
-        color    : white;
-        font-size: 30px;
+        position                 : absolute;
+        top                      : 0px;
+        right                    : 0px;
+        color                    : white;
+        font-size                : 30px;
+        background-color         : @purple;
+        opacity                  : 0.5;
+        border-bottom-left-radius: 10px;
+        height                   : 45px;
+        width                    : 45px;
+        display                  : flex;
+        justify-content          : center;
+        align-items              : center;
     }
 
 
@@ -671,14 +681,55 @@ footer {
     }
 
     .popupHeader {
-        max-width    : 75%;
-        margin-bottom: 20px;
+        max-width       : 100%;
+        display         : block;
+        margin-left     : auto;
+        margin-right    : auto;
+        text-align      : center;
+        padding         : 13px 35px;
+        margin-bottom   : 0px;
+        box-shadow      : 0px 0px 7px rgba(255, 255, 255, 0.7);
+        // border-bottom: @gray solid 1px;
     }
 
-    form {
+    .mainList {
+        padding   : 0px 20px;
         overflow-y: scroll;
         overflow-x: hidden;
+        display   : block;
+        height    : calc(100% - 112px);
+
+
+        >li {
+            width          : 100%;
+            display        : flex;
+            flex-direction : column;
+            justify-content: space-between;
+            margin         : 7px 0px;
+
+            >label {
+                text-align: center;
+            }
+        }
     }
+
+    >.btns {
+        margin         : 10px auto;
+        display        : flex;
+        flex-direction : row;
+        justify-content: space-around;
+        align-items    : center;
+    }
+
+    -webkit-transition-property: transform;
+    -webkit-transition-duration: 0.5s;
+    transition-property        : transform;
+    transition-duration        : 0.5s;
+}
+
+.bigPopupsOpen {
+    transform : translate(0%, 0%);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
 }
 
 #createTrainer,
@@ -701,6 +752,10 @@ footer {
             transition-property        : opacity;
             transition-duration        : 0.3s;
         }
+    }
+
+    .photo {
+        display: none;
     }
 
     label.uploaded {
