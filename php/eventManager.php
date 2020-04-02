@@ -8,6 +8,21 @@ $response = "";
 
 
 // GET EVENTS
+if (isset($_GET["getEvents"]) && isset($_GET["trainer"]) && isset($_GET["style"])) {
+    try {
+        $result = $db->prepare("select trainer.login as 'trainer', dance_style.id as 'id', time_table.id as 'eventId', dance_style.name as 'dance', time_table.date_and_time as 'date' from time_table, trainer, dance_style where time_table.trainer_id=trainer.id and time_table.dance_style=dance_style.id and time_table.trainer_id=:trainer and time_table.dance_style=:style");
+        $result->bindParam(":trainer", $_GET["trainer"]);
+        $result->bindParam(":style", $_GET["style"]);
+        $result->execute();
+        echo json_encode($result->fetchAll());
+        // echo $result->fetchAll();
+    } catch (PDOException $e) {
+        $response = "error -> " + $e;
+    }
+    echo $response;
+}
+
+// GET EVENTS
 if (isset($_GET["from"]) && isset($_GET["to"])) {
     try {
         $result = $db->prepare("select trainer.login as 'trainer', dance_style.id as 'id', time_table.id as 'eventId', dance_style.name as 'dance', time_table.date_and_time as 'date' from time_table, trainer, dance_style where time_table.trainer_id=trainer.id and time_table.dance_style=dance_style.id and date_and_time > :from and date_and_time < :to");
@@ -31,6 +46,38 @@ if (isset($_GET["addEvent"])) {
         $result->bindParam(":styleId", $styleId);
         $result->bindParam(":trainerId", $trainerId);
         $result->bindParam(":date", $date);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
+// UPDATE EVENTS
+if (isset($_GET["updateEvent"])) {
+    $id = $_GET['id'];
+    $styleId = $_GET['styleId'];
+    $trainerId = $_GET['trainerId'];
+    $date = $_GET['date'];
+    try {
+        $result = $db->prepare("update time_table set trainer_id = :trainerId, dance_style = :styleId, date_and_time = :date where id=:id");
+        $result->bindParam(":id", $id);
+        $result->bindParam(":styleId", $styleId);
+        $result->bindParam(":trainerId", $trainerId);
+        $result->bindParam(":date", $date);
+        $response = $result->execute();
+    } catch (PDOException $e) {
+        $response = 0;
+    }
+    echo $response;
+}
+
+// DELETE EVENTS
+if (isset($_GET["deleteEvent"])) {
+    $id = $_GET['deleteEvent'];
+    try {
+        $result = $db->prepare("delete from time_table where id=:id");
+        $result->bindParam(":id", $id);
         $response = $result->execute();
     } catch (PDOException $e) {
         $response = 0;
@@ -120,7 +167,7 @@ if (isset($_GET["removeParticipant"])) {
         $login = $_SESSION['login'];
         try {
             $result = $db->prepare("delete from participation where login=:login and time_table_id=:danceId");
-            $result->bindValue(':danceId', $dance_id);
+            $result->bindValue(':danceId', $dance_id); //?! EVENT ID
             $result->bindValue(':login', $login);
             $result->execute();
             $response = 2;

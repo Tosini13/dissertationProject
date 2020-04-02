@@ -210,9 +210,9 @@ class Calendar {
 
         this.from = new Date();
         this.to = new Date();
-        this.from.setDate(this.from.getDate() - (this.from.getDay() + 6) % 7);
-        this.to.setDate(this.from.getDate() + 6);
-
+        let today = this.from.getDay();
+        this.from.setDate(this.from.getDate() - today + 1);
+        this.to.setDate(this.to.getDate() + (7 - today));
         this.printDates();
     }
 }
@@ -409,7 +409,6 @@ function extraMenu() {
     }
 
     function showPopUp() {
-        console.log(this);
         console.log(this.getAttribute('data-popup'));
         document.getElementById(this.getAttribute('data-popup')).style.display = "block";
         closeAll();
@@ -644,6 +643,24 @@ function createTrainers() {
 
 //UPDATE
 
+function updateEvent(id, style, trainer, date) {
+    console.log(id, style, trainer, date);
+    fetch("php/eventManager.php?updateEvent=" + true + "&id=" + id + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Zaktualizowałeś wydarzenie!");
+                closePopups();
+                calendar.getEvents();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
+
 function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo, id) {
     // Console.log(photo);
     if (photo === undefined) {
@@ -706,6 +723,22 @@ function updateStyle(id, name, desc) {
 
 
 // REMOVE
+
+function deleteEvent(id) {
+    fetch("php/eventManager.php?deleteEvent=" + id)
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data);
+            if (parseInt(data) === 1) {
+                setTip("Usunąłeś wydarzenie!");
+                closePopups();
+            } else {
+                setTip("Oj, coś poszło nie tak...");
+            }
+        })
+}
 
 function deleteTrainer(id) {
     fetch("php/eventManager.php?deleteTrainer=" + id)

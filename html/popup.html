@@ -13,7 +13,6 @@
                 <p class="date"></p>
             </li>
             <li><a class="btn signUp">ZAPISZ SIĘ</a></li>
-            <!-- <li id="popupResponse"></li> -->
         </ul>
     </div>
 </div>
@@ -29,7 +28,7 @@
         <ul class="list">
             <li>
                 <label for="createDateEvent">Data:</label>
-                <input type="text" name="createDateEvent" class="date" value="10/24/1984" />
+                <input type="text" name="createDateEvent" class="date" />
             </li>
             <li>
                 <label for="trainer">Trener:</label>
@@ -46,11 +45,13 @@
     </div>
 </div>
 
-<div id="deleteEvent" class="popups">
-    <div>
-        <a><i class="close icon-cancel"></i></a>
-        <p class="btn listHeader">Tworzenie wydarzenia</p>
-        <ul class="list">
+<div id="updateEvent" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="btn popupHeader">
+        Zarządzanie wydarzeniami
+    </p>
+    <div class="stage activeStage">
+        <ul class="mainList">
             <li>
                 <label for="trainer">Trener:</label>
                 <select name="trainer" class="trainer">
@@ -61,13 +62,39 @@
                 <select name="style" class="style">
                 </select>
             </li>
-            <li>
-                <ul>
-                    <li><a>USUŃ</a></li>
-                </ul>
-            </li>
         </ul>
+        <a class="btn search">SZUKAJ</a>
     </div>
+    <div class="stage">
+        <div id="eventsToUpdate">
+        </div>
+        <a class="btn back">WRÓĆ</a>
+    </div>
+
+    <div id="modifyEvent" class="popups">
+        <div>
+            <a><i class="close icon-cancel"></i></a>
+            <p class="btn listHeader">Edycja wydarzenia</p>
+            <ul class="list">
+                <li>
+                    <label for="createDateEvent">Data:</label>
+                    <input id="editEventDate" type="text" name="createDateEvent" class="date" />
+                </li>
+                <li>
+                    <label for="trainer">Trener:</label>
+                    <select name="trainer" class="trainer">
+                    </select>
+                </li>
+                <li>
+                    <label for="style">Style:</label>
+                    <select name="style" class="style">
+                    </select>
+                </li>
+                <li><a class="btn updateEvent">Aktualizuj wydarzenie</a></li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 
@@ -238,6 +265,18 @@
                 <a class="btn removeStyle">Usuń</a>
                 <a class="btn updateStyle">Zaktualizuj</a>
             </li>
+        </ul>
+    </div>
+</div>
+
+<div id="popupQuestion" class="popups">
+    <div id='myForm'>
+        <a><i class="close icon-cancel"></i></a>
+        <a class="btn listHeader">Question</a>
+        <ul class="list">
+            <!-- <li class="btn">
+                Answer 1 ...
+            </li> -->
         </ul>
     </div>
 </div>

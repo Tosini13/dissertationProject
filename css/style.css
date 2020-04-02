@@ -412,7 +412,7 @@ footer #check_also div a {
 .popups {
   display: none;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100vw;
@@ -484,6 +484,47 @@ footer #check_also div a {
   transform: translate(100%, -100%);
   color: white;
 }
+#popupQuestion #myForm .list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: initial;
+}
+#popupQuestion #myForm .list li {
+  width: max-content;
+}
+.bigPopups {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a1524;
+  padding: 20px;
+}
+.bigPopups .close {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  color: white;
+  font-size: 30px;
+}
+.bigPopups .btn {
+  background-color: #1a1524;
+  display: block;
+  margin: 0px auto;
+  flex: 0 auto;
+}
+.bigPopups .popupHeader {
+  max-width: 75%;
+  margin-bottom: 20px;
+}
+.bigPopups form {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 #createTrainer label.btn,
 #updateTrainer label.btn {
   position: relative;
@@ -520,6 +561,43 @@ footer #check_also div a {
 #updateTrainer > div > .list > li:last-child > a,
 #updateStyle > div > .list > li:last-child > a {
   margin: 5px;
+}
+#updateEvent #eventsToUpdate > ul {
+  width: 100%;
+}
+#updateEvent #eventsToUpdate > ul > li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 0px;
+  border-bottom: rgba(255, 255, 255, 0.5) solid 1px;
+}
+#updateEvent #eventsToUpdate > ul > li > .date {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+}
+#updateEvent #eventsToUpdate > ul > li .icon-cancel {
+  color: red;
+}
+#updateEvent #eventsToUpdate > ul > li > .eventDashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#updateEvent #eventsToUpdate > ul > li > .eventDashboard > a {
+  display: block;
+}
+#updateEvent #eventsToUpdate > .name {
+  color: white;
+}
+#updateEvent .stage {
+  display: none;
+}
+#updateEvent > .activeStage {
+  display: block;
 }
 .daterangepicker {
   top: 50% !important;

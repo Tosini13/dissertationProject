@@ -1,3 +1,121 @@
+function popupuUpdateEvent() {
+    let popup = document.getElementById("updateEvent");
+    let trainerSelect = popup.querySelector(".trainer");
+    let styleSelect = popup.querySelector(".style");
+    let search = popup.querySelector(".search");
+    let back = popup.querySelector(".back");
+    let stages = popup.querySelectorAll(".stage");
+    // let lists = popup.querySelectorAll(".mainList");
+    //TRAINERS
+    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
+    for (let trainer of trainers) {
+        let option = document.createElement("option");
+        option.setAttribute("value", trainer.id);
+        option.innerHTML = trainer.fname + " " + trainer.lname;
+        trainerSelect.appendChild(option);
+    }
+
+    //STYLES
+    let styles = JSON.parse(window.localStorage.getItem("styles"));
+    for (let style of styles) {
+        let option = document.createElement("option");
+        option.setAttribute("value", style.id);
+        option.innerHTML = style.name;
+        styleSelect.appendChild(option);
+    }
+
+    //EVENTS
+    function getEvents() {
+        let trainerId = popup.querySelector(".trainer").value;
+        let styleId = popup.querySelector(".style").value;
+        console.log(trainerId);
+        console.log(styleId);
+        fetch("php/eventManager.php?getEvents=" + true + "&trainer=" + trainerId + "&style=" + styleId)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data);
+                modifyEvents(data, trainerId, styleId);
+            })
+    }
+
+    //BUTTONS
+    function goBack() {
+        stages[0].classList.add("activeStage");
+        stages[1].classList.remove("activeStage");
+    }
+
+    back.addEventListener("click", goBack);
+
+    function searchEvents() {
+        stages[0].classList.remove("activeStage");
+        stages[1].classList.add("activeStage");
+        getEvents();
+    }
+
+    search.addEventListener("click", searchEvents);
+
+
+    function temp() {
+        let trainerId = trainerSelect.value;
+        let StyleId = styleSelect.value;
+        addEvent(StyleId, trainerId, dateFormat);
+    }
+
+    // let submit = popup.querySelector(".aEvent");
+    // submit.addEventListener("click", temp);
+}
+
+function initEventEdition(id, trainer, style, date) {
+    let popup = document.getElementById("modifyEvent");
+    let trainerSelect = popup.querySelector(".trainer");
+    let styleSelect = popup.querySelector(".style");
+    let dateInput = popup.querySelector(".date");
+    let btnUpdate = popup.querySelector(".updateEvent");
+
+    //TRAINERS
+    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
+    trainerSelect.innerHTML = "";
+    console.log(trainers);
+    for (let trainer of trainers) {
+        let option = document.createElement("option");
+        option.setAttribute("value", trainer.id);
+        option.innerHTML = trainer.fname + " " + trainer.lname;
+        trainerSelect.appendChild(option);
+    }
+    trainerSelect.value = trainer;
+
+    //STYLES
+    let styles = JSON.parse(window.localStorage.getItem("styles"));
+    styleSelect.innerHTML = "";
+    for (let style of styles) {
+        let option = document.createElement("option");
+        option.setAttribute("value", style.id);
+        option.innerHTML = style.name;
+        styleSelect.appendChild(option);
+    }
+    styleSelect.value = style;
+
+    let today = new Date(date);
+    dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
+
+
+    function temp() {
+        let trainerId = popup.querySelector(".trainer").value;
+        let StyleId = popup.querySelector(".style").value;
+        let dateFormat = dateInput.value.replace(/-/g, "").replace(/ /g, "").replace(/:/g, "") + "00";
+        updateEvent(id, StyleId, trainerId, dateFormat);
+    }
+
+    btnUpdate.addEventListener("click", temp);
+
+}
+
+popupuUpdateEvent();
+
+
+
 function popupuCreateEvent() {
     let popup = document.getElementById("createEvent");
 
@@ -21,7 +139,8 @@ function popupuCreateEvent() {
 
     let today = new Date();
     let dateInput = popup.querySelector(".date");
-    dateInput.setAttribute("value", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00");
+    dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00";
+    // dateInput.setAttribute("value", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00");
 
     function temp() {
         let trainerId = popup.querySelector(".trainer").value;
@@ -72,6 +191,8 @@ function popupuCreateTrainer() {
             return 0;
         }
 
+        console.log(photo.files[0].type);
+
         if (!photo) {
             setTip("Ups... Plik nie znaleziony");
         }
@@ -85,6 +206,9 @@ function popupuCreateTrainer() {
         }
         else if ((photo.files[0].size / 1024) > 501) {
             setTip('Zdjęcie musi mieć rozmiar mniejszy niż 500KB');
+        }
+        else if (photo.files[0].type != "image/jpeg" && photo.files[0].type != "image/jpg" && photo.files[0].type != "image/png" && photo.files[0].type != "image/gif" && photo.files[0].type != "image/bmp") {
+            setTip('Plik ma nieodpowiednie rozszerzenie. Możliwe: jpeg, jpg, png, gif, bmp');
         }
         else {
             return true;
@@ -205,6 +329,10 @@ function popupuUpdateTrainer() {
             return false;
         }
 
+        if (photo.files[0].type != "image/jpeg" && photo.files[0].type != "image/jpg" && photo.files[0].type != "image/png" && photo.files[0].type != "image/gif" && photo.files[0].type != "image/bmp") {
+            setTip('Plik ma nieodpowiednie rozszerzenie. Możliwe: jpeg, jpg, png, gif, bmp');
+        }
+
         if ((photo.files[0].size / 1024) > 501) {
             setTip('Zdjęcie musi mieć rozmiar mniejszy niż 500KB');
             return false;
@@ -323,7 +451,6 @@ function popupuUpdateStyle() {
     });
 
     let submit = popup.querySelector(".updateStyle");
-    console.log(submit);
     submit.addEventListener("click", temp);
     changeStyle();
 }
@@ -352,4 +479,33 @@ function fileInputManager(fileInput) {
     }
 
     fileInput.addEventListener('change', photoChenged);
+}
+
+
+//POPUP QUESTION
+function popupQuestion(...datas) {
+    //first is question, the next ones arrays with [0] - answers; [1] - method
+    let popup = document.getElementById("popupQuestion");
+    popup.querySelector(".listHeader").innerHTML = datas[0];
+    popup.style.display = "block";
+    function close() {
+        popup.style.display = "none";
+    }
+    let answerList = popup.querySelector(".list");
+    answerList.innerHTML = "";
+    for (let i = 1; i < datas.length; i++) {
+        let btn = document.createElement("li");
+        btn.classList.add("btn");
+        btn.innerHTML = datas[i][0];
+        btn.onclick = () => {
+            close();
+            //function:
+            console.log(datas[i][1]());
+
+            // console.log(i - 1);
+            // return (i - 1);
+        }
+        answerList.appendChild(btn);
+    }
+    return datas;
 }

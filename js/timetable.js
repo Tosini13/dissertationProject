@@ -110,70 +110,11 @@ class TimetableEvents extends React.Component {
     }
 }
 
-// ADMIN
-
-class TimetableEventsAdmin extends React.Component {
-    constructor(props) {
-        super(props);
-        this.weekdays = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
-        this.toggleEvent = this.toggleEvent.bind(this);
-        this.addEvent = this.addEvent.bind(this);
-    }
-
-    addEvent(numDay) {
-        this.days = this.props.week.map((nameDay, nDay) => {
-            if (numDay.numDay == nDay) {
-                console.log(nameDay);
-                let event = new Event();
-                event.id = "9";
-                event.trainer = "griez";
-                event.danceId = "4";
-                event.danceName = "Open Choreo"
-                event.date = "2020-03-17 18:30:00";
-                nameDay.push(event);
-                console.log(nameDay);
-            }
-        });
-        this.forceUpdate();
-    }
-
-    toggleEvent() {
-        //console.log(this);
-    }
-
-    render() {
-        //ADMIN
-        let add = "";
-        this.days = this.weekdays.map((nameDay, numDay) =>
-            <li key={numDay}>
-                <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}
-                    <i className='icon-calendar-plus-o' onClick={() => this.addEvent({ numDay })}></i>
-                </a>
-                <TimetableDay day={this.props.week[numDay]} />
-            </li>
-        );
-        return (
-            <ul>
-                {this.days}
-            </ul>
-        );
-    }
-}
-
 // ========================================
 
 function createEvents(week) {
-    console.log(week);
-    let ifAdmin = false;
-    if (ifAdmin) {
-        ReactDOM.render(
-            <TimetableEventsAdmin week={week} />,
-            document.getElementById('timetableEvents')
-        );
-    } else {
-        ReactDOM.render(
-            <TimetableEvents week={week} />,
-            document.getElementById('timetableEvents')
-        );
-    }
+    ReactDOM.render(
+        <TimetableEvents week={week} />,
+        document.getElementById('timetableEvents')
+    );
 }

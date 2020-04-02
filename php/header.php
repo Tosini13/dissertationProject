@@ -57,7 +57,7 @@
                     ?>
                         <div>
                             <a data-popup='createEvent'><i class="icon-plus"></i></a>
-                            <a data-popup='createEvent'><i class="icon-pencil-1"></i></a>
+                            <a data-popup='updateEvent'><i class="icon-pencil-1"></i></a>
                         </div>
                     <?php
                     }

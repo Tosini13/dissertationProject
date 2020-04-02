@@ -225,6 +225,7 @@ if (isset($_GET['logout'])) {
     <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/modifyEvent.js" type="text/babel"></script>
     <script src="js/timetable.js" type="text/babel"></script>
     <!-- SLIDER -->
     <script>
@@ -275,7 +276,7 @@ if (isset($_GET['logout'])) {
                     showDropdowns: true,
                     timePicker24Hour: true,
                     minYear: parseInt(moment().format('YYYY'), 10),
-                    maxYear: 2022,
+                    maxYear: 2025,
                     locale: {
                         format: 'YYYY-MM-DD HH:mm'
                     }

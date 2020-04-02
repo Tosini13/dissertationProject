@@ -540,7 +540,7 @@ footer {
 .popups {
     display         : none;
     position        : fixed;
-    z-index         : 2;
+    z-index         : 3;
     top             : 0;
     left            : 0;
     width           : 100vw;
@@ -627,6 +627,60 @@ footer {
     }
 }
 
+#popupQuestion {
+    #myForm {
+        .list {
+            display        : flex;
+            flex-direction : row;
+            justify-content: space-around;
+            flex           : initial;
+            ;
+
+            li {
+                width: max-content;
+            }
+        }
+    }
+}
+
+.bigPopups {
+    display         : none;
+    position        : fixed;
+    z-index         : 2;
+    top             : 0;
+    left            : 0;
+    width           : 100vw;
+    height          : 100vh;
+    background-color: @purple;
+    padding         : 20px;
+
+    .close {
+        position : absolute;
+        top      : 10px;
+        right    : 5px;
+        color    : white;
+        font-size: 30px;
+    }
+
+
+    .btn {
+        background-color: @purple;
+        display         : block;
+        margin          : 0px auto;
+        flex            : 0 auto;
+    }
+
+    .popupHeader {
+        max-width    : 75%;
+        margin-bottom: 20px;
+    }
+
+    form {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+}
+
 #createTrainer,
 #updateTrainer {
     label.btn {
@@ -673,6 +727,58 @@ footer {
             }
         }
     }
+}
+
+#updateEvent {
+    #eventsToUpdate {
+        >ul {
+            width: 100%;
+
+            >li {
+                display        : flex;
+                flex-direction : row;
+                justify-content: space-between;
+                align-items    : center;
+                color          : white;
+                font-size      : 1.2rem;
+                padding        : 5px 0px;
+                border-bottom  : @gray solid 1px;
+
+                >.date {
+                    color    : @gray;
+                    font-size: 0.8rem;
+                }
+
+                .icon-cancel {
+                    color: red;
+                }
+
+                >.eventDashboard {
+                    display        : flex;
+                    flex-direction : column;
+                    justify-content: space-between;
+
+                    >a {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        >.name {
+            color: white;
+        }
+    }
+
+    .stage {
+        display: none;
+    }
+
+
+    >.activeStage {
+        display: block;
+    }
+
 }
 
 .daterangepicker {
