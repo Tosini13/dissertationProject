@@ -5,24 +5,6 @@ function popupuUpdateEvent() {
     let search = popup.querySelector(".search");
     let back = popup.querySelector(".back");
     let stages = popup.querySelectorAll(".stage");
-    // let lists = popup.querySelectorAll(".mainList");
-    //TRAINERS
-    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-    for (let trainer of trainers) {
-        let option = document.createElement("option");
-        option.setAttribute("value", trainer.id);
-        option.innerHTML = trainer.fname + " " + trainer.lname;
-        trainerSelect.appendChild(option);
-    }
-
-    //STYLES
-    let styles = JSON.parse(window.localStorage.getItem("styles"));
-    for (let style of styles) {
-        let option = document.createElement("option");
-        option.setAttribute("value", style.id);
-        option.innerHTML = style.name;
-        styleSelect.appendChild(option);
-    }
 
     //EVENTS
     function getEvents() {
@@ -68,33 +50,18 @@ function popupuUpdateEvent() {
 }
 
 function initEventEdition(id, trainer, style, date) {
+    let lastStages = document.getElementById("updateEvent");
+    let stages = lastStages.querySelectorAll(".stage");
     let popup = document.getElementById("modifyEvent");
     let trainerSelect = popup.querySelector(".trainer");
     let styleSelect = popup.querySelector(".style");
     let dateInput = popup.querySelector(".date");
     let btnUpdate = popup.querySelector(".updateEvent");
+    let back = popup.querySelector(".back");
 
-    //TRAINERS
-    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-    trainerSelect.innerHTML = "";
-    console.log(trainers);
-    for (let trainer of trainers) {
-        let option = document.createElement("option");
-        option.setAttribute("value", trainer.id);
-        option.innerHTML = trainer.fname + " " + trainer.lname;
-        trainerSelect.appendChild(option);
-    }
+
     trainerSelect.value = trainer;
 
-    //STYLES
-    let styles = JSON.parse(window.localStorage.getItem("styles"));
-    styleSelect.innerHTML = "";
-    for (let style of styles) {
-        let option = document.createElement("option");
-        option.setAttribute("value", style.id);
-        option.innerHTML = style.name;
-        styleSelect.appendChild(option);
-    }
     styleSelect.value = style;
 
     let today = new Date(date);
@@ -110,6 +77,15 @@ function initEventEdition(id, trainer, style, date) {
 
     btnUpdate.addEventListener("click", temp);
 
+
+    stages[1].classList.remove("activeStage");
+    //BUTTONS
+    function goBack() {
+        stages[1].classList.add("activeStage");
+        popup.classList.remove("activeStage");
+    }
+
+    back.addEventListener("click", goBack);
 }
 
 popupuUpdateEvent();
@@ -119,28 +95,9 @@ popupuUpdateEvent();
 function popupuCreateEvent() {
     let popup = document.getElementById("createEvent");
 
-    //TRAINERS
-    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-    for (let trainer of trainers) {
-        let option = document.createElement("option");
-        option.setAttribute("value", trainer.id);
-        option.innerHTML = trainer.fname + " " + trainer.lname;
-        popup.querySelector(".trainer").appendChild(option);
-    }
-
-    //STYLES
-    let styles = JSON.parse(window.localStorage.getItem("styles"));
-    for (let style of styles) {
-        let option = document.createElement("option");
-        option.setAttribute("value", style.id);
-        option.innerHTML = style.name;
-        popup.querySelector(".style").appendChild(option);
-    }
-
     let today = new Date();
     let dateInput = popup.querySelector(".date");
     dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00";
-    // dateInput.setAttribute("value", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00");
 
     function temp() {
         let trainerId = popup.querySelector(".trainer").value;
@@ -217,9 +174,7 @@ function popupuCreateTrainer() {
 
     function checkPattern(input) {
         let pattern = input.getAttribute("pattern");
-        console.log(input.getAttribute('required'));
         if (input.getAttribute('required') === undefined || input.getAttribute('required') === false || input.getAttribute('required') !== "") {
-            console.log('!required');
             if (input.value == "") {
                 return true;
             }
@@ -266,18 +221,10 @@ function popupuUpdateTrainer() {
     let desc = popup.querySelector('.desc');
 
     let select = popup.querySelector(".trainer");
-    //TRAINERS
-    let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-    console.log(trainers);
-    for (let trainer of trainers) {
-        let option = document.createElement("option");
-        option.setAttribute("value", trainer.id);
-        option.innerHTML = trainer.fname + " " + trainer.lname;
-        select.appendChild(option);
-    }
-
 
     function changeTrainer() {
+        //TRAINERS
+        let trainers = JSON.parse(window.localStorage.getItem("trainers"));
         for (let trainer of trainers) {
             if (trainer.id == select.value) {
                 fname.value = trainer.fname;
@@ -414,16 +361,10 @@ function popupuUpdateStyle() {
     let name = popup.querySelector(".name");
     let desc = popup.querySelector(".desc");
 
-    //STYLES
-    let styles = JSON.parse(window.localStorage.getItem("styles"));
-    for (let style of styles) {
-        let option = document.createElement("option");
-        option.setAttribute("value", style.id);
-        option.innerHTML = style.name;
-        select.appendChild(option);
-    }
 
     function changeStyle() {
+        //STYLES
+        let styles = JSON.parse(window.localStorage.getItem("styles"));
         for (let style of styles) {
             if (style.id == select.value) {
                 name.value = style.name;

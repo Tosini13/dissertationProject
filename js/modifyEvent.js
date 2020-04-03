@@ -12,7 +12,7 @@ class ShowEvent extends React.Component {
     edit() {
         console.log("edit");
         let popup = document.getElementById("modifyEvent");
-        popup.style.display = "block";
+        popup.classList.add("activeStage");
         initEventEdition(this.props.event.eventId, this.props.trainer, this.props.style, this.props.event.date);
 
     }

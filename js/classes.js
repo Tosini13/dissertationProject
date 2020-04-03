@@ -40,7 +40,7 @@ class Event {
                 break;
             case 2:
                 user.signOut(this.id);
-                setTip('Usunąłeś swoją obezność w wydarzeniu');
+                setTip('Usunąłeś swoją obecność w wydarzeniu');
                 break;
             case -1:
                 setTip('Oj, coś poszło nie tak...');
@@ -534,6 +534,7 @@ function getTrainers() {
                 arr.push(trainer);
             });
             window.localStorage.setItem("trainers", JSON.stringify(arr));
+            updateTrainerSelects();
         })
     console.log("database");
     // }
@@ -556,6 +557,7 @@ function getStyles() {
                 arr.push(style);
             });
             window.localStorage.setItem("styles", JSON.stringify(arr));
+            updateStyleSelects()
         })
     console.log("database");
     // }
@@ -563,6 +565,39 @@ function getStyles() {
 
 getTrainers();
 getStyles();
+
+
+function updateStyleSelects() {
+    let styleSelects = document.querySelectorAll("select.style");
+    for (let styleSelect of styleSelects) {
+        //STYLES
+        let styles = JSON.parse(window.localStorage.getItem("styles"));
+        styleSelect.innerHTML = "";
+        for (let style of styles) {
+            let option = document.createElement("option");
+            option.setAttribute("value", style.id);
+            option.innerHTML = style.name;
+            styleSelect.appendChild(option);
+        }
+        styleSelect.value = styles[0].id;
+    }
+}
+
+function updateTrainerSelects() {
+    let trainerSelects = document.querySelectorAll("select.trainer");
+    for (let trainerSelect of trainerSelects) {
+        //STYLES
+        let trainers = JSON.parse(window.localStorage.getItem("trainers"));
+        trainerSelect.innerHTML = "";
+        for (let trainer of trainers) {
+            let option = document.createElement("option");
+            option.setAttribute("value", trainer.id);
+            option.innerHTML = trainer.fname + " " + trainer.lname;
+            trainerSelect.appendChild(option);
+        }
+        trainerSelect.value = trainers[0].id;
+    }
+}
 
 // INSERT
 function closePopups() {
@@ -573,7 +608,7 @@ function closePopups() {
 
     let bigPopups = document.querySelectorAll(".bigPopups");
     for (let popup of bigPopups) {
-        popup.style.display = "none";
+        popup.classList.remove("bigPopupsOpen");
     }
 }
 
@@ -605,6 +640,7 @@ function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, ph
         .then((data) => {
             if (parseInt(data) === 1) {
                 setTip("Dodałeś trenera!");
+                getTrainers();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
@@ -643,18 +679,12 @@ function addStyle(name, desc) {
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Dodałeś styl!");
+                getStyles();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
         })
-}
-
-// SECTION CREATE
-
-function createTrainers() {
-    console.log(JSON.parse(window.localStorage.getItem("trainers")));
-    console.log(JSON.parse(window.localStorage.getItem("styles")));
 }
 
 //UPDATE
@@ -694,6 +724,7 @@ function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter,
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Zaktualizowałeś trenera!");
+                getTrainers();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
@@ -730,6 +761,7 @@ function updateStyle(id, name, desc) {
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Zaktualizowałeś styl!");
+                getStyles();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
@@ -765,6 +797,7 @@ function deleteTrainer(id) {
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Usunąłeś trenera!");
+                getTrainers();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
@@ -781,6 +814,7 @@ function deleteStyle(id) {
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Usunąłeś styl!");
+                getStyles();
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");

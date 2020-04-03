@@ -21,10 +21,15 @@ class TimetableEvent extends React.Component {
 
     popup() {
         let popup = document.getElementById("popup");
-        popup.style.display = "block";
+        popup.classList.add("bigPopupsOpen");
         popup.getElementsByClassName("danceName")[0].innerHTML = this.props.event.danceName;
         popup.getElementsByClassName("danceName")[0].setAttribute('href', '#' + this.props.event.danceId);
-        popup.getElementsByClassName("trainer")[0].innerHTML = this.props.event.trainer;
+        let trainers = JSON.parse(window.localStorage.getItem("trainers"));
+        for (let trainer of trainers) {
+            if (trainer.login.localeCompare(this.props.event.trainer) == 0) {
+                popup.getElementsByClassName("trainer")[0].innerHTML = trainer.fname + " " + trainer.lname;
+            }
+        }
         popup.getElementsByClassName("date")[0].innerHTML = this.props.event.date;
         if (this.state.user) {
             //SIGN OUT
