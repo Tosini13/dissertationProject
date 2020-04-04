@@ -30,7 +30,7 @@ class TimetableEvent extends React.Component {
                 popup.getElementsByClassName("trainer")[0].innerHTML = trainer.fname + " " + trainer.lname;
             }
         }
-        popup.getElementsByClassName("date")[0].innerHTML = this.props.event.date;
+        popup.getElementsByClassName("date")[0].innerHTML = this.props.event.date.slice(0, 16);
         if (this.state.user) {
             //SIGN OUT
             popup.getElementsByClassName("signUp")[0].innerHTML = "Zrezygnuj";
@@ -45,8 +45,6 @@ class TimetableEvent extends React.Component {
             popup.getElementsByClassName("signUp")[0].onclick = () => {
                 let event = new Event();
                 event.id = this.props.event.id;
-                console.log('xd');
-                console.log(event);
                 event.signUp(); //rights!
             }
         }
@@ -96,11 +94,10 @@ class TimetableEvents extends React.Component {
     }
 
     toggleEvent() {
-        console.log(this);
+        // console.log(this);
     }
 
     render() {
-        // console.log(this.props.week);
         this.days = this.weekdays.map((nameDay, numDay) =>
             <li key={numDay}>
                 <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}</a>

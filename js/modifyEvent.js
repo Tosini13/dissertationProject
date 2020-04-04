@@ -44,9 +44,7 @@ class EventsList extends React.Component {
             <ShowEvent event={event} trainer={this.props.trainer} style={this.props.style} />
         );
         return (
-            <ul>
-                {this.temp}
-            </ul>
+            this.temp
         );
     }
 }

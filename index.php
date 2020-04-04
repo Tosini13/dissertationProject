@@ -51,24 +51,6 @@ if (isset($_GET['logout'])) {
         <section id="styles">
             <h2 class="title">STYLE TAŃCA</h2>
             <div>
-                <?php
-                $result = $db->query("select * from dance_style;");
-                if ($result->rowCount()) {
-                    while ($data = $result->fetch()) {
-                ?>
-                        <div>
-                            <a class="btn btnPress" onclick="show_style(this)">
-                                <!-- <a class="btn"> -->
-                                <?php echo $data['name'] ?>
-                            </a>
-                            <p class="list">
-                                <?php echo $data['description'] ?>
-                            </p>
-                        </div>
-                <?php
-                    }
-                }
-                ?>
             </div>
         </section>
         <!-- ******************************************************************* -->
@@ -208,8 +190,7 @@ if (isset($_GET['logout'])) {
     </footer>
     <?php require "html/popup.html" ?>
     <!-- jQuery -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
     <!-- <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script> -->
     <!-- JavaScript -->
@@ -222,6 +203,7 @@ if (isset($_GET['logout'])) {
     <!-- SLIDER -->
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <!-- MOJE -->
+    <script src="js/styles.js" type="text/babel"></script>
     <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
@@ -242,7 +224,6 @@ if (isset($_GET['logout'])) {
                 responsive: [{
                     breakpoint: 980,
                     settings: {
-                        // centerMode: true,
                         dots: true,
                         arrows: false,
                         slidesToShow: 2,
@@ -251,7 +232,6 @@ if (isset($_GET['logout'])) {
                 }, {
                     breakpoint: 650,
                     settings: {
-                        // centerMode: true,
                         dots: true,
                         arrows: false,
                         slidesToShow: 1,
@@ -259,6 +239,7 @@ if (isset($_GET['logout'])) {
                     }
                 }]
             });
+
         });
     </script>
 

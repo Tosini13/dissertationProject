@@ -1,22 +1,3 @@
-<!-- <div id="popup" class="popups">
-
-    <div id='myForm'>
-        <a><i class="close icon-cancel"></i></a>
-        <a class="danceName btn listHeader"></a>
-        <ul class="list">
-            <li>
-                <label>Trener:</label>
-                <p class="trainer"></p>
-            </li>
-            <li>
-                <label>Data:</label>
-                <p class="date"></p>
-            </li>
-            <li><a class="btn signUp">ZAPISZ SIĘ</a></li>
-        </ul>
-    </div>
-</div> -->
-
 <div id="popup" class="bigPopups">
     <a><i class="close icon-cancel"></i></a>
     <a class="danceName popupHeader"></a>
@@ -65,10 +46,10 @@
 
 <div id="updateEvent" class="bigPopups">
     <a><i class="close icon-cancel"></i></a>
-    <p class="popupHeader">
-        Zarządzanie wydarzeniami
-    </p>
     <div class="stage activeStage">
+        <p class="popupHeader">
+            Zarządzanie wydarzeniami
+        </p>
         <ul class="mainList">
             <li>
                 <label for="trainer">Trener:</label>
@@ -86,13 +67,19 @@
         </div>
     </div>
     <div class="stage">
-        <div id="eventsToUpdate">
-        </div>
+        <p class="popupHeader">
+            Zarządzanie wydarzeniami
+        </p>
+        <ul id="eventsToUpdate" class="mainList">
+        </ul>
         <div class="btns">
             <a class="btn back">WRÓĆ</a>
         </div>
     </div>
     <div id="modifyEvent" class="stage">
+        <p class="popupHeader">
+            Zarządzanie wydarzeniami
+        </p>
         <ul class="mainList">
             <li>
                 <label for="createDateEvent">Data:</label>
@@ -114,31 +101,6 @@
             <a class="btn updateEvent">Aktualizuj wydarzenie</a>
         </div>
     </div>
-
-    <!-- <div id="modifyEvent" class="popups">
-        <div>
-            <a><i class="close icon-cancel"></i></a>
-            <p class="btn listHeader">Edycja wydarzenia</p>
-            <ul class="list">
-                <li>
-                    <label for="createDateEvent">Data:</label>
-                    <input id="editEventDate" type="text" name="createDateEvent" class="date" />
-                </li>
-                <li>
-                    <label for="trainer">Trener:</label>
-                    <select name="trainer" class="trainer">
-                    </select>
-                </li>
-                <li>
-                    <label for="style">Style:</label>
-                    <select name="style" class="style">
-                    </select>
-                </li>
-                <li><a class="btn updateEvent">Aktualizuj wydarzenie</a></li>
-            </ul>
-        </div>
-    </div> -->
-
 </div>
 
 <div id="createTrainer" class="bigPopups">

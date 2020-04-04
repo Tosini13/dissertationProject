@@ -557,7 +557,8 @@ function getStyles() {
                 arr.push(style);
             });
             window.localStorage.setItem("styles", JSON.stringify(arr));
-            updateStyleSelects()
+            updateStyleSelects();
+            fillStyles();
         })
     console.log("database");
     // }

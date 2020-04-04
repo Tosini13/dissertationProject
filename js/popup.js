@@ -10,14 +10,11 @@ function popupuUpdateEvent() {
     function getEvents() {
         let trainerId = popup.querySelector(".trainer").value;
         let styleId = popup.querySelector(".style").value;
-        console.log(trainerId);
-        console.log(styleId);
         fetch("php/eventManager.php?getEvents=" + true + "&trainer=" + trainerId + "&style=" + styleId)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data);
                 modifyEvents(data, trainerId, styleId);
             })
     }
@@ -65,8 +62,7 @@ function initEventEdition(id, trainer, style, date) {
     styleSelect.value = style;
 
     let today = new Date(date);
-    dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
-
+    dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
 
     function temp() {
         let trainerId = popup.querySelector(".trainer").value;
@@ -248,9 +244,7 @@ function popupuUpdateTrainer() {
     function checkPhoto() {
 
         if (!photo.files[0]) {
-            // alert("Please select a file before clicking 'Load'");
             // setTip('Zdjęcie nie zostało załadowane');
-            console.log(photo.files[0]);
             return true;
         }
 
@@ -283,6 +277,7 @@ function popupuUpdateTrainer() {
             return false;
         }
 
+        console.log(photo.files);
         return true;
     }
 
@@ -291,7 +286,6 @@ function popupuUpdateTrainer() {
     function checkPattern(input) {
         let pattern = input.getAttribute("pattern");
         if (input.getAttribute('required') === undefined || input.getAttribute('required') === false || input.getAttribute('required') !== "") {
-            console.log('!required');
             if (input.value == "") {
                 return true;
             }
@@ -316,7 +310,6 @@ function popupuUpdateTrainer() {
 
     function temp() {
         if (checkPattern(login) && checkPattern(fb) && checkPattern(insta) && checkPattern(yt) && checkPattern(twitter) && checkPhoto()) {
-            console.log(photo.files[0]);
             updateTrainer(fname.value, lname.value, login.value, phone.value, desc.value, fb.value, insta.value, yt.value, twitter.value, photo.files[0], select.value);
             clear();
         }
@@ -324,7 +317,9 @@ function popupuUpdateTrainer() {
 
     let remove = popup.querySelector(".removeTrainer");
     remove.addEventListener("click", () => {
-        deleteTrainer(select.value);
+        console.log(select.value);
+        popupQuestion("Czy na pewno chcesz usunąć trenera?", ["Nie", () => { return 0 }], ["Tak", () => { deleteTrainer(select.value); return select.value; }]);
+        // deleteTrainer(select.value);
     });
 
     let submit = popup.querySelector(".updateTrainer");
@@ -379,14 +374,14 @@ function popupuUpdateStyle() {
     function temp() {
         let name = popup.querySelector(".name").value;
         let desc = popup.querySelector(".desc").value;
-        console.log(select.value, name, desc);
         updateStyle(select.value, name, desc);
     }
 
 
     let remove = popup.querySelector(".removeStyle");
     remove.addEventListener("click", () => {
-        deleteStyle(select.value);
+        popupQuestion("Czy na pewno chcesz usunąć styl?", ["Nie", () => { return 0 }], ["Tak", () => { deleteStyle(select.value); return select.value; }]);
+        // deleteStyle(select.value);
     });
 
     let submit = popup.querySelector(".updateStyle");
@@ -422,6 +417,9 @@ function fileInputManager(fileInput) {
 
 
 //POPUP QUESTION
+//EXAMPLE:
+//popupQuestion("Czy na pewno chcesz usunąć trenera?", ["Nie", () => { return 0 }], ["Tak", () => { deleteTrainer(select.value); return select.value; }]);
+
 function popupQuestion(...datas) {
     //first is question, the next ones arrays with [0] - answers; [1] - method
     let popup = document.getElementById("popupQuestion");
@@ -437,12 +435,8 @@ function popupQuestion(...datas) {
         btn.classList.add("btn");
         btn.innerHTML = datas[i][0];
         btn.onclick = () => {
+            datas[i][1]();
             close();
-            //function:
-            console.log(datas[i][1]());
-
-            // console.log(i - 1);
-            // return (i - 1);
         }
         answerList.appendChild(btn);
     }
