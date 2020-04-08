@@ -399,25 +399,31 @@ footer {
   max-width: 980px;
   margin: 0px auto;
 }
+footer > div {
+  margin-bottom: 40px;
+}
 footer > div > h3 {
   margin-bottom: 20px;
 }
-footer #contact address {
+footer #check_also div,
+footer #contact div {
+  flex-direction: column;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  font-size: 12px;
 }
-footer #contact address dt {
-  text-align: right;
-}
-footer #check_also div {
+footer #check_also div a,
+footer #contact div a {
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-footer #check_also div a {
-  display: block;
   margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+footer #check_also div a i,
+footer #contact div a i {
+  display: block;
+  font-size: 30px;
 }
 .popups {
   display: none;
@@ -459,8 +465,7 @@ footer #check_also div a {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   display: block;
 }
 .popups > div .list > li {
@@ -539,6 +544,7 @@ footer #check_also div a {
   background-color: #1a1524;
   display: block;
   margin: 0px auto;
+  margin-left: initial;
   flex: 0 auto;
 }
 .bigPopups .popupHeader {
@@ -554,8 +560,7 @@ footer #check_also div a {
 }
 .bigPopups .mainList {
   padding: 0px 20px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   display: block;
   height: calc(100% - 112px);
 }
@@ -583,6 +588,11 @@ footer #check_also div a {
 #popup p {
   text-align: center;
   color: white;
+}
+#createTrainer.bigPopups .mainList,
+#updateTrainer.bigPopups .mainList {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 #createTrainer label.btn,
 #updateTrainer label.btn {
@@ -669,6 +679,9 @@ footer #check_also div a {
   transition-property: opacity, visibility;
   transition-duration: 0.3s;
 }
+#updateEvent .stage:nth-child(3) {
+  overflow-y: scroll;
+}
 #updateEvent > .activeStage {
   visibility: visible;
   opacity: 1;
@@ -729,6 +742,13 @@ footer #check_also div a {
   top: 0;
 }
 @media (min-width: 981px) {
+  header nav ul li:hover ul {
+    transform: translate(0px, 0px);
+  }
+  header nav ul li:hover > .btn {
+    color: white;
+    border-bottom-width: 1px;
+  }
   #container {
     display: flex;
     flex-direction: row;
@@ -786,6 +806,9 @@ footer #check_also div a {
     border-bottom-width: 2px;
     color: rgba(255, 255, 255, 0.5);
   }
+  header nav > ul > li .submenuOpen {
+    transform: translate(200%, 0%);
+  }
   header nav > ul > li > ul {
     margin-top: 20px;
     transform: translate(200%, 0%);
@@ -831,13 +854,6 @@ footer #check_also div a {
   }
   header nav > ul > li .submenuOpen {
     transform: translate(200%, 0%);
-  }
-  header nav > ul > li:hover ul {
-    transform: translate(0px, 0px);
-  }
-  header nav > ul > li:hover > .btn {
-    color: white;
-    border-bottom-width: 1px;
   }
   main #about_us h2 {
     margin-top: 50px;
@@ -915,6 +931,19 @@ footer #check_also div a {
     padding: 5px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+  }
+  footer > div {
+    margin-bottom: 0px;
+  }
+  footer #check_also div,
+  footer #contact div {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+  }
+  footer #check_also div a,
+  footer #contact div a {
+    margin-left: 25px;
   }
   .popups {
     width: 100%;

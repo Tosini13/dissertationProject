@@ -44,11 +44,12 @@ if (isset($_GET['error'])) {
         <p></p>
     </div>
     <script src="../js/account.js" type="text/javascript"></script>
-    <script>
-        if (<?php echo isset($_GET['error']) ?>) {
+
+    <?php if (isset($_GET['error'])) { ?>
+        <script>
             setTip("Coś poszło nie tak!");
-        }
-    </script>
+        </script>
+    <?php } ?>
 </body>
 
 </html>

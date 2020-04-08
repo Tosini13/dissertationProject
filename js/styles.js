@@ -27,7 +27,7 @@ class StylesR extends React.Component {
     }
 
     render() {
-        let styles = JSON.parse(window.localStorage.getItem("styles"));
+        let styles = this.props.styles;
         this.mainList = styles.map((item, index) => {
             if (index == this.state.opened) {
                 return <div key={index}>
@@ -52,9 +52,9 @@ class StylesR extends React.Component {
 
 // ========================================
 
-function fillStyles() {
+function fillStyles(styles) {
     ReactDOM.render(
-        <StylesR />,
+        <StylesR styles={styles} />,
         document.querySelector('#styles div')
     );
 }

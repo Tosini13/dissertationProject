@@ -6,17 +6,16 @@ class TimetableEvent extends React.Component {
         this.eventId = props.event.id;
         this.trainer = props.event.trainer;
         this.date = props.event.date;
+        let participation = false;
+        if (typeof user !== 'undefined') {
+            console.log(user);
+            participation = user.ifTakePartIn(props.event.id);
+        }
+        console.log(participation);
         this.state = {
-            user: user.ifTakePartIn(props.event.id)
+            user: participation
         }
         this.popup = this.popup.bind(this);
-    }
-
-    checkIfUpToDate() {
-        validator = true;
-        if (this.state != this.props.event) {
-
-        }
     }
 
     popup() {
@@ -24,8 +23,7 @@ class TimetableEvent extends React.Component {
         popup.classList.add("bigPopupsOpen");
         popup.getElementsByClassName("danceName")[0].innerHTML = this.props.event.danceName;
         popup.getElementsByClassName("danceName")[0].setAttribute('href', '#' + this.props.event.danceId);
-        let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-        for (let trainer of trainers) {
+        for (let trainer of myStorage.trainers) {
             if (trainer.login.localeCompare(this.props.event.trainer) == 0) {
                 popup.getElementsByClassName("trainer")[0].innerHTML = trainer.fname + " " + trainer.lname;
             }
@@ -38,6 +36,9 @@ class TimetableEvent extends React.Component {
                 let event = new Event();
                 event.id = this.props.event.id;
                 event.signOut(); //rights!
+                if (typeof user !== 'undefined') {
+                    this.setState({ user: false });
+                }
             }
         } else {
             //SIGN UP
@@ -46,10 +47,12 @@ class TimetableEvent extends React.Component {
                 let event = new Event();
                 event.id = this.props.event.id;
                 event.signUp(); //rights!
+                if (typeof user !== 'undefined') {
+                    this.setState({ user: true });
+                }
             }
         }
 
-        this.setState({ user: user.ifTakePartIn(this.props.event.id) });
     }
 
     render() {
@@ -90,17 +93,12 @@ class TimetableEvents extends React.Component {
     constructor(props) {
         super(props);
         this.weekdays = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
-        this.toggleEvent = this.toggleEvent.bind(this);
-    }
-
-    toggleEvent() {
-        // console.log(this);
     }
 
     render() {
         this.days = this.weekdays.map((nameDay, numDay) =>
             <li key={numDay}>
-                <a className='btn listHeader' onClick={this.toggleEvent}>{nameDay}</a>
+                <a className='btn listHeader'>{nameDay}</a>
                 <TimetableDay day={this.props.week[numDay]} />
             </li>
         );

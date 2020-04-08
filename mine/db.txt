@@ -1,0 +1,116 @@
+create table users(
+login varchar(30)  not null,
+email varchar(50)  not null,
+password varchar(255)  not null,
+rights varchar(5),
+primary key(login));
+
+create table trainer(
+id int auto_increment not null,
+fname varchar(30),
+lname varchar(30),
+login varchar(30) not null,
+photo varchar(255),
+description text,
+phone varchar(30),
+fb varchar(255),
+insta varchar(255),
+yt varchar(255),
+twitter varchar(255),
+primary key(id));
+
+create table dance_style(
+id int not null auto_increment,
+name varchar(20) not null,
+type varchar(20),
+description text,
+primary key(id));
+
+create table time_table(
+id int not null auto_increment,
+trainer_id int,
+dance_style int,
+date_and_time datetime,
+primary key(id));
+
+create table participation(
+time_table_id int,
+login varchar(30)  not null,
+foreign key(time_table_id) references time_table(id),
+foreign key(login) references users(login));
+
+
+create table price_discount(
+type varchar(20) not null,
+description text,
+discount double,
+primary key(type));
+
+create table price_list(
+id int not null auto_increment,
+style_id int,
+price double,
+primary key(id),
+foreign key(style_id) references dance_style(id));
+
+/* ---------------- */
+/* 		INSERT		*/
+/* ---------------- */
+
+insert into users(login, email, password) values("leo","leo@g","xxx");
+insert into users(login, email, password) values("cris","cris@g","xxx");
+insert into users(login, email, password) values("ney","ney@g","xxx");
+insert into users(login, email, password) values("griez","griez@g","xxx");
+insert into users(login, email, password) values("Niezdefiniowany","Niezdefiniowany@g","Niezdefiniowany");
+
+insert into users(login, email, password) values("xxx","g@g","xxx");
+insert into users(login, email, password) values("xxd","g@g","xxd");
+insert into users(login, email, password, rights) values("qwerty","qwerty@gmail","$2y$10$vqgqWDIQkG4XFQwQHwbSeeJY2j8Jm.I9FU.od0Gdlmw/gQEjMoRCm", "");
+/* Qwerty#1 */
+insert into users(login, email, password, rights) values("admin","admin@admin","$2y$10$8nkVjUlZE8HzEovBNvoWcewACRwzSamCKO6JEkq/MgZ0T/6iGd.Wu", "admin");
+/* Adminek#1 */
+
+insert into trainer(fname, lname, login, photo, description) values("Lionel","Messi","leo","trainer.jpg","The best footballer in the world! Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.");
+insert into trainer(fname, lname, login, photo, description) values("Cristiano","Ronaldo","cris","trainer.jpg","The best footballer in Serie A! Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.");
+insert into trainer(fname, lname, login, photo, description) values("Neymar","da Silva Santos Junior","ney","trainer.jpg","The best footballer in Ligue1!Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.");
+insert into trainer(fname, lname, login, photo, description, fb, insta, yt, twitter) values("Antoine","Griezman","griez","trainer.jpg","One of the best footballer in the world! Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", "#fb", "#insta", "#yt", "#twitter");
+insert into trainer(fname, lname, login, photo, description, fb) values("Niezdefiniowany","Niezdefiniowany","Niezdefiniowany","trainer.jpg","Niezdefiniowany", "Niezdefiniowany");
+
+
+insert into dance_style(name, type, description) values("Dancehall","opened","Dancehall is a genre of Jamaican popular music that originated in the late 1970s. Initially, dancehall was a more sparse version of reggae than the roots style, which had dominated much of the 1970s.");
+insert into dance_style(name, type, description) values("Hip-hop","opened","Hip hop or hip-hop, is a culture and art movement that was created by African Americans, Latino Americans and Caribbean Americans in the Bronx, New York City. The origin of the name is often disputed. It is also argued as to whether hip hop started in the South or West Bronx.");
+insert into dance_style(name, type, description) values("Waacking","opened","Waack/Punk is a form of dance created in the LGBT clubs of Los Angeles, during the 1970s disco era. This dance style was named punking because 'punk' was a derogatory term for gay men in the 70s. Naming the style punking was a way of turning this negative term into something positive.");
+insert into dance_style(name, type, description) values("Open Choreo","workshop","Lorem ipsum Open Choreo");
+insert into dance_style(name, type, description) values("Party","party","Lorem ipsum Party");
+insert into dance_style(name, type, description) values("bachata","opened" , "Bachata is a style of social dance from the Dominican Republic which is now danced all over the world. It is connected with bachata music."); 
+insert into dance_style(name, type, description) values("raggaeton","opened" , "Reggaeton is a music style which originated in Puerto Rico during the late 1990s. It is influenced by American hip hop, Latin American, and Caribbean music. Vocals include rapping and singing, typically in Spanish."); 
+insert into dance_style(name, type, description) values("latino","opened" , "Latin dance is a general label, and a term in partner dance competition jargon. It refers to types of ballroom dance and folk dance that originated in Latin America."); 
+insert into dance_style(name, type, description) values("kizomba","opened" , "Kizomba is a genre of dance and a Portuguese language musical genre originating in Angola in 1984. Kizomba means 'party' in Kimbundu, a minority Bantu language spoken in Angola.");
+
+insert into price_discount values("adult", "Person over 18 years old",1);
+insert into price_discount values("kids","Person under 12 years old",0.5);
+insert into price_discount values("youth", "Person over 12 years old and under 18 years old",0.8);
+
+insert into price_list(style_id,price) values(1,50);
+insert into price_list(style_id,price) values(2,45);
+insert into price_list(style_id,price) values(3,48);
+insert into price_list(style_id,price) values(4,60);
+insert into price_list(style_id,price) values(5,55);
+insert into price_list(style_id,price) values(6,58);
+insert into price_list(style_id,price) values(7,54);
+insert into price_list(style_id,price) values(8,62);
+insert into price_list(style_id,price) values(9,32);
+
+insert into time_table(trainer_id, dance_style, date_and_time) values(1, 1, 20200414183000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(1, 1, 20200417183000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(2, 2, 20200415190000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(1, 6, 20200406180000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(2, 7, 20200407193000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(3, 3, 20200414183000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(2, 4, 20200405190000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(1, 5, 20200406180000);
+insert into time_table(trainer_id, dance_style, date_and_time) values(4, 4, 20200407193000);
+
+insert into participation values(1, "xxx");
+insert into participation values(3, "xxx");
+insert into participation values(5, "xxx");

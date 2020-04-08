@@ -12,11 +12,11 @@ function popupuUpdateEvent() {
         let styleId = popup.querySelector(".style").value;
         fetch("php/eventManager.php?getEvents=" + true + "&trainer=" + trainerId + "&style=" + styleId)
             .then((response) => {
-                return response.json()
+                return response.json();
             })
             .then((data) => {
                 modifyEvents(data, trainerId, styleId);
-            })
+            });
     }
 
     //BUTTONS
@@ -220,8 +220,7 @@ function popupuUpdateTrainer() {
 
     function changeTrainer() {
         //TRAINERS
-        let trainers = JSON.parse(window.localStorage.getItem("trainers"));
-        for (let trainer of trainers) {
+        for (let trainer of myStorage.trainers) {
             if (trainer.id == select.value) {
                 fname.value = trainer.fname;
                 lname.value = trainer.lname;
@@ -317,9 +316,7 @@ function popupuUpdateTrainer() {
 
     let remove = popup.querySelector(".removeTrainer");
     remove.addEventListener("click", () => {
-        console.log(select.value);
-        popupQuestion("Czy na pewno chcesz usunąć trenera?", ["Nie", () => { return 0 }], ["Tak", () => { deleteTrainer(select.value); return select.value; }]);
-        // deleteTrainer(select.value);
+        popupQuestion("Czy na pewno chcesz usunąć trenera?", ["Nie", () => { return 0; }], ["Tak", () => { deleteTrainer(select.value); return select.value; }]);
     });
 
     let submit = popup.querySelector(".updateTrainer");
@@ -359,8 +356,7 @@ function popupuUpdateStyle() {
 
     function changeStyle() {
         //STYLES
-        let styles = JSON.parse(window.localStorage.getItem("styles"));
-        for (let style of styles) {
+        for (let style of myStorage.styles) {
             if (style.id == select.value) {
                 name.value = style.name;
                 desc.value = style.description;
@@ -380,7 +376,7 @@ function popupuUpdateStyle() {
 
     let remove = popup.querySelector(".removeStyle");
     remove.addEventListener("click", () => {
-        popupQuestion("Czy na pewno chcesz usunąć styl?", ["Nie", () => { return 0 }], ["Tak", () => { deleteStyle(select.value); return select.value; }]);
+        popupQuestion("Czy na pewno chcesz usunąć styl?", ["Nie", () => { return 0; }], ["Tak", () => { deleteStyle(select.value); return select.value; }]);
         // deleteStyle(select.value);
     });
 
@@ -437,7 +433,7 @@ function popupQuestion(...datas) {
         btn.onclick = () => {
             datas[i][1]();
             close();
-        }
+        };
         answerList.appendChild(btn);
     }
     return datas;

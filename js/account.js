@@ -36,7 +36,7 @@ function checkRegister() {
             console.log("Wrong");
             event.preventDefault();
         }
-    })
+    });
 }
 
 checkRegister();

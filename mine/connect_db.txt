@@ -1,0 +1,13 @@
+<?php
+
+$dsn = "mysql:host=localhost;dbname=id10149676_danceacademy13;port=3306";
+$user = "id10149676_jbartos13";
+$password = "Hh<tdlPW%]T}80nb";
+
+try {
+    $db = new PDO($dsn, $user, $password);
+} catch (PDOException $ex) {
+    $info=$ex->getMessage();
+    header("Location: error.php/?err=$info");
+    die();
+}

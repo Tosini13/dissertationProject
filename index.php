@@ -4,6 +4,12 @@
 session_start();
 require_once('php/connect_database.php');
 
+if (!isset($_SESSION['login'])) {
+    unset($_SESSION['rights']);
+} elseif ($_SESSION['login'] == null) {
+    $_SESSION['rights'] = null;
+}
+
 /* -------------------- */
 /*       LOG OUT        */
 /* -------------------- */
@@ -37,7 +43,7 @@ if (isset($_GET['logout'])) {
     </header>
     <main id="index_content">
         <section id="about_us">
-            <h2 class="title">DANCE ACADEMY</h2>
+            <h2 class="title">Accademia di Bellerino</h2>
             <div class="content_borders views">
                 <p>
                     Współczesna dziedzina informatyki cechuje się ogromną różnorodnością, w dodatku używaną na co dzień wielu innych dziedzinach nauk i życia. Jedną z nich jest webmastering, czyli projektowanie, wdrożenie i rozwój serwisów internetowych, z którą jest powiązanych szereg możliwości rozwiązań i jeszcze większej ilości problemów. Na pewno szybkość działania strony, wybór i pozycja w przeglądarce, ilość osób odwiedzających serwis wraz z ilością danych i doborem odpowiedniego hostingu, aż w końcu bezpieczeństwo przechowywania danych. W dobie dzisiejszych możliwości jak i regulacji prawnych, dane muszą być przechowywane i chronione w odpowiedni sposób.
@@ -199,16 +205,28 @@ if (isset($_GET['logout'])) {
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <!-- JSX -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
     <!-- SLIDER -->
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <!-- MOJE -->
-    <script src="js/styles.js" type="text/babel"></script>
-    <script src="js/classes.js" type="text/javascript"></script>
-    <script src="js/funcitons.js" type="text/javascript"></script>
+    <script src="js/JsStyles.js" type="text/javascript"></script>
+    <?php
+    if (isset($_SESSION['login']) && ($_SESSION['login'] != null)) {
+    ?>
+        <script src="js/user.js" type="text/javascript" crossorigin="anonymous"></script>
+    <?php
+    }
+    ?>
+    <!-- <script src="js/styles.js" type="text/babel"></script> -->
+    <script src="js/classes.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script src="js/funcitons.js" type="text/javascript">
+    </script>
     <script src="js/popup.js" type="text/javascript"></script>
-    <script src="js/modifyEvent.js" type="text/babel"></script>
-    <script src="js/timetable.js" type="text/babel"></script>
+    <!-- <script src="js/modifyEvent.js" type="text/babel"></script> -->
+    <!-- <script src="js/timetable.js" type="text/babel"></script> -->
+    <script src="js/JsModifyEvent.js" type="text/javascript"></script>
+    <script src="js/JsTimetable.js" type="text/javascript"></script>
+
     <!-- SLIDER -->
     <script>
         $(document).ready(function() {

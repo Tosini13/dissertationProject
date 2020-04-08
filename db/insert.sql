@@ -19,4 +19,4 @@ select trainer.login as 'trainer', dance_style.id as 'id', time_table.id as 'eve
 */
 
 
-select * from dance_style;
+select * from trainer;

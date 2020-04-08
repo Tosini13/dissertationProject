@@ -11,8 +11,7 @@ function addParticipant() {
             } else {
                 showPopupAnswer("Oj, coś poszło nie tak...");
             }
-
-        })
+        });
 }
 
 function removeUserFromEvent() {
@@ -27,46 +26,12 @@ function removeUserFromEvent() {
             } else {
                 showPopupAnswer("Oj, coś poszło nie tak...");
             }
-        })
+        });
 }
-
-function IfLoggedIn() {
-    if (sessionStorage.getItem('login')) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// LOGIN
-
-function setLogin() {
-    fetch("php/accountManager.php?ifLoggedIn")
-        .then((response) => {
-            return response.text();
-        })
-        .then((data) => {
-            console.log(data);
-            if (data) {
-                sessionStorage.setItem('login', data);
-                user.getUserEvents();
-                return true;
-            } else {
-                sessionStorage.removeItem('login');
-                return false;
-            }
-        })
-}
-setLogin();
-function logout() {
-    sessionStorage.removeItem('login');
-}
-
 
 // TOGGLE SUB
 function toggleEvents() {
     let days = document.querySelectorAll('#timetableEvents .btn');
-    console.log(days);
     for (let day of days) {
         day.addEventListener('click', toggleEvent);
     }
@@ -84,7 +49,7 @@ function show_style(obj) {
     function closeAll() {
         $('#styles p').each(function () {
             $(this).slideUp("fast");
-        })
+        });
     }
     if ($(obj).next("p").css("display") === "none") {
         closeAll();
@@ -102,12 +67,12 @@ function showStyle() {
 
     function toggleStyle() {
         if (this.nextElementSibling.classList.contains('showStyle')) {
-            this.nextElementSibling.classList.remove('showStyle')
+            this.nextElementSibling.classList.remove('showStyle');
         } else {
             for (let style of styles) {
                 style.nextElementSibling.classList.remove('showStyle');
             }
-            this.nextElementSibling.classList.add('showStyle')
+            this.nextElementSibling.classList.add('showStyle');
         }
     }
 }
@@ -126,12 +91,3 @@ function buttonPress() {
     }
 }
 buttonPress();
-
-// ON LOAD!
-// window.onload = function () {
-// };
-
-// ON SCROLL
-window.onscroll = function () {
-    scrollFunction();
-};
