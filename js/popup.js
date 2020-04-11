@@ -61,8 +61,11 @@ function initEventEdition(id, trainer, style, date) {
 
     styleSelect.value = style;
 
+    console.log(date);
+    let eventDate = moment(date, "YYYY-MM-DD HH:mm:ss");
     let today = new Date(date);
-    dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
+    // dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
+    dateInput.value = eventDate.format("YYYY-MM-DD HH:mm:ss");
 
     function temp() {
         let trainerId = popup.querySelector(".trainer").value;

@@ -149,8 +149,8 @@ header nav {
 }
 header nav > img {
   display: block;
-  width: calc(100% - 100px);
-  height: auto;
+  max-height: 50px;
+  max-width: 500px;
   border: white solid 1px;
 }
 header nav > ul {
@@ -303,12 +303,15 @@ main #prices .price_list > table {
   margin-left: auto;
   margin-right: auto;
 }
-main #prices .price_list > table th {
+main #prices .price_list > table tbody {
+  border: transparent solid;
+}
+main #prices .price_list > table tbody th {
   background-color: rgba(0, 0, 0, 0.1);
   border: rgba(0, 0, 0, 0.3) solid 1.5px;
   padding: 5px;
 }
-main #prices .price_list > table td {
+main #prices .price_list > table tbody td {
   border: rgba(0, 0, 0, 0.3) solid 1.5px;
   padding: 5px;
 }
@@ -544,7 +547,6 @@ footer #contact div a i {
   background-color: #1a1524;
   display: block;
   margin: 0px auto;
-  margin-left: initial;
   flex: 0 auto;
 }
 .bigPopups .popupHeader {
@@ -562,7 +564,7 @@ footer #contact div a i {
   padding: 0px 20px;
   overflow: hidden;
   display: block;
-  height: calc(100% - 112px);
+  height: calc(90% - 112px);
 }
 .bigPopups .mainList > li {
   width: 100%;
@@ -637,6 +639,7 @@ footer #contact div a i {
 }
 #updateEvent #eventsToUpdate {
   width: 100%;
+  overflow-y: scroll;
 }
 #updateEvent #eventsToUpdate > li {
   display: flex;
@@ -662,6 +665,9 @@ footer #contact div a i {
 }
 #updateEvent #eventsToUpdate > li > .eventDashboard > a {
   display: block;
+}
+#updateEvent #eventsToUpdate > li:last-child {
+  border-bottom: none;
 }
 #updateEvent .close {
   z-index: 3;
@@ -721,14 +727,15 @@ footer #contact div a i {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100vw - 70px);
   min-height: 10vh;
   background-color: #1a1524;
   z-index: 3;
-  transform: translate(0px, -100%);
+  transform: translate(-150%, 0%);
   text-align: center;
   padding: 10px;
   box-sizing: border-box;
+  border-bottom-right-radius: 10px;
   transition-property: transform;
   transition-duration: 0.5s;
 }
@@ -741,43 +748,9 @@ footer #contact div a i {
   left: 0;
   top: 0;
 }
-@media (min-width: 981px) {
-  header nav ul li:hover ul {
-    transform: translate(0px, 0px);
-  }
-  header nav ul li:hover > .btn {
-    color: white;
-    border-bottom-width: 1px;
-  }
-  #container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  /* ------------------------------ */
-  /*          SCROLLBAR             */
-  /* ------------------------------ */
-  /* width */
-  ::-webkit-scrollbar {
-    width: 15px;
-  }
-  /* track */
-  ::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  /* handle */
-  ::-webkit-scrollbar-thumb {
-    background-color: #1a1524;
-  }
-  /* handle hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-  }
-}
 @media (min-width: 650px) {
   header {
     margin-bottom: 100px;
-    z-index: 1;
   }
   header #hamburger {
     display: none;
@@ -807,7 +780,7 @@ footer #contact div a i {
     color: rgba(255, 255, 255, 0.5);
   }
   header nav > ul > li .submenuOpen {
-    transform: translate(200%, 0%);
+    transform: translate(0%, 0%);
   }
   header nav > ul > li > ul {
     margin-top: 20px;
@@ -819,9 +792,6 @@ footer #contact div a i {
     border-bottom-right-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
   }
-  header nav > ul > li > ul > li > .btn:hover {
-    color: white;
-  }
   header nav > ul > li > ul > li > div {
     display: flex;
     flex-direction: row;
@@ -830,18 +800,11 @@ footer #contact div a i {
     transform: translate(-50%, 0%);
     top: -100%;
     width: 100%;
-    opacity: 0;
-    -webkit-transition-property: opacity;
-    -webkit-transition-duration: 0.5s;
-    transition-property: opacity;
-    transition-duration: 0.5s;
+    opacity: 1;
   }
   header nav > ul > li > ul > li:nth-child(even) > div {
     left: 50%;
     transform: translate(-50%, 0%);
-  }
-  header nav > ul > li > ul > li:hover > div {
-    opacity: 1;
   }
   header nav > ul > li > ul:before {
     content: "";
@@ -851,9 +814,6 @@ footer #contact div a i {
     position: absolute;
     top: 0;
     transform: translate(0px, -100%);
-  }
-  header nav > ul > li .submenuOpen {
-    transform: translate(200%, 0%);
   }
   main #about_us h2 {
     margin-top: 50px;
@@ -879,22 +839,26 @@ footer #contact div a i {
     margin-left: auto;
     margin-right: auto;
   }
+  main #styles > div > div > div > .btn:hover {
+    color: white;
+    border-bottom-width: 2px;
+  }
   main #styles > div > div > div > .list {
     display: block;
     position: absolute;
     width: 50%;
     right: -60%;
     top: 45%;
-    transform: translate(200%, -50%);
+    transform: translate(0%, -50%);
     border-top: white solid 1px;
     border-radius: 10px;
-    -webkit-transition-property: transform;
-    -webkit-transition-duration: 0.5s;
-    transition-property: transform;
-    transition-duration: 0.5s;
+    height: auto;
+    max-height: 0px;
+    -webkit-transition: max-height 1s;
+    transition: max-height 1s;
   }
   main #styles > div > div > div > .descOpened {
-    transform: translate(0px, -50%);
+    max-height: 100%;
   }
   main #timetable #week {
     justify-content: center;
@@ -956,5 +920,54 @@ footer #contact div a i {
     max-width: 500px;
     right: 0;
     left: auto;
+  }
+}
+@media (min-width: 981px) {
+  header nav > ul > li > ul > li > .btn:hover {
+    color: white;
+  }
+  header nav > ul > li > ul > li > div {
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+  }
+  header nav > ul > li > ul > li:hover > div {
+    opacity: 1;
+  }
+  header nav > ul > li .submenuOpen {
+    transform: translate(200%, 0%);
+  }
+  header nav > ul > li:hover ul {
+    transform: translate(0px, 0px);
+  }
+  header nav > ul > li:hover > .btn {
+    color: white;
+    border-bottom-width: 1px;
+  }
+  #container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  /* ------------------------------ */
+  /*          SCROLLBAR             */
+  /* ------------------------------ */
+  /* width */
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+  /* track */
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  /* handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #1a1524;
+  }
+  /* handle hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4);
   }
 }

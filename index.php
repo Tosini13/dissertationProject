@@ -126,6 +126,9 @@ if (isset($_GET['logout'])) {
         <!--                            TIMETABLE                                -->
         <!-- ******************************************************************* -->
         <section id='timetable'>
+            <div id="dupa">
+
+            </div>
             <h2 class="title">PLAN ZAJĘĆ</h2>
             <div class="dashboard">
                 <div>
@@ -213,19 +216,19 @@ if (isset($_GET['logout'])) {
     <?php
     if (isset($_SESSION['login']) && ($_SESSION['login'] != null)) {
     ?>
-        <script src="js/user.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script src="js/user.js" type="text/javascript"></script>
     <?php
     }
     ?>
     <!-- <script src="js/styles.js" type="text/babel"></script> -->
-    <script src="js/classes.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script src="js/JsModifyEvent.js" type="text/javascript"></script>
+    <script src="js/JsTimetable.js" type="text/javascript"></script>
+    <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript">
     </script>
     <script src="js/popup.js" type="text/javascript"></script>
     <!-- <script src="js/modifyEvent.js" type="text/babel"></script> -->
     <!-- <script src="js/timetable.js" type="text/babel"></script> -->
-    <script src="js/JsModifyEvent.js" type="text/javascript"></script>
-    <script src="js/JsTimetable.js" type="text/javascript"></script>
 
     <!-- SLIDER -->
     <script>
@@ -235,8 +238,8 @@ if (isset($_GET['logout'])) {
                 nextArrow: '<i class="demo-icon icon-ico_arrow-right slick-my-prev"></i>',
                 slidesToShow: 3,
                 slidesToScroll: 3,
-                autoplay: false,
-                autoplaySpeed: 5000,
+                autoplay: true,
+                autoplaySpeed: 3000,
                 dots: true,
                 arrows: false,
                 responsive: [{
@@ -262,7 +265,7 @@ if (isset($_GET['logout'])) {
     </script>
 
     <?php
-    if (isset($_SESSION['rights']) && !strcmp($_SESSION['rights'], "admin")) {
+    // if (isset($_SESSION['rights']) && !strcmp($_SESSION['rights'], "admin")) {
     ?>
         <!-- CALENDAR -->
         <script src="calendar/moment.min.js" type="text/javascript"></script>
@@ -283,7 +286,7 @@ if (isset($_GET['logout'])) {
             });
         </script>
     <?php
-    }
+    // }
     ?>
 </body>
 

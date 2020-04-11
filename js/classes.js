@@ -102,8 +102,8 @@ class Calendar {
             this.weekdays[num]; //day
             eventArr[num] = [];
             for (let key in data) {
-                let date = new Date(data[key].date);
-                if (num == date.getDay()) {
+                let eventDate = moment(data[key].date, "YYYY-MM-DD HH:mm:ss");
+                if (num == eventDate.day()) {
                     let event = new Event();
                     //ADD NAME
                     event.danceName = data[key].dance;
@@ -113,7 +113,6 @@ class Calendar {
                     event.trainer = data[key].trainer; //data-event-trainer
                     event.date = data[key].date; //data-event-date
                     eventArr[num].push(event);
-                    // person.addEventListener("click", createPopup);
                 }
             }
         }
@@ -565,8 +564,33 @@ function closePopups() {
     }
 }
 
+// function addEvent(style, trainer, date) {
+//     fetch("php/eventManager.php?addEvent=" + true + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
+//         .then((response) => {
+//             return response.text()
+//         })
+//         .then((data) => {
+//             console.log(data);
+//             if (parseInt(data) === 1) {
+//                 setTip("Dodałeś wydarzenie!");
+//                 closePopups();
+//                 calendar.getEvents();
+//             } else {
+//                 setTip("Oj, coś poszło nie tak...");
+//             }
+//         });
+// }
+
 function addEvent(style, trainer, date) {
-    fetch("php/eventManager.php?addEvent=" + true + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
+    const formData = new FormData();
+    formData.append("addEvent", true);
+    formData.append("styleId", style);
+    formData.append("trainerId", trainer);
+    formData.append("date", date);
+    fetch("php/eventManager.php", {
+        method: "post",
+        body: formData
+    })
         .then((response) => {
             return response.text()
         })
@@ -582,8 +606,24 @@ function addEvent(style, trainer, date) {
         });
 }
 
+
 function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
-    fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photo.name)
+    const formData = new FormData();
+    formData.append("addTrainer", true);
+    formData.append("fname", fname);
+    formData.append("lname", lname);
+    formData.append("login", login);
+    formData.append("phone", phone);
+    formData.append("desc", desc);
+    formData.append("fb", fb);
+    formData.append("insta", insta);
+    formData.append("yt", yt);
+    formData.append("twitter", twitter);
+    formData.append("photo", photo.name);
+    fetch("php/eventManager.php", {
+        method: "post",
+        body: formData
+    })
         .then((response) => {
             return response.text();
         })
@@ -620,12 +660,76 @@ function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, ph
     })
 }
 
+
+// function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
+//     fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photo.name)
+//         .then((response) => {
+//             return response.text();
+//         })
+//         .then((data) => {
+//             if (parseInt(data) === 1) {
+//                 setTip("Dodałeś trenera!");
+//                 getTrainers();
+//                 closePopups();
+//             } else {
+//                 setTip("Oj, coś poszło nie tak...");
+//                 let response = document.createElement('div');
+//                 response.classList.add('AjaxRes');
+//                 response.innerHTML = data;
+//                 document.body.appendChild(response);
+//             }
+//         });
+
+//     var form_data = new FormData();
+//     form_data.append("photo", photo);
+//     $.ajax({
+//         url: "php/filesManager.php",
+//         method: "POST",
+//         data: form_data,
+//         contentType: false,
+//         cache: false,
+//         processData: false,
+//         success: (data) => {
+//             // let response = document.createElement('div');
+//             // response.classList.add('AjaxRes');
+//             // response.innerHTML = data;
+//             // document.body.appendChild(response);
+//             console.log(data);
+//         }
+//     })
+// }
+
+// function addStyle(name, desc) {
+//     fetch("php/eventManager.php?addStyle=" + true + "&name=" + name + "&description=" + desc)
+//         .then((response) => {
+//             return response.text()
+//         })
+//         .then((data) => {
+//             console.log(data);
+//             if (parseInt(data) === 1) {
+//                 setTip("Dodałeś styl!");
+//                 getStyles();
+//                 closePopups();
+//             } else {
+//                 setTip("Oj, coś poszło nie tak...");
+//             }
+//         });
+// }
+
 function addStyle(name, desc) {
-    fetch("php/eventManager.php?addStyle=" + true + "&name=" + name + "&description=" + desc)
+    const formData = new FormData();
+    formData.append("addStyle", true);
+    formData.append("name", name);
+    formData.append("description", desc);
+    fetch("php/eventManager.php", {
+        method: "POST",
+        body: formData
+    })
         .then((response) => {
             return response.text()
         })
         .then((data) => {
+            console.log("POST");
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Dodałeś styl!");
@@ -637,13 +741,23 @@ function addStyle(name, desc) {
         });
 }
 
+
+
 //UPDATE
 
 function updateEvent(id, style, trainer, date) {
-    console.log(id, style, trainer, date);
-    fetch("php/eventManager.php?updateEvent=" + true + "&id=" + id + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
+    const formData = new FormData();
+    formData.append("updateEvent", true);
+    formData.append("id", id);
+    formData.append("styleId", style);
+    formData.append("trainerId", trainer);
+    formData.append("date", date);
+    fetch("php/eventManager.php", {
+        method: "post",
+        body: formData
+    })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
             console.log(data);
@@ -664,11 +778,25 @@ function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter,
     } else {
         photoName = photo.name;
     }
-    // photoName="trainer.jpg";
-    console.log("php/eventManager.php?updateTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photoName + "&id=" + id);
-    fetch("php/eventManager.php?updateTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photoName + "&id=" + id)
+    const formData = new FormData();
+    formData.append("updateTrainer", true);
+    formData.append("fname", fname);
+    formData.append("lname", lname);
+    formData.append("login", login);
+    formData.append("phone", phone);
+    formData.append("desc", desc);
+    formData.append("fb", fb);
+    formData.append("insta", insta);
+    formData.append("yt", yt);
+    formData.append("twitter", twitter);
+    formData.append("photo", photoName);
+    formData.append("id", id);
+    fetch("php/eventManager.php", {
+        method: "post",
+        body: formData
+    })
         .then((response) => {
-            return response.json();
+            return response.text();
         })
         .then((data) => {
             console.log(data);
@@ -703,9 +831,17 @@ function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter,
 }
 
 function updateStyle(id, name, desc) {
-    fetch("php/eventManager.php?updateStyle=" + true + "&id=" + id + "&name=" + name + "&description=" + desc)
+    const formData = new FormData();
+    formData.append("updateStyle", true);
+    formData.append("name", name);
+    formData.append("description", desc);
+    formData.append("id", id);
+    fetch("php/eventManager.php", {
+        method: "POST",
+        body: formData
+    })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
             console.log(data);
@@ -723,7 +859,12 @@ function updateStyle(id, name, desc) {
 // REMOVE
 
 function deleteEvent(id) {
-    fetch("php/eventManager.php?deleteEvent=" + id)
+    const formData = new FormData();
+    formData.append("deleteEvent", id);
+    fetch("php/eventManager.php", {
+        method: "POST",
+        body: formData
+    })
         .then((response) => {
             return response.text()
         })
@@ -732,6 +873,7 @@ function deleteEvent(id) {
             if (parseInt(data) === 1) {
                 setTip("Usunąłeś wydarzenie!");
                 closePopups();
+                calendar.getEvents();
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
@@ -739,7 +881,12 @@ function deleteEvent(id) {
 }
 
 function deleteTrainer(id) {
-    fetch("php/eventManager.php?deleteTrainer=" + id)
+    const formData = new FormData();
+    formData.append("deleteTrainer", id);
+    fetch("php/eventManager.php", {
+        method: "POST",
+        body: formData
+    })
         .then((response) => {
             return response.text()
         })
@@ -756,11 +903,17 @@ function deleteTrainer(id) {
 }
 
 function deleteStyle(id) {
-    fetch("php/eventManager.php?deleteStyle=" + id)
+    const formData = new FormData();
+    formData.append("deleteStyle", id);
+    fetch("php/eventManager.php", {
+        method: "POST",
+        body: formData
+    })
         .then((response) => {
             return response.text()
         })
         .then((data) => {
+            console.log("POST");
             console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Usunąłeś styl!");

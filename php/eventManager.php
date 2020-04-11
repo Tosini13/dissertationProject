@@ -37,10 +37,10 @@ if (isset($_GET["from"]) && isset($_GET["to"])) {
 }
 
 // SET EVENTS
-if (isset($_GET["addEvent"])) {
-    $styleId = $_GET['styleId'];
-    $trainerId = $_GET['trainerId'];
-    $date = $_GET['date'];
+if (isset($_POST["addEvent"])) {
+    $styleId = $_POST['styleId'];
+    $trainerId = $_POST['trainerId'];
+    $date = $_POST['date'];
     try {
         $result = $db->prepare("insert into time_table(trainer_id, dance_style, date_and_time) values(:trainerId, :styleId, :date)");
         $result->bindParam(":styleId", $styleId);
@@ -54,11 +54,11 @@ if (isset($_GET["addEvent"])) {
 }
 
 // UPDATE EVENTS
-if (isset($_GET["updateEvent"])) {
-    $id = $_GET['id'];
-    $styleId = $_GET['styleId'];
-    $trainerId = $_GET['trainerId'];
-    $date = $_GET['date'];
+if (isset($_POST["updateEvent"])) {
+    $id = $_POST['id'];
+    $styleId = $_POST['styleId'];
+    $trainerId = $_POST['trainerId'];
+    $date = $_POST['date'];
     try {
         $result = $db->prepare("update time_table set trainer_id = :trainerId, dance_style = :styleId, date_and_time = :date where id=:id");
         $result->bindParam(":id", $id);
@@ -73,8 +73,8 @@ if (isset($_GET["updateEvent"])) {
 }
 
 // DELETE EVENTS
-if (isset($_GET["deleteEvent"])) {
-    $id = $_GET['deleteEvent'];
+if (isset($_POST["deleteEvent"])) {
+    $id = $_POST['deleteEvent'];
     try {
         $result = $db->prepare("delete from time_table where id=:id");
         $result->bindParam(":id", $id);
@@ -181,17 +181,17 @@ if (isset($_GET["removeParticipant"])) {
 }
 
 // SET TRAINER
-if (isset($_GET["addTrainer"])) {
-    $fname = $_GET['fname'];
-    $lname = $_GET['lname'];
-    $login = $_GET['login'];
-    $desc = $_GET['desc'];
-    $phone = $_GET['phone'];
-    $fb = $_GET['fb'];
-    $insta = $_GET['insta'];
-    $yt = $_GET['yt'];
-    $twitter = $_GET['twitter'];
-    $photo = $_GET['photo'];
+if (isset($_POST["addTrainer"])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $login = $_POST['login'];
+    $phone = $_POST['phone'];
+    $desc = $_POST['desc'];
+    $fb = $_POST['fb'];
+    $insta = $_POST['insta'];
+    $yt = $_POST['yt'];
+    $twitter = $_POST['twitter'];
+    $photo = $_POST['photo'];
 
 
     try {
@@ -228,9 +228,9 @@ if (isset($_GET["getTrainers"])) {
 }
 
 // DELETE TRAINER
-if (isset($_GET["deleteTrainer"])) {
+if (isset($_POST["deleteTrainer"])) {
     $response = "";
-    $id = $_GET["deleteTrainer"];
+    $id = $_POST["deleteTrainer"];
     try {
         $result = $db->prepare("delete from trainer where id=:id");
         $result->bindParam(":id", $id);
@@ -242,18 +242,18 @@ if (isset($_GET["deleteTrainer"])) {
 }
 
 // UPDATE TRAINER
-if (isset($_GET["updateTrainer"])) {
-    $id = $_GET['id'];
-    $fname = $_GET['fname'];
-    $lname = $_GET['lname'];
-    $login = $_GET['login'];
-    $desc = $_GET['desc'];
-    $phone = $_GET['phone'];
-    $fb = $_GET['fb'];
-    $insta = $_GET['insta'];
-    $yt = $_GET['yt'];
-    $twitter = $_GET['twitter'];
-    $photo = $_GET['photo'];
+if (isset($_POST["updateTrainer"])) {
+    $id = $_POST['id'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $login = $_POST['login'];
+    $desc = $_POST['desc'];
+    $phone = $_POST['phone'];
+    $fb = $_POST['fb'];
+    $insta = $_POST['insta'];
+    $yt = $_POST['yt'];
+    $twitter = $_POST['twitter'];
+    $photo = $_POST['photo'];
 
 
     try {
@@ -286,9 +286,9 @@ if (isset($_GET["updateTrainer"])) {
 
 
 // SET STYLE
-if (isset($_GET["addStyle"])) {
-    $name = $_GET['name'];
-    $description = $_GET['description'];
+if (isset($_POST["addStyle"])) {
+    $name = $_POST['name'];
+    $description = $_POST['description'];
     try {
         $result = $db->prepare("insert into dance_style(name, description) values(:name, :desc);");
         $result->bindParam(":name", $name);
@@ -314,9 +314,9 @@ if (isset($_GET["getStyles"])) {
 }
 
 // DELETE STYLE
-if (isset($_GET["deleteStyle"])) {
+if (isset($_POST["deleteStyle"])) {
     $response = "";
-    $id = $_GET["deleteStyle"];
+    $id = $_POST["deleteStyle"];
     try {
         $result = $db->prepare("delete from dance_style where id=:id");
         $result->bindParam(":id", $id);
@@ -328,10 +328,10 @@ if (isset($_GET["deleteStyle"])) {
 }
 
 // UPDATE STYLE
-if (isset($_GET["updateStyle"])) {
-    $id = $_GET['id'];
-    $name = $_GET['name'];
-    $description = $_GET['description'];
+if (isset($_POST["updateStyle"])) {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
     try {
         $result = $db->prepare("update dance_style set name=:name, description=:desc where id=:id");
         $result->bindParam(":name", $name);
