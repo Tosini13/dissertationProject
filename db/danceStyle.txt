@@ -1,0 +1,8 @@
+insert into dance_style(name, description) values("Dancehall", "Energiczny, inspirowany na muzyce reggae styl tańca wywodzący się z Jamajki. Jedną z ważniejszych umiejętności, które nauczycie się na zajęciach z Dancehall jest izolowanie ruchów całego ciała, dzięki czemu łatwiej jest zmieniać style.");
+
+insert into dance_style(name, description) values("Bachata", "Taniec rodem z Karaibów, a konkretnie z Dominikany. Wyróżnia się zmysłowymi ruchami, które wymagają niesamowitej wprawy fizycznej jak i psychicznej podczas tańca.");
+
+insert into dance_style(name, description) values("Samba", "Towarzyski taniec wywodzący się z Brazylii, który manifestuje wolność i radość życia. Ucząc się samby, zdobędziesz umiejętności kolektywnego tańca w parze.");
+
+insert into dance_style(name, description) values("Rumba", "Taniec towarzyski pochodzący z Kuby, zawierający erotyczne elemnty, które jednak wymagają dobrej koordynacji ruchowej jak i śmiałości partnerów.");
+

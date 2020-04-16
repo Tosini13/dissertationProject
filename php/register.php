@@ -30,9 +30,11 @@ if (isset($_GET['error'])) {
             <label for="login">Login:</label>
             <input class="login" type="text" name="login" placeholder="login" required pattern="(?!.*\W)(?!.*\s).{5,}" title="Login musi zawierać przynajmniej 5 znaków w tym żadnych znaków specjalnych">
             <label for="email">Email:</label>
-            <input class="email" type="email" name="email" placeholder="e-mail" required pattern="(?!.*\s).{3,}" title="Nie poprawny adres email">
+            <input class="email" type="email" name="email" placeholder="e-mail"
+             required pattern="(?!.*\s).{3,}" title="Nie poprawny adres email">
             <label for="password">Hasło:</label>
-            <input class="password" type="password" name="password" placeholder="hasło" required pattern="(?=.*\W)(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Hasło musi zawierać przynajmniej jedną wielką literę, małą literę, cyfrę, znak specjalny i mieć długość przynajmniej 8 znaków.">
+            <input class="password" type="password" name="password" placeholder="hasło" required pattern="(?=.*\W)(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+            title="Hasło musi zawierać przynajmniej jedną wielką literę, małą literę, cyfrę, znak specjalny i mieć długość przynajmniej 8 znaków.">
             <label for="password">Powtórz hasło:</label>
             <input class="passwordRepeat" type="password" name="passwordRepeat" placeholder="hasło" required>
             <button class="btn" type="submit" name="register_submit">Zarejestruj</button>

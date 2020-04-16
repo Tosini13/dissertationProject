@@ -1,12 +1,16 @@
 <?php
 session_start();
 require_once "connect_database.php";
+define("LOGIN_QUERY", "select login, password, rights from users where login=:login or email=:login");
+define("LOGIN_CHECK_QUERY", "select login from users where login=:login or email=:email");
+define("REGISTER_QUERY", "insert into users(login,email,password) values(:login,:email,:password)");
+
 
 //LOGIN
 if (isset($_POST["login_submit"])) {
     $login = $_POST["login"];
     $password = $_POST["password"];
-    $result = $db->prepare("select login, password, rights from users where login=:login or email=:login");
+    $result = $db->prepare(LOGIN_QUERY);
     $result->bindParam(":login", $login);
     $result->execute();
     if ($result->rowCount()) {
@@ -36,7 +40,7 @@ if (isset($_POST["login_submit"])) {
 if (isset($_POST["register_submit"])) {
     $login = $_POST["login"];
     $email = $_POST["email"];
-    $result = $db->prepare("select login from users where login=:login or email=:email");
+    $result = $db->prepare(LOGIN_CHECK_QUERY);
     $result->bindParam(":login", $login);
     $result->bindParam(":email", $email);
     $result->execute();
@@ -48,7 +52,7 @@ if (isset($_POST["register_submit"])) {
     } else {
         $password = $_POST["password"];
         $password = password_hash($password, PASSWORD_BCRYPT);
-        $result = $db->prepare("insert into users(login,email,password) values(:login,:email,:password)");
+        $result = $db->prepare(REGISTER_QUERY);
         $result->bindParam(":login", $login);
         $result->bindParam(":email", $email);
         $result->bindParam(":password", $password);

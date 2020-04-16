@@ -1,6 +1,4 @@
 <?php
-// clearstatcache();
-// header('Cache-Control: no-store');
 session_start();
 require_once('php/connect_database.php');
 
@@ -46,8 +44,9 @@ if (isset($_GET['logout'])) {
             <h2 class="title">Accademia di Bellerino</h2>
             <div class="content_borders views">
                 <p>
-                    Współczesna dziedzina informatyki cechuje się ogromną różnorodnością, w dodatku używaną na co dzień wielu innych dziedzinach nauk i życia. Jedną z nich jest webmastering, czyli projektowanie, wdrożenie i rozwój serwisów internetowych, z którą jest powiązanych szereg możliwości rozwiązań i jeszcze większej ilości problemów. Na pewno szybkość działania strony, wybór i pozycja w przeglądarce, ilość osób odwiedzających serwis wraz z ilością danych i doborem odpowiedniego hostingu, aż w końcu bezpieczeństwo przechowywania danych. W dobie dzisiejszych możliwości jak i regulacji prawnych, dane muszą być przechowywane i chronione w odpowiedni sposób.
-                    Jak zatem stworzyć bezpieczną aplikację webową do zarządzania profilowaną szkołą?
+                    Szkoła tańca Accademia di Ballerino została założona w 2000 roku przez znanego włoskiego tancerza Francesco Cotadiniego.
+                    Był jednym z najlepszych w Europie tancerzy latynoskich. Tak i szkoła odziedziczyła po nim style tańca w tym klimacie.
+                    Szkoła oferuje treningi prowadzone przez jednych z najlepszych trenerów w Polsce w zakresie stylów latynoskich.
                 </p>
             </div>
         </section>
@@ -190,6 +189,13 @@ if (isset($_GET['logout'])) {
                     </table>
                     <p>* Udział w pojedynczych lekcjach wynosi 20zł za jedną jednostkę treningową obejmuje każdy styl tańca (czas trwania treningu to 1 godzina)<br><span class="emphasise">(Pierwsza lekcja gratis!!!)</span></p>
                     <p>* Koszty są wyrażone w zł i przedstawiona jest cena obejmująca cały kurs<br>(czas trwania w opisie kursu)</p>
+                    <p>
+                        Nr konta Accademia di Ballerino:
+                        00 0000 0000 0000 0000 0000 0000
+                    </p>
+                    <p>
+                        w tytule wpłaty proszę podać imię, nazwisko i określić jakiego kursu dotyczy wpłata.
+                    </p>
                 </div>
             </div>
         </section>
@@ -267,24 +273,24 @@ if (isset($_GET['logout'])) {
     <?php
     // if (isset($_SESSION['rights']) && !strcmp($_SESSION['rights'], "admin")) {
     ?>
-        <!-- CALENDAR -->
-        <script src="calendar/moment.min.js" type="text/javascript"></script>
-        <script src="calendar/daterangepicker.js" type="text/javascript"></script>
-        <script>
-            $(function() {
-                $('input[name="createDateEvent"]').daterangepicker({
-                    singleDatePicker: true,
-                    timePicker: true,
-                    showDropdowns: true,
-                    timePicker24Hour: true,
-                    minYear: parseInt(moment().format('YYYY'), 10),
-                    maxYear: 2025,
-                    locale: {
-                        format: 'YYYY-MM-DD HH:mm'
-                    }
-                });
+    <!-- CALENDAR -->
+    <script src="calendar/moment.min.js" type="text/javascript"></script>
+    <script src="calendar/daterangepicker.js" type="text/javascript"></script>
+    <script>
+        $(function() {
+            $('input[name="createDateEvent"]').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                showDropdowns: true,
+                timePicker24Hour: true,
+                minYear: parseInt(moment().format('YYYY'), 10),
+                maxYear: 2025,
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm'
+                }
             });
-        </script>
+        });
+    </script>
     <?php
     // }
     ?>

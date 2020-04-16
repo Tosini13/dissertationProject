@@ -232,6 +232,9 @@ if (isset($_POST["deleteTrainer"])) {
     $response = "";
     $id = $_POST["deleteTrainer"];
     try {
+        // $result1 = $db->prepare("delete from time_table where trainer_id=:id");
+        // $resul1->bindParam(":id", $id);
+        // $response1 = $resul1->execute();
         $result = $db->prepare("delete from trainer where id=:id");
         $result->bindParam(":id", $id);
         $response = $result->execute();
@@ -259,9 +262,11 @@ if (isset($_POST["updateTrainer"])) {
     try {
         //INSERT TO DB
         if ($photo == "") {
-            $result = $db->prepare("update trainer set fname =:fname, lname =:lname, login = :login, description = :desc, phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter where id=:id");
+            $result = $db->prepare("update trainer set 
+            fname =:fname, lname =:lname, login = :login, description = :desc, phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter where id=:id");
         } else {
-            $result = $db->prepare("update trainer set fname =:fname, lname =:lname, login = :login, description = :desc, phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter, photo = :photo where id=:id");
+            $result = $db->prepare("update trainer set fname =:fname, lname =:lname, login = :login, description = :desc, 
+            phone = :phone, fb = :fb, insta = :insta, yt = :yt, twitter = :twitter, photo = :photo where id=:id");
         }
         $result->bindParam(":id", $id);
         $result->bindParam(":fname", $fname);
@@ -318,6 +323,12 @@ if (isset($_POST["deleteStyle"])) {
     $response = "";
     $id = $_POST["deleteStyle"];
     try {
+        // $result2 = $db->prepare("delete from price_list where style_id=:id");
+        // $resul2->bindParam(":id", $id);
+        // $response2 = $resul2->execute();
+        // $result1 = $db->prepare("delete from time_table where dance_style=:id");
+        // $resul1->bindParam(":id", $id);
+        // $response1 = $resul1->execute();
         $result = $db->prepare("delete from dance_style where id=:id");
         $result->bindParam(":id", $id);
         $response = $result->execute();

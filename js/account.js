@@ -19,9 +19,6 @@ function checkRegister() {
     let password = form.getElementsByClassName("password")[0];
     let passwordRepeat = form.getElementsByClassName("passwordRepeat")[0];
 
-    console.log(form);
-    console.log(submit);
-
     function checkPassword() {
         if (password.value.localeCompare(passwordRepeat.value) == 0) {
             return true;

@@ -149,13 +149,13 @@ header nav {
 }
 header nav > img {
   display: block;
-  max-height: 50px;
+  max-height: 100px;
   max-width: 500px;
-  border: white solid 1px;
+  margin: 10px auto;
 }
 header nav > ul {
   display: flex;
-  margin-top: 100px;
+  margin-top: 50px;
   justify-content: space-around;
   position: relative;
 }
@@ -727,7 +727,8 @@ footer #contact div a i {
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100vw - 70px);
+  width: max-content;
+  max-width: calc(100vw - 70px);
   min-height: 10vh;
   background-color: #1a1524;
   z-index: 3;
@@ -766,7 +767,7 @@ footer #contact div a i {
     align-items: center;
   }
   header nav > img {
-    max-width: 400px;
+    max-height: 100%;
   }
   header nav > ul {
     margin-top: 0px;

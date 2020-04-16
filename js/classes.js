@@ -5,6 +5,7 @@ class MyStorage {
         this.styles = [];
     }
 }
+
 //OBJECTS
 var myStorage = new MyStorage();
 
@@ -13,7 +14,7 @@ class Event {
     constructor() {
         this.id = null;
         this.trainer = null;
-        this.danceId = null; //id
+        this.danceId = null;
         this.danceName = null;
         this.date = null;
     }
@@ -84,16 +85,24 @@ class Calendar {
         this.htmlYear1.innerHTML = this.to.getFullYear();
         this.htmlMonth1.innerHTML = this.weeks[this.from.getMonth()];
         this.htmlDay1.innerHTML = this.from.getDate();
-        // this.htmlMonth2.innerHTML = this.to.toLocaleString('default', { month: 'short' });
         this.htmlMonth2.innerHTML = this.weeks[this.to.getMonth()];
         this.htmlDay2.innerHTML = this.to.getDate();
-        this.showDates();
         this.getEvents();
     }
 
     getEvents() {
         let arr = this.showDates();
         this.loadFile("php/eventManager.php?from=" + arr[0] + "&to=" + arr[1]);
+    }
+
+    loadFile(p) {
+        fetch(p)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.orderEvents(data);
+            });
     }
 
     orderEvents(data) {
@@ -117,16 +126,6 @@ class Calendar {
             }
         }
         createEvents(eventArr);
-    }
-
-    loadFile(p) {
-        fetch(p)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                this.orderEvents(data);
-            });
     }
 
     showDates() {
@@ -186,66 +185,6 @@ var calendar = new Calendar();
 
 class Trainer {
 
-    // addToSlider() {
-    //     let slider = document.querySelector('.slick-track');
-    //     let trainer = document.createElement('div');
-    //     trainer.classList.add('btn');
-    //     trainer.classList.add('trainer');
-    //     //NAME
-    //     let name = document.createElement('p');
-    //     let nameTxt = document.createTextNode(this.fname + " " + this.lname);
-    //     name.appendChild(nameTxt);
-    //     //PHOTO
-    //     let photo = document.createElement('img');
-    //     photo.setAttribute("src", "images/trainers/" + this.photo);
-    //     photo.setAttribute("alt", this.lname);
-    //     //DESCRIPTION
-    //     let desc = document.createElement('p');
-    //     let descTxt = document.createTextNode(this.description);
-    //     desc.appendChild(descTxt);
-    //     //MEDIA
-    //     let media = document.createElement('div');
-    //     media.classList.add('trainerMedia');
-    //     if (this.fb != "" && this.fb !== null) {
-    //         let link = document.createElement('a');
-    //         link.setAttribute("href", this.fb);
-    //         let icon = document.createElement('i');
-    //         icon.classList.add('icon-facebook');
-    //         link.appendChild(icon);
-    //         media.appendChild(link);
-    //     }
-    //     if (this.insta != "" && this.insta !== null) {
-    //         let link = document.createElement('a');
-    //         link.setAttribute("href", this.insta);
-    //         let icon = document.createElement('i');
-    //         icon.classList.add('icon-instagram');
-    //         link.appendChild(icon);
-    //         media.appendChild(link);
-    //     }
-    //     if (this.yt != "" && this.yt !== null) {
-    //         let link = document.createElement('a');
-    //         link.setAttribute("href", this.yt);
-    //         let icon = document.createElement('i');
-    //         icon.classList.add('icon-youtube');
-    //         link.appendChild(icon);
-    //         media.appendChild(link);
-    //     }
-    //     if (this.twitter != "" && this.twitter !== null) {
-    //         let link = document.createElement('a');
-    //         link.setAttribute("href", this.twitter);
-    //         let icon = document.createElement('i');
-    //         icon.classList.add('icon-twitter');
-    //         link.appendChild(icon);
-    //         media.appendChild(link);
-    //     }
-    //     //APPEND CHILDREN
-    //     trainer.appendChild(name);
-    //     trainer.appendChild(photo);
-    //     trainer.appendChild(desc);
-    //     trainer.appendChild(media);
-    //     slider.appendChild(trainer);
-    // }
-
     setMedia(fb, insta, yt, twitter) {
         this.fb = fb;
         this.insta = insta;
@@ -271,9 +210,9 @@ class Trainer {
 }
 
 class Style {
-    constructor(name, type, description) {
+    constructor(name, description) {
         this.name = name;
-        this.type = type;
+        // this.type = type;
         this.description = description;
         this.id = null;
     }
@@ -504,7 +443,7 @@ function getStyles() {
         })
         .then((data) => {
             data.map((element) => {
-                let style = new Style(element.name, element.type, element.description);
+                let style = new Style(element.name, element.description);
                 style.id = element.id;
                 arr.push(style);
             });
@@ -551,7 +490,6 @@ function updateTrainerSelects() {
     }
 }
 
-// INSERT
 function closePopups() {
     let popups = document.querySelectorAll(".popups");
     for (let popup of popups) {
@@ -564,23 +502,7 @@ function closePopups() {
     }
 }
 
-// function addEvent(style, trainer, date) {
-//     fetch("php/eventManager.php?addEvent=" + true + "&styleId=" + style + "&trainerId=" + trainer + "&date=" + date)
-//         .then((response) => {
-//             return response.text()
-//         })
-//         .then((data) => {
-//             console.log(data);
-//             if (parseInt(data) === 1) {
-//                 setTip("Dodałeś wydarzenie!");
-//                 closePopups();
-//                 calendar.getEvents();
-//             } else {
-//                 setTip("Oj, coś poszło nie tak...");
-//             }
-//         });
-// }
-
+// INSERT
 function addEvent(style, trainer, date) {
     const formData = new FormData();
     formData.append("addEvent", true);
@@ -592,7 +514,7 @@ function addEvent(style, trainer, date) {
         body: formData
     })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
             console.log(data);
@@ -605,7 +527,6 @@ function addEvent(style, trainer, date) {
             }
         });
 }
-
 
 function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
     const formData = new FormData();
@@ -651,70 +572,10 @@ function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, ph
         cache: false,
         processData: false,
         success: (data) => {
-            // let response = document.createElement('div');
-            // response.classList.add('AjaxRes');
-            // response.innerHTML = data;
-            // document.body.appendChild(response);
             console.log(data);
         }
     })
 }
-
-
-// function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
-//     fetch("php/eventManager.php?addTrainer=" + true + "&fname=" + fname + "&lname=" + lname + "&login=" + login + "&phone=" + phone + "&desc=" + desc + "&fb=" + fb + "&insta=" + insta + "&yt=" + yt + "&twitter=" + twitter + "&photo=" + photo.name)
-//         .then((response) => {
-//             return response.text();
-//         })
-//         .then((data) => {
-//             if (parseInt(data) === 1) {
-//                 setTip("Dodałeś trenera!");
-//                 getTrainers();
-//                 closePopups();
-//             } else {
-//                 setTip("Oj, coś poszło nie tak...");
-//                 let response = document.createElement('div');
-//                 response.classList.add('AjaxRes');
-//                 response.innerHTML = data;
-//                 document.body.appendChild(response);
-//             }
-//         });
-
-//     var form_data = new FormData();
-//     form_data.append("photo", photo);
-//     $.ajax({
-//         url: "php/filesManager.php",
-//         method: "POST",
-//         data: form_data,
-//         contentType: false,
-//         cache: false,
-//         processData: false,
-//         success: (data) => {
-//             // let response = document.createElement('div');
-//             // response.classList.add('AjaxRes');
-//             // response.innerHTML = data;
-//             // document.body.appendChild(response);
-//             console.log(data);
-//         }
-//     })
-// }
-
-// function addStyle(name, desc) {
-//     fetch("php/eventManager.php?addStyle=" + true + "&name=" + name + "&description=" + desc)
-//         .then((response) => {
-//             return response.text()
-//         })
-//         .then((data) => {
-//             console.log(data);
-//             if (parseInt(data) === 1) {
-//                 setTip("Dodałeś styl!");
-//                 getStyles();
-//                 closePopups();
-//             } else {
-//                 setTip("Oj, coś poszło nie tak...");
-//             }
-//         });
-// }
 
 function addStyle(name, desc) {
     const formData = new FormData();
@@ -772,7 +633,6 @@ function updateEvent(id, style, trainer, date) {
 }
 
 function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo, id) {
-    // Console.log(photo);
     if (photo === undefined) {
         photoName = "";
     } else {
@@ -806,13 +666,8 @@ function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter,
                 closePopups();
             } else {
                 setTip("Oj, coś poszło nie tak...");
-                let response = document.createElement('div');
-                response.classList.add('AjaxRes');
-                response.innerHTML = data;
-                document.body.appendChild(response);
             }
         });
-
     if (photo !== undefined) {
         var form_data = new FormData();
         form_data.append("photo", photo);
@@ -823,10 +678,10 @@ function updateTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter,
             contentType: false,
             cache: false,
             processData: false,
-            success: (data) => {
-                console.log(data);
+            success: (res) => {
+                console.log(res);
             }
-        })
+        });
     }
 }
 
@@ -910,11 +765,9 @@ function deleteStyle(id) {
         body: formData
     })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
-            console.log("POST");
-            console.log(data);
             if (parseInt(data) === 1) {
                 setTip("Usunąłeś styl!");
                 getStyles();
@@ -922,7 +775,7 @@ function deleteStyle(id) {
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
-        })
+        });
 }
 
 

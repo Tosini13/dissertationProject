@@ -1,6 +1,6 @@
 <i id='hamburger' class="icon-menu btn"></i>
 <nav id='menu'>
-    <img src='#' alt='logo'>
+    <img src='images/logo.png' alt='logo'>
     <ul>
         <li>
             <a class="btn">ACCADEMIA</a>

@@ -6,7 +6,7 @@ class ShowEvent extends React.Component {
     }
 
     remove() {
-        popupQuestion("Czy na pewno chcesz usunąć?", ["Nie", () => { return 0 }], ["Tak", () => { deleteEvent(this.props.event.eventId); return this.props.event.eventId; }]);
+        popupQuestion("Czy na pewno chcesz usunąć?", ["Nie", () => { return 0; }], ["Tak", () => { deleteEvent(this.props.event.eventId); return this.props.event.eventId; }]);
     }
 
     edit() {
