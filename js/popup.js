@@ -34,16 +34,6 @@ function popupuUpdateEvent() {
     }
 
     search.addEventListener("click", searchEvents);
-
-
-    function temp() {
-        let trainerId = trainerSelect.value;
-        let StyleId = styleSelect.value;
-        addEvent(StyleId, trainerId, dateFormat);
-    }
-
-    // let submit = popup.querySelector(".aEvent");
-    // submit.addEventListener("click", temp);
 }
 
 function initEventEdition(id, trainer, style, date) {
@@ -64,14 +54,18 @@ function initEventEdition(id, trainer, style, date) {
     console.log(date);
     let eventDate = moment(date, "YYYY-MM-DD HH:mm:ss");
     let today = new Date(date);
-    // dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
     dateInput.value = eventDate.format("YYYY-MM-DD HH:mm:ss");
 
     function temp() {
         let trainerId = popup.querySelector(".trainer").value;
         let StyleId = popup.querySelector(".style").value;
-        let dateFormat = dateInput.value.replace(/-/g, "").replace(/ /g, "").replace(/:/g, "") + "00";
+        let dateFormat = dateInput.value.replace(/-/g, "").replace(/ /g, "").replace(/:/g, "");
+        if (dateFormat.length == 12) {
+            dateFormat += "00";
+        }
         updateEvent(id, StyleId, trainerId, dateFormat);
+        stages[0].classList.add("activeStage");
+        popup.classList.remove("activeStage");
     }
 
     btnUpdate.addEventListener("click", temp);
@@ -99,6 +93,7 @@ function popupuCreateEvent() {
     dateInput.value = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + "12:00";
 
     function temp() {
+        console.log(dateInput.value);
         let trainerId = popup.querySelector(".trainer").value;
         let StyleId = popup.querySelector(".style").value;
         let dateFormat = dateInput.value.replace(/-/g, "").replace(/ /g, "").replace(/:/g, "") + "00";
