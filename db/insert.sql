@@ -19,4 +19,4 @@ select trainer.login as 'trainer', dance_style.id as 'id', time_table.id as 'eve
 */
 
 
-select * from users;
+select * from participation, time_table where login="admin" and participation.time_table_id = time_table.id;

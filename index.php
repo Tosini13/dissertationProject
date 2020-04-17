@@ -125,13 +125,11 @@ if (isset($_GET['logout'])) {
         <!--                            TIMETABLE                                -->
         <!-- ******************************************************************* -->
         <section id='timetable'>
-            <div id="dupa">
-
-            </div>
             <h2 class="title">PLAN ZAJĘĆ</h2>
             <div class="dashboard">
                 <div>
                     <div>
+                        <!-- <i id="userEvents" class="icon-calendar-check-o"></i> -->
                         <div id="week">
                             <a class="btn btnPress icon-left-open" onclick="calendar.changeDates(-7)"><i></i></a>
                             <div>
@@ -161,34 +159,8 @@ if (isset($_GET['logout'])) {
             <h2 class="title">CENY</h2>
             <div class="content_borders prize_list">
                 <div class="price_list">
-                    <table>
-                        <?php
-                        $result = $db->query("select * from price_discount;");
-                        $discount = array();
-                        if ($result->rowCount()) {
-                            echo "<tr><th>dance</th>";
-                            while ($data = $result->fetch()) {
-                                //give tip here -> description!!!
-                                echo "<th class='text-uppercase text-center' data-toggle='tooltip' data-placement='top' title='{$data['description']}'>{$data['type']}</th>";
-                                $discount[$data['type']] = $data['discount'];
-                            }
-                            echo "<tr>";
-                            $result = $db->query("select FORMAT(price,2) as price, name from price_list, dance_style where dance_style.id=price_list.style_id;");
-                            if ($result->rowCount()) {
-                                while ($data = $result->fetch()) {
-                                    echo "<tr><td>{$data['name']}</td>";
-                                    foreach ($discount as $key => $value) {
-                                        $price = number_format($value * $data['price'], 2);
-                                        echo "<td>$price</td>";
-                                    }
-                                    echo "</tr>";
-                                }
-                            }
-                        }
-                        ?>
-                    </table>
-                    <p>* Udział w pojedynczych lekcjach wynosi 20zł za jedną jednostkę treningową obejmuje każdy styl tańca (czas trwania treningu to 1 godzina)<br><span class="emphasise">(Pierwsza lekcja gratis!!!)</span></p>
-                    <p>* Koszty są wyrażone w zł i przedstawiona jest cena obejmująca cały kurs<br>(czas trwania w opisie kursu)</p>
+                    <p>Udział w pojedynczych lekcjach wynosi 20zł za jedną jednostkę treningową obejmuje każdy styl tańca (czas trwania treningu to 1 godzina)<br><span class="emphasise">(Pierwsza lekcja gratis!!!)</span></p>
+                    <p>Opłata za cały kurs to 60zł</p>
                     <p>
                         Nr konta Accademia di Ballerino:
                         00 0000 0000 0000 0000 0000 0000
@@ -207,14 +179,8 @@ if (isset($_GET['logout'])) {
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
-    <!-- <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script> -->
-    <!-- JavaScript -->
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <!-- JSX -->
-    <!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
     <!-- SLIDER -->
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <!-- MOJE -->
@@ -226,15 +192,13 @@ if (isset($_GET['logout'])) {
     <?php
     }
     ?>
-    <!-- <script src="js/styles.js" type="text/babel"></script> -->
     <script src="js/JsModifyEvent.js" type="text/javascript"></script>
     <script src="js/JsTimetable.js" type="text/javascript"></script>
+    <script src="js/JsUserEvents.js" type="text/javascript"></script>
     <script src="js/classes.js" type="text/javascript"></script>
     <script src="js/funcitons.js" type="text/javascript">
     </script>
     <script src="js/popup.js" type="text/javascript"></script>
-    <!-- <script src="js/modifyEvent.js" type="text/babel"></script> -->
-    <!-- <script src="js/timetable.js" type="text/babel"></script> -->
 
     <!-- SLIDER -->
     <script>

@@ -86,6 +86,7 @@
                     <li><a class="btn btnPress" href="php/login.php">ZALOGUJ</a></li>
                     <li><a class="btn btnPress" href="php/register.php">ZAREJESTRUJ</a></li>
                 <?php } else { ?>
+                    <li><a class="btn" data-popup='changePassword'>Zmień hasło</a></li>
                     <li><a class="btn" href="php/login.php?logout=true" onclick="logout()">WYLOGUJ</a></li>
                 <?php } ?>
             </ul>

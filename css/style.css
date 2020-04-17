@@ -320,6 +320,18 @@ main #prices .price_list > p {
   text-align: center;
   margin: 5px 0px;
 }
+main #timetable {
+  position: relative;
+}
+main #timetable #userEvents {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 10px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
 main #timetable #week {
   display: flex;
   flex-direction: row;

@@ -2,6 +2,8 @@
 session_start();
 require_once "connect_database.php";
 
+define("LOGIN_CHECK_QUERY", "select login from users where login=:login or email=:email");
+define("REGISTER_QUERY", "insert into users(login,email,password) values(:login,:email,:password)");
 
 $response = "";
 
@@ -128,7 +130,7 @@ if (isset($_GET["getUserEvents"])) {
     $login = $_SESSION['login'];
     $response = "";
     try {
-        $result = $db->prepare("select time_table_id as id from participation where login=:login");
+        $result = $db->prepare("select * from participation, time_table where login=:login and participation.time_table_id = time_table.id;");
         $result->bindValue(':login', $login);
         $result->execute();
         echo json_encode($result->fetchAll());
@@ -182,32 +184,58 @@ if (isset($_GET["removeParticipant"])) {
 
 // SET TRAINER
 if (isset($_POST["addTrainer"])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $login = $_POST['login'];
-    $phone = $_POST['phone'];
-    $desc = $_POST['desc'];
-    $fb = $_POST['fb'];
-    $insta = $_POST['insta'];
-    $yt = $_POST['yt'];
-    $twitter = $_POST['twitter'];
-    $photo = $_POST['photo'];
 
 
     try {
-        //INSERT TO DB
-        $result = $db->prepare("insert into trainer(fname, lname, login, description, phone, fb, insta, yt, twitter, photo) values(:fname, :lname, :login, :desc, :phone, :fb, :insta, :yt, :twitter, :photo);");
-        $result->bindParam(":fname", $fname);
-        $result->bindParam(":lname", $lname);
+        //USER
+
+        $login = $_POST["login"];
+        $email = $_POST["email"];
+        $result = $db->prepare(LOGIN_CHECK_QUERY);
         $result->bindParam(":login", $login);
-        $result->bindParam(":desc", $desc);
-        $result->bindParam(":phone", $phone);
-        $result->bindParam(":fb", $fb);
-        $result->bindParam(":insta", $insta);
-        $result->bindParam(":yt", $yt);
-        $result->bindParam(":twitter", $twitter);
-        $result->bindParam(":photo", $photo);
-        $response = $result->execute();
+        $result->bindParam(":email", $email);
+        $result->execute();
+        if ($result->rowCount()) {
+            echo -2;
+        } else {
+            $password = "Default#1"; //temporary password!
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            $result = $db->prepare(REGISTER_QUERY);
+            $result->bindParam(":login", $login);
+            $result->bindParam(":email", $email);
+            $result->bindParam(":password", $password);
+            if ($result->execute()) {
+                //TRAINER
+                $fname = $_POST['fname'];
+                $lname = $_POST['lname'];
+                $phone = $_POST['phone'];
+                $desc = $_POST['desc'];
+                $fb = $_POST['fb'];
+                $insta = $_POST['insta'];
+                $yt = $_POST['yt'];
+                $twitter = $_POST['twitter'];
+                $photo = $_POST['photo'];
+
+                try {
+                    $result = $db->prepare("insert into trainer(fname, lname, login, description, phone, fb, insta, yt, twitter, photo) values(:fname, :lname, :login, :desc, :phone, :fb, :insta, :yt, :twitter, :photo);");
+                    $result->bindParam(":fname", $fname);
+                    $result->bindParam(":lname", $lname);
+                    $result->bindParam(":login", $login);
+                    $result->bindParam(":desc", $desc);
+                    $result->bindParam(":phone", $phone);
+                    $result->bindParam(":fb", $fb);
+                    $result->bindParam(":insta", $insta);
+                    $result->bindParam(":yt", $yt);
+                    $result->bindParam(":twitter", $twitter);
+                    $result->bindParam(":photo", $photo);
+                    $response = $result->execute();
+                } catch (PDOException $e) {
+                    $response = 0;
+                }
+            } else {
+                echo -1;
+            }
+        }
     } catch (PDOException $e) {
         $response = 0;
     }
@@ -232,15 +260,23 @@ if (isset($_POST["deleteTrainer"])) {
     $response = "";
     $id = $_POST["deleteTrainer"];
     try {
-        // $result1 = $db->prepare("delete from time_table where trainer_id=:id");
-        // $resul1->bindParam(":id", $id);
-        // $response1 = $resul1->execute();
-        $result = $db->prepare("delete from trainer where id=:id");
+        $result = $db->prepare("delete from time_table where trainer_id=:id");
         $result->bindParam(":id", $id);
-        $response = $result->execute();
+        if ($result->execute()) {
+            try {
+                $result = $db->prepare("delete from trainer where id=:id");
+                $result->bindParam(":id", $id);
+                $response = $result->execute();
+            } catch (PDOException $e) {
+                $response = 0;
+            }
+        } else {
+            echo -2;
+        }
     } catch (PDOException $e) {
         $response = 0;
     }
+
     echo $response;
 }
 
@@ -322,16 +358,21 @@ if (isset($_GET["getStyles"])) {
 if (isset($_POST["deleteStyle"])) {
     $response = "";
     $id = $_POST["deleteStyle"];
+    
     try {
-        // $result2 = $db->prepare("delete from price_list where style_id=:id");
-        // $resul2->bindParam(":id", $id);
-        // $response2 = $resul2->execute();
-        // $result1 = $db->prepare("delete from time_table where dance_style=:id");
-        // $resul1->bindParam(":id", $id);
-        // $response1 = $resul1->execute();
-        $result = $db->prepare("delete from dance_style where id=:id");
+        $result = $db->prepare("delete from time_table where dance_style=:id");
         $result->bindParam(":id", $id);
-        $response = $result->execute();
+        if ($result->execute()) {
+            try {
+                $result = $db->prepare("delete from dance_style where id=:id");
+                $result->bindParam(":id", $id);
+                $response = $result->execute();
+            } catch (PDOException $e) {
+                $response = 0;
+            }
+        } else {
+            echo -2;
+        }
     } catch (PDOException $e) {
         $response = 0;
     }

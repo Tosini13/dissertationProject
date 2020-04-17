@@ -70,8 +70,10 @@ class User {
                 return response.json();
             })
             .then((data) => {
+                console.log(data);
                 let events = [];
                 for (let item of data) {
+                    console.log(item);
                     events.push(item.id);
                 }
                 this.events = events;

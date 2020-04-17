@@ -4,7 +4,7 @@ require_once "connect_database.php";
 define("LOGIN_QUERY", "select login, password, rights from users where login=:login or email=:login");
 define("LOGIN_CHECK_QUERY", "select login from users where login=:login or email=:email");
 define("REGISTER_QUERY", "insert into users(login,email,password) values(:login,:email,:password)");
-
+define("CHANGE_PASSWORD", "update users set password = :password where login = :login");
 
 //LOGIN
 if (isset($_POST["login_submit"])) {
@@ -24,14 +24,14 @@ if (isset($_POST["login_submit"])) {
             var_dump('loggedin');
         } else {
             //wrong password
-            var_dump('wrong password');
-            header("Location: ../html/login.html");
+            // var_dump('wrong password');
+            header("Location: login.php");
             die();
         }
     } else {
         //no login
-        var_dump('no login');
-        header("Location: ../html/login.html");
+        // var_dump('no login');
+        header("Location: login.php");
         die();
     }
 }
@@ -70,7 +70,53 @@ if (isset($_POST["register_submit"])) {
     }
 }
 
+//NEW PASSWORD
+
+if (isset($_POST["changePassword"])) {
+    if (isset($_SESSION['login'])) {
+        $login = $_SESSION["login"];
+        $oldPassword = $_POST["oldPassword"];
+        $result = $db->prepare(LOGIN_QUERY);
+        $result->bindParam(":login", $login);
+        $result->execute();
+        if ($result->rowCount()) {
+            $user = $result->fetch();
+            if (password_verify($oldPassword, $user['password'])) {
+                //loggedin
+                $newPassword = $_POST["newPassword"];
+                $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+                $result = $db->prepare(CHANGE_PASSWORD);
+                $result->bindParam(":login", $login);
+                $result->bindParam(":password", $newPassword);
+                if ($result->execute()) {
+                    //change
+                    // var_dump('done');
+                    header("Location: ../index.php");
+                    die();
+                } else {
+                    //no changed
+                    // var_dump('not done');
+                    header("Location: ../index.php");
+                    die();
+                }
+            } else {
+                //wrong password
+                // var_dump('wrong password');
+                header("Location: ../index.php");
+                die();
+            }
+        } else {
+            //no login
+            // var_dump('no login');
+            header("Location: ../index.php");
+            die();
+        }
+    }
+}
+
 //IF LOGGED IN
 if (isset($_SESSION['login'])) {
     echo $_SESSION['login'];
 }
+
+

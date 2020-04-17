@@ -1,0 +1,67 @@
+
+create table users(
+login varchar(30)  not null,
+email varchar(50)  not null,
+password varchar(255)  not null,
+rights varchar(5),
+primary key(login));
+
+create table trainer(
+id int auto_increment not null,
+fname varchar(30),
+lname varchar(30),
+login varchar(30) not null,
+photo varchar(255),
+description text,
+phone varchar(30),
+fb varchar(255),
+insta varchar(255),
+yt varchar(255),
+twitter varchar(255),
+primary key(id));
+
+create table dance_style(
+id int not null auto_increment,
+name varchar(20) not null,
+description text,
+price float,
+primary key(id));
+
+create table time_table(
+id int not null auto_increment,
+trainer_id int,
+dance_style int,
+date_and_time datetime,
+primary key(id));
+
+create table participation(
+time_table_id int,
+login varchar(30)  not null,
+foreign key(time_table_id) references time_table(id),
+foreign key(login) references users(login));
+
+/* ---------------- */
+/* 		INSERT		*/
+/* ---------------- */
+
+insert into users(login, email, password) values("kowal","kowal@g","xxx");
+insert into users(login, email, password) values("zawada","zawada@g","xxx");
+insert into users(login, email, password) values("adamek","adamek@g","xxx");
+insert into users(login, email, password) values("nowaczek","nowaczek@g","xxx");
+
+insert into users(login, email, password, rights) values("qwerty","qwerty@gmail","$2y$10$vqgqWDIQkG4XFQwQHwbSeeJY2j8Jm.I9FU.od0Gdlmw/gQEjMoRCm", "");
+/* Qwerty#1 */
+insert into users(login, email, password, rights) values("admin","admin@admin","$2y$10$8nkVjUlZE8HzEovBNvoWcewACRwzSamCKO6JEkq/MgZ0T/6iGd.Wu", "admin");
+/* Adminek#1 */
+
+
+insert into trainer(fname, lname, login, photo, description) values("Jan","Kowalski","kowal","trainer.jpg","Janek jest mistrzem Polski Dancehall z 2018 roku. Co roku bierze udział w mistrzostwach Europy w Dancehall i Regae");
+insert into trainer(fname, lname, login, photo, description) values("Adam","Zawadzki","zawada","trainer.jpg","Trener Zawada jest bardzo doświadczonym trenerem i jednym z najlepszych tancerzy w regionie");
+insert into trainer(fname, lname, login, photo, description) values("Krzysztof","Adamski","adamek","trainer.jpg","Trener Krzysztof ma w swoim dorobku mistrzostwo Polski w tańcu latynoskim i udział w mistrzostwach europy w Lizbonie, gdzie mierzył się z najelpszymi tancerzami świata");
+insert into trainer(fname, lname, login, photo, description, fb, insta, yt, twitter) values("Jakub","Nowak","nowaczek","trainer.jpg","Jakub Nowak jest wice-mistrzem Europy z 2015 roku. Ma bogaty dorobek taneczny i trenerski.", "#fb", "#insta", "#yt", "#twitter");
+
+insert into dance_style(name, price, description) values("Dancehall", 69.99 ,"Energiczny, inspirowany na muzyce reggae styl tańca wywodzący się z Jamajki. Jedną z ważniejszych umiejętności, które nauczycie się na zajęciach z Dancehall jest izolowanie ruchów całego ciała, dzięki czemu łatwiej jest zmieniać style.");
+insert into dance_style(name, price, description) values("bachata", 74.99, "Taniec rodem z Karaibów, a konkretnie z Dominikany. Wyróżnia się zmysłowymi ruchami, które wymagają niesamowitej wprawy fizycznej jak i psychicznej podczas tańca."); 
+insert into dance_style(name, price, description) values("samba", 64.99, "Towarzyski taniec wywodzący się z Brazylii, który manifestuje wolność i radość życia. Ucząc się samby, zdobędziesz umiejętności kolektywnego tańca w parze."); 
+insert into dance_style(name, price, description) values("cha-cha", 79.99, "Podczas treningu tego stylu jesteś w stanie wzmocnić kondycję fiziczną, mięśni i elastyczność ciała."); 
+insert into dance_style(name, price, description) values("rumba", 59.99, "Taniec towarzyski pochodzący z Kuby, zawierający erotyczne elemnty, które jednak wymagają dobrej koordynacji ruchowej jak i śmiałości partnerów.");

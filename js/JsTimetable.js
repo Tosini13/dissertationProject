@@ -9,11 +9,9 @@ class TimetableEvent extends React.Component {
     let participation = false;
 
     if (typeof user !== 'undefined') {
-      console.log(user);
       participation = user.ifTakePartIn(props.event.id);
     }
 
-    console.log(participation);
     this.state = {
       user: participation
     };

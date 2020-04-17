@@ -281,6 +281,7 @@ window.addEventListener("resize", function () {
     screenWidth = screen.width;
     console.log("resize");
 });
+
 function scrollMenu() {
     for (let subBtn of subBtns) {
         subBtn.addEventListener("click", scrollMenuTo);
@@ -288,12 +289,18 @@ function scrollMenu() {
 
     function scrollMenuTo() {
         closeAll();
-        let section = document.getElementById(this.getAttribute('data-section'));
-        let addHeight = 0;
-        if (screenWidth > 650) {
-            addHeight = menuHeight;
+        if (this.getAttribute('data-section')) {
+            let section = document.getElementById(this.getAttribute('data-section'));
+            let addHeight = 0;
+            if (screenWidth > 650) {
+                addHeight = menuHeight;
+            }
+            window.scrollTo({ top: (section.offsetTop - addHeight), behavior: 'smooth' });
+        } else if (this.getAttribute('data-popup')) {
+            console.log(this.getAttribute('data-popup'));
+            document.getElementById(this.getAttribute('data-popup')).classList.add("bigPopupsOpen");
+            closeAll();
         }
-        window.scrollTo({ top: (section.offsetTop - addHeight), behavior: 'smooth' });
     }
 }
 
@@ -460,7 +467,7 @@ function getStyles() {
 getTrainers();
 getStyles();
 
-console.log(myStorage);
+// console.log(myStorage);
 
 function updateStyleSelects() {
     let styleSelects = document.querySelectorAll("select.style");
@@ -528,12 +535,14 @@ function addEvent(style, trainer, date) {
         });
 }
 
-function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, photo) {
+function addTrainer(fname, lname, login, email, phone, desc, fb, insta, yt, twitter, photo) {
+    console.log(email);
     const formData = new FormData();
     formData.append("addTrainer", true);
     formData.append("fname", fname);
     formData.append("lname", lname);
     formData.append("login", login);
+    formData.append("email", email);
     formData.append("phone", phone);
     formData.append("desc", desc);
     formData.append("fb", fb);
@@ -553,12 +562,14 @@ function addTrainer(fname, lname, login, phone, desc, fb, insta, yt, twitter, ph
                 setTip("Dodałeś trenera!");
                 getTrainers();
                 closePopups();
+            } else if (parseInt(data) === -2) {
+                setTip("Użytkownik o takim loginie już istnieje!");
             } else {
                 setTip("Oj, coś poszło nie tak...");
-                let response = document.createElement('div');
-                response.classList.add('AjaxRes');
-                response.innerHTML = data;
-                document.body.appendChild(response);
+                // let response = document.createElement('div');
+                // response.classList.add('AjaxRes');
+                // response.innerHTML = data;
+                // document.body.appendChild(response);
             }
         });
 
@@ -601,8 +612,6 @@ function addStyle(name, desc) {
             }
         });
 }
-
-
 
 //UPDATE
 
@@ -710,7 +719,6 @@ function updateStyle(id, name, desc) {
         });
 }
 
-
 // REMOVE
 
 function deleteEvent(id) {
@@ -743,7 +751,7 @@ function deleteTrainer(id) {
         body: formData
     })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
             console.log(data);
@@ -751,10 +759,16 @@ function deleteTrainer(id) {
                 setTip("Usunąłeś trenera!");
                 getTrainers();
                 closePopups();
+            } else if (parseInt(data) === -2) {
+                setTip("Oj, coś poszło nie tak... <br>Nie udało się usunąc wydarzeń, które prowadzi trener!");
             } else {
                 setTip("Oj, coś poszło nie tak...");
+                let response = document.createElement('div');
+                response.classList.add('AjaxRes');
+                response.innerHTML = data;
+                document.body.appendChild(response);
             }
-        })
+        });
 }
 
 function deleteStyle(id) {
@@ -772,12 +786,13 @@ function deleteStyle(id) {
                 setTip("Usunąłeś styl!");
                 getStyles();
                 closePopups();
+            } else if (parseInt(data) === -2) {
+                setTip("Oj, coś poszło nie tak... <br>Nie udało się usunąc wydarzeń tego stylu!");
             } else {
                 setTip("Oj, coś poszło nie tak...");
             }
         });
 }
-
 
 
 

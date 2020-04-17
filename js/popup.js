@@ -119,6 +119,7 @@ function popupuCreateTrainer() {
     let fname = popup.querySelector('.fname');
     let lname = popup.querySelector('.lname');
     let login = popup.querySelector('.login');
+    let email = popup.querySelector('.email');
     let phone = popup.querySelector('.phone');
     let photo = popup.querySelector('.photo');
     let fb = popup.querySelector('.fb');
@@ -191,15 +192,14 @@ function popupuCreateTrainer() {
     }
 
     function temp() {
-        if (checkPattern(login) && checkPattern(fb) && checkPattern(insta) && checkPattern(yt) && checkPattern(twitter) && checkPhoto()) {
-            addTrainer(fname.value, lname.value, login.value, phone.value, desc.value, fb.value, insta.value, yt.value, twitter.value, photo.files[0]);
+        if (checkPattern(login) && checkPattern(email) && checkPattern(fb) && checkPattern(insta) && checkPattern(yt) && checkPattern(twitter) && checkPhoto()) {
+            addTrainer(fname.value, lname.value, login.value, email.value, phone.value, desc.value, fb.value, insta.value, yt.value, twitter.value, photo.files[0]);
             clear();
         }
     }
 
     let submit = popup.querySelector(".addTrainer");
     submit.addEventListener("click", temp);
-    // close.addEventListener("click", clear);
 }
 
 popupuCreateTrainer();
@@ -414,6 +414,58 @@ function fileInputManager(fileInput) {
     fileInput.addEventListener('change', photoChenged);
 }
 
+function popupuChangePassword() {
+    let form = document.getElementById("changePassword");
+    let password = form.querySelector(".newPassword");
+    let passwordRepeat = form.querySelector(".newPasswordRepeat");
+    let submit = form.querySelector(".changePassword");
+    console.log(submit);
+
+    function checkPassword() {
+        if (password.value.localeCompare(passwordRepeat.value) == 0) {
+            return true;
+        } else {
+            setTip("Hasło nie zostało poprawnie powtórzone");
+            return false;
+        }
+    }
+
+    submit.addEventListener("click", function (event) {
+        if (!checkPassword()) {
+            console.log("Wrong");
+            event.preventDefault();
+        }
+    });
+}
+
+popupuChangePassword();
+
+//USER EVENTS
+// function userEventsBtn() {
+//     document.getElementById("userEvents").addEventListener("click", () => {
+//         fetch("php/eventManager.php?getUserEvents")
+//             .then((response) => {
+//                 return response.json();
+//             })
+//             .then((data) => {
+//                 let events = [];
+//                 for (let item of data) {
+//                     let temp = Event();
+//                     temp.id=item.id;
+//                     temp.trainer=item.trainer_id;
+//                     temp.danceId=item.id;
+//                     temp.id=item.id;
+//                     temp.danceName=item.id;
+//                     temp.date=item.date;
+//                     events.push(item);
+//                 }
+//                 this.events = events;
+//                 userEventsReact(this.events);
+//             });
+//     });
+// }
+
+// userEventsBtn();
 
 //POPUP QUESTION
 //EXAMPLE:

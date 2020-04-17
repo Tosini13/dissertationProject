@@ -26,7 +26,7 @@
     <ul class="mainList">
         <li>
             <label for="createDateEvent">Data:</label>
-            <input type="text" name="createDateEvent" class="date" readonly/>
+            <input type="text" name="createDateEvent" class="date" readonly />
         </li>
         <li>
             <label for="trainer">Trener:</label>
@@ -114,6 +114,11 @@
         <li>
             <label for="lname">Nazwisko:</label>
             <input type="text" name="lname" class="lname" placeholder="Nazwisko" />
+        </li>
+        <li>
+            <label for="email">Email:</label>
+            <input class="email" type="email" name="email" placeholder="e-mail" required pattern="(?!.*\s).{3,}"
+                title="Nie poprawny adres email">
         </li>
         <li>
             <label for="login">Login:</label>
@@ -265,6 +270,69 @@
         <a class="btn updateStyle">Zaktualizuj</a>
     </div>
 </div>
+
+<div id="updateStyle" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Aktualizacja stylu tańca</p>
+    <ul class="mainList">
+        <li>
+            <label for="style">Style:</label>
+            <select name="style" class="style">
+            </select>
+        </li>
+        <li>
+            <label for="name">Nazwa:</label>
+            <input type="text" name="name" class="name" placeholder="Nazwa stylu" />
+        </li>
+        <li>
+            <label for="desc">Opis:</label>
+            <textarea name="desc" class="desc" placeholder="Napisz coś o tym stylu..."></textarea>
+        </li>
+    </ul>
+    <div class="btns">
+        <a class="btn removeStyle">Usuń</a>
+        <a class="btn updateStyle">Zaktualizuj</a>
+    </div>
+</div>
+
+<div id="userEventsPopup" class="bigPopups">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Wydarzenia, w których bierzesz udział</p>
+    <ul class="mainList">
+    </ul>
+    <div class="btns">
+        <a class="btn removeStyle">Usuń</a>
+        <a class="btn updateStyle">Zaktualizuj</a>
+    </div>
+</div>
+
+<form id="changePassword" class="bigPopups" method="POST" action="php/accountManager.php" target="_self">
+    <a><i class="close icon-cancel"></i></a>
+    <p class="popupHeader">Zmień hasło</p>
+    <ul class="mainList">
+        <li>
+            <label for="oldPassword">Podaj stare hasło:</label>
+            <input type="password" name="oldPassword" class="oldPassword" placeholder="Stare hasło" required
+                pattern="(?=.*\W)(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Hasło musi zawierać przynajmniej jedną wielką literę, małą literę, cyfrę, znak specjalny i mieć długość przynajmniej 8 znaków." />
+        </li>
+        <li>
+            <label for="newPassword">Podaj nowe hasło:</label>
+            <input type="password" name="newPassword" class="newPassword" placeholder="Nowe hasło" required
+                pattern="(?=.*\W)(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Hasło musi zawierać przynajmniej jedną wielką literę, małą literę, cyfrę, znak specjalny i mieć długość przynajmniej 8 znaków." />
+        </li>
+        <li>
+            <label for="newPasswordRepeat">Powtórz nowe hasło:</label>
+            <input type="password" name="newPasswordRepeat" class="newPasswordRepeat" placeholder="Powtórz hasło"
+                required pattern="(?=.*\W)(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Hasło musi zawierać przynajmniej jedną wielką literę, małą literę, cyfrę, znak specjalny i mieć długość przynajmniej 8 znaków." />
+        </li>
+    </ul>
+    <div class="btns">
+        <button class="btn changePassword" type="submit" name="changePassword">Zatwierdź</button>
+    </div>
+</form>
 
 <div id="popupQuestion" class="popups">
     <div id='myForm'>
